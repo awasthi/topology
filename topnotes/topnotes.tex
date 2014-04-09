@@ -1,0 +1,3539 @@
+\documentclass[12pt]{report}
+\usepackage{textcomp}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{makeidx}
+\usepackage{amsthm}
+
+% Given that this is a document, it should be relatively easy to determine the
+% nature of this document, it's author, &tc; The class was in Fall '04. I
+% begain writing this in early Jan '05. I hope to finish it before the end of
+% Jan, since I'll have to concentrate on other matters at that point.
+
+\title{
+Notes on Topology
+}
+\author{
+    Keith Jones\\
+    {\tt kjones@math.binghamton.edu}\\
+}
+
+% paragraph headers
+\newcommand{\example}{  \noindent{\sc Example }\hspace{5pt} }
+\newcommand{\exercise}{ \noindent{\sc Exercise }\hspace{5pt} } 
+\newcommand{\define}{  \noindent{\sc Definition }\hspace{5pt} }
+\newcommand{\claim}{ \noindent{\sc Claim }\hspace{5pt} }
+\newcommand{\corollary} {\noindent{\sc Corollary}\hspace{5pt} }
+
+% shorthand for shorthand symbols
+\newcommand{\fall}{\forall\,}
+\newcommand{\exst}{\exists\,}
+\newcommand{\st}{\textrm{ s.t. }}
+\newcommand{\nin}{\not \in}
+\newcommand{\contra}{$(\Rightarrow\Leftarrow)$}
+
+% shorthand for set theory stuff
+\newcommand{\unionover}[2]{\bigcup_{#1 \in #2 }}
+\newcommand{\intover}[2]{\bigcap_{#1 \in #2}}
+\newcommand{\productover}[2]{\prod_{#1 \in #2}}
+\newcommand{\relate}{\ \mathcal{R}\ } % find a better symbol?
+
+% oft-used sets
+\newcommand{\reals}{\mathbb{R}}
+\newcommand{\naturals}{\mathbb{N}}
+\newcommand{\rationals}{\mathbb{Q}}
+\newcommand{\integers}{\mathbb{Z}}
+\newcommand{\irrationals}{\mathbb{I}}
+
+
+% shorthand for topology stuff
+\newcommand{\T}[1]{$\textrm{T}_#1$}
+\newcommand{\interior}[1]{#1^{\circ}}
+\newcommand{\eball}{B_\varepsilon}
+\newcommand{\dball}{B_\delta}
+\newcommand{\ball}[1]{B_{#1}}
+\newcommand{\triineq}{$\bigtriangleup \leq$}
+\newcommand{\comp}[1]{\mathcal{C}_#1}
+\newcommand{\inv}[1]{#1^{-1}}
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{axiom}{Axiom}
+
+
+\makeindex
+
+\begin{document}
+
+\maketitle
+
+\tableofcontents
+
+
+\chapter{Introduction}
+
+\section{About This Document}
+These notes were recorded during the Fall of 2004 at SUNY Binghamton in a
+class on point-set topology with Professor Matthew Brin. Part of the grade
+requirement for the class was to rewrite and submit the notes taken during
+class. The purpose for this was twofold: first, by rewriting our notes, we
+were forced to reexamine them and make sense of them; second, the rewritten
+notes would serve as a reference later on. \\
+
+\noindent
+\textbf{Very important notice.}\\
+This document is therefore a copy
+of a revision of a transcription; some percentage of the words are taken
+directly from the mouth of the professor (these may or may not be denoted as
+unreferenced quotations), and some from the mind of the
+student. Not all of it has been reviewed, so there is a definite possibility
+of error. In fact, the likelihood of finding an error upon any serious perusal
+probably hovers around 100\%. Furthermore, while a minimal
+ amount of the math may be ``original''
+(i.e. not transcribed from a lecture or shamelessly stolen -- I don't mean to
+imply there is anything novel in these notes), any errors should be considered
+misinterpretation, misunderstanding, or some such error on my part. I should
+also note that as of yet, I have been way to lazy to add any drawings or
+figures. That may never happen in fact.
+
+
+\section{Introduction to the Subject Matter}
+A typical course in mathematics will introduce the students to {\em definitions},
+{\em theorems}, aend {\em examples}. Often there is a ``key'' definition, around which the
+course revolves. For example, in this course it would be:\\
+\\
+\define A {\em topological space} is a pair $(X, T)$ where $X$ is a set and
+$T$ is a collection of subsets of $X$ satisfying: 
+\begin{enumerate}
+\item $\emptyset \in T$.
+\item $X \in T$.
+\item $A, B \in T \Rightarrow A\cap B \in T$.
+\item $A_{\alpha}, \alpha \in I, \in T \Rightarrow \bigcup A_{\alpha} \in T$.
+\end{enumerate}
+
+
+The reason we begin with this definition, even though it may not be the most
+appropriate to begin with, is that it illustrates an important point: it
+simply does not reveal much about what topology actually is. It is simply the
+typical, possibly minimal, definition which allows mathematicians to begin
+proving theorems in topology. It is not even the most useful definition, since
+the majority of theorems require that a Hausdorff topology be used.
+
+Also, from the terminology in the definition, it would appear that topology
+relies heavily on set theory. Indeed; topology is very low level; it sits just
+above set theory.  These notes begin with a brief introduction to (or review
+of) logic and set theory, since they are so essential to topology.
+
+\section{Some Symbols}
+
+Symbols denoting common sets of numbers:
+\begin{itemize}
+\item[$\naturals$] denotes the natural numbers
+\item[$\integers$] denotes the integers
+\item[$\rationals$] denotes the rational numbers
+\item[$\irrationals$] denotes the irrational numbers
+\item[$\reals$] denotes the real numbers
+\end{itemize}
+
+
+\noindent
+Logic symbols:
+\begin{itemize}
+\item[$\fall$] -- ``for all''
+\item[$\exst$] -- ``there exists''
+\item[$\in$] -- ``in'' or ``is in''
+\end{itemize}
+
+\section{On Writing Proofs}
+
+Herein I shall attempt to place accrued wisdom regarding the challenges of
+creating mathematical proofs. No guarantees.\\
+
+A key element in constructing a good proof is to be as lazy as possible. By
+this, I mean that you should postpone thought for as long as possible.
+Generally, this means $(a)$ always go back to definitions, since they will
+probably be very important in the proof, and $(b)$ develop a set of habitual
+practices for common techniques in proofs. For example, when when trying to
+prove $A \Rightarrow B$, you assume $A$ and look at $B$, trying to work
+backwards toward $A$.
+
+I should note one caveat of $(a)$ above: often you can use a previously proven
+theorem or lemma to help you prove something quickly, rather than
+going all the way back to a definition. The key is to know what tools are
+available to you and use them.
+
+Another good example of a ``common habit'' is, when trying to prove that two
+sets are equal (which will come up very often) to immediately think of proving
+mutual containment. 
+
+The idea here is that for many simpler proofs in set theory, it would behoove
+you to be rather mechanistic: understand and be able to recall the various
+rules of logic and definitions of the subject, and allow the hypotheses and 
+consequences to develop the proof, if at all possible... maybe what I'm saying
+is B.S... dunno. :p Will ponder this more and hopefully add some stuff.
+
+\subsection{Common Mistakes}
+
+Consider the following: \\
+
+\claim If $x$ is a limit point of $A \cup B$, then $x$ is a limit point of $A$
+or $x$ is a limit point of $B$.\\
+
+Here is an attempt at a proof: 
+ $x \textrm{ is a limit point of } A \cup B   \Rightarrow$ \\
+ $\fall U \textrm{ open about } x,\ U \cap ((A \cup B) - x) \neq \emptyset
+\Rightarrow$ \\
+ $\fall U \textrm{ open about } x,\ \exst z \st z \in U$ and $z \in (A \cup B)
+ - \{x\} \Rightarrow$ \\
+ $\fall U \textrm{ open about } x,\ \exst z,\ z \neq x$, and $(z \in U \cap A
+ \lor z \in U \cap B) \Rightarrow$ \\
+ $\fall U$ open about $x$, $\exst z,\ z \in U \cap (A - \{x\}) \lor Z \in U
+ \cap (B - \{x\})$ \\
+ $\fall U$ open about $x$, $[(U \cap (A - \{x\}) \neq \emptyset \lor U \cap (B
+-\{x\}) \neq \emptyset]$ \\
+
+The next logical step one might wish to take is...\\
+$\therefore$ $x$ is either a limit point of $A$ or a limit point of $B$. \\
+
+This is wrong! Given predicates $S$ and $T$,\\
+% FIX ``not iff'' doesn't work, sadly\\
+\begin{displaymath}
+[\fall x,\ S(x)] \lor [\fall x, T(x)] \not \iff \fall x,\ [S(x) \lor T(x)]
+\end{displaymath}
+For example, let $x \in \reals - \{0\}$ and $S(x) := x > 0$ and $T(x) := x <
+0$. Clearly, the former expression is false, while the latter expression is
+true. Make sure to avoid this kind of mistake.\\
+
+\exercise Give a correct proof of the above claim.\\
+
+
+Another illustration of a common mistake can be found in the handwritten notes
+of 11/3.
+
+
+
+
+\chapter{Logic}
+A deep familiarity with logic is an essential requirement for anyone
+interested in dealing with proofs; but you cannot teach a person how to
+construct proofs with just a course in logic. It requires experience.
+
+Logic begins with {\em statements}. All statements are considered to be either
+{\em true} or {\em false}. (There is a lie by omission here, since we can
+create statements which our system of logic cannot handle; i.e. "this
+statement is false". We ignore these because it suits us to do so.)  This kind
+of logic is called Boolean logic, named after George Boole who developed the
+system.
+
+In logic, there are two types of statements: {\em
+propositions}\index{proposition} and 
+{\em predicates}\index{predicate}.
+Propositions are demonstrably true or false ``on their own
+merits'', while predicates require more information. \\
+
+
+\example\\
+Some propositions: $0 > 2$, $0 < 2$\\
+Some predicates: $x > y$, $x + 2 = 7$\\
+
+
+With predicates, we accept that the true/false value fluctuates (i.e. there is
+a variable). A proposition may be assigned a letter, generally uppercase, 
+i.e. $A,B,C,...$, while predicates look like functions: $A(x),B(y),$ etc.\\
+\\
+Note that since we are interested in the logic itself, we may choose arbitrary
+letters without relating them in any way to the real world. That is, we are
+really talking about nothing. \\
+\\
+Quantifiers:\\
+\indent 
+$\forall$ (read "for all") and $\exists$ (read ``there exists'') are shorthand
+notation used in symbolic logic. Generally, $\forall\, x A(x)$ is true if every
+valid value of $x$ makes $A(x)$ true, and $\exists\, x A(x)$ is true if there is
+at least one value value for $x$ which makes $A(x)$ true.  \\
+\indent 
+By using quantifiers, we create a proposition from a predicate. I.e. $A(x)$, a
+predicate, becomes the proposition $\forall\, x A(x)$. This is because, given
+some $A$, we can determine (with some effort) the truth value. For xample,
+assuming the set of valid values for $x$ is the integers, $\forall\, x x\ge 2$
+is clearly false. \\
+\indent 
+It is important to note, as this demonstrates, that while
+a statement may have variables in it, it is not necessarilty a predicate.
+Consider the statement $x>y$. This is a predicate. Now, $\exists\, x, x>y$ is
+still a predicate, but we say that 
+the $x$ is {\em bound}. Since we need information about the $y$ 
+before we can determine the truth value of the statement, we say the $y$ is
+a {\em free variable}. Finally, if we bind $y$ by stating
+$\forall\, y, \exists\, x, (x>y)$, we have a proposition, since this statement can
+be shown to be true or false. Notice this statement is true, but if we switch
+the quantifiers to get $\exists\, x \forall\, y (x>y)$, we have a false statement;
+so the order of the quantifiers is very important.\\
+\\
+
+\chapter{Set Theory}
+
+\section{Introduction}
+
+Set theory is an axiomatic system. Axiomatic Systems make use of the
+following...
+\begin{enumerate}
+\item {\em variables} of one or more type. In set theory, there is only one 
+type.
+\item {\em relation symbols}, which may take infinitely many arguments
+\item {\em function symbols}, which may take infinitely many arguments
+\item {\em axioms}
+\item {\em rules of inference}
+\end{enumerate}
+
+The difference between relation and function symbols is that the
+result of a relation symbol is a true/false value, while the result
+of a function symbol is another variable.
+
+What we will refer to as ``set theory'' is G\"odel, von Neumann, and
+Berney's extension of Zermelo-Frankel set theory. It may happen that some
+people will say they are using ZF set theory, when they are really using
+G-vN-B set thoery.
+
+In this version of set theory, we have:
+\begin{enumerate}
+\item A single type of variable called a \index{class} {\em class}
+\item One undefined relation symbol $\in$, which takes two arguments; written
+$x \in y$
+\item No undefined function symbols.
+\end{enumerate}
+
+\define $x$ is a \index{set} {\em set} if and only if $\exst y \st x \in y$.\\
+
+The gist is that if $x$ is a set, then there must be some class 
+(which may or may not be a set) which contains $x$; and if there is some class 
+which contains $x$, then $x$ must be a set.
+
+Everything in set theory is a class, but not everything is a set. So all sets
+are classes, but not vice-versa.  It is important to note this distinction. 
+Without it, we would arrive at Russell's paradox 
+(named for Bertrand Russell), as will be discussed shortly.
+
+\section{The Axioms}
+
+\define $x \subseteq y$ is defined as $\fall z,\ (z \in x) \Rightarrow (z \in
+y)$\\
+
+\define $x = y$ is defined as $x \subseteq y$ and $y \subseteq x$\\
+
+Consider the following two statements: 
+\begin{enumerate}
+\item $x \in y \land x = z \Rightarrow z \in y$
+\item $x \in y \land y = z \Rightarrow x \in z$
+\end{enumerate}
+
+Notice that while the second statement follows directly from the above
+definitions, the first does not. This leads to our first axiom.
+
+\index{axiom!of individuality}
+\begin{axiom}[of Individuality]
+$(x \in y) \land (x = z) \Rightarrow (z \in y)$
+\end{axiom}
+
+\index{axiom!of class formation}
+\begin{axiom}[of Class Formation]
+For each predicate $P(x)$ in which only set variables are quantified and $y$
+is never mentioned, there exists a class $y$ such that $\fall x,\ [(x \in y)
+\iff x$ is a set and $P(x)]$.
+\end{axiom}
+
+This axiom more than any other captures the reason for the existence of set
+theory: grouping things together.
+
+With the axiom of formation, we can discuss Russell's Paradox: Pretend there
+is no distinction between classes and sets, and consider the
+predicate $P(x) = x \not \in x$. By formation, $\exst y \st x \in y \iff
+P(x)$. Is $P(y)$ true or false? If $P(y)$, we have  
+$y \not in y \Rightarrow y \in y$,
+but if not $P(y)$, then $y \in y \Rightarrow y \not \in y$. Both values of y
+lead to a contradiction. This is why we need not just sets, but classes
+also.\\
+
+The class $\emptyset$ (the empty {\em class}) exists by formation, using the
+predicate $P(x) := x \neq x$. Since $x = x$ ($\iff \fall z,\ (z \in x
+\Rightarrow z \in x)$, a tautology), we know that $\fall x,\ x \not \in
+\emptyset$.
+
+\index{axiom!of the empty set}
+\index{empty set}
+\index{$\emptyset$}
+\begin{axiom}[of the Empty Set]
+$\emptyset$ is a set.
+\end{axiom}
+
+If $x$ and $y$ are sets and $x \neq y$, then, by formation, there is 
+a class $\{x,y\}$ satisfying $z \in \{x,y\} \iff z = x \lor z = y$.
+
+\index{axiom!of pairs}
+\begin{axiom}[of Pairs]
+$\{x,y\}$ is a set.
+\end{axiom}
+
+\index{family!of sets}
+\define 
+Let $A$ be a function on one variable, defined on some set $I$.
+If, for every $\alpha \in I$,
+$A(\alpha)$, usually written $A_\alpha$, is a set, then $\{A_\alpha \mid
+\alpha \in I \}$ is referred to as a {\em family of sets indexed over $I$}. The
+set $I$ is called the \index{indexing set} {\em indexing set}.\\
+
+\define $\bigcup\{A_\alpha \mid \alpha \in I\}$ is defined by 
+$\{ z \mid \exst \alpha \in I \st z \in A_\alpha\}$. This is generally written
+as $\unionover{\alpha}{I}A_\alpha$.
+
+\index{axiom!of union}
+\begin{axiom}[of Union]
+If $I$ is a set and for all $\alpha \in I,\ A_\alpha$ is a set, then $\unionover{\alpha}{I}A_\alpha$ is a set.
+\end{axiom}
+
+\index{axiom!of replacement}
+\begin{axiom}[of Replacement]
+If $f$ is a function defined on a set $A$, then the class $f(A)$ built by
+formation using $P(X) := \exst a \in A \st x = f(a)$ is a set. The set $f(A)$
+is called the \index{image} {\em image of A under f}. 
+\end{axiom}
+
+In other words, ``the functional image of a set is a set''.\\
+
+\define If $Q$ is a class, then consider the predicate $S(x) := x \subseteq
+Q$. By formation, there is a class $P(Q)$, the power {\em class} of Q such
+that $x \in P(Q)$ if and only if $x \subseteq Q$.
+
+\index{axiom!of sifting}
+\begin{axiom}[of Sifting]
+If $A$ is a set and $C$ is a class, then $A \cap C$ is a set.
+\end{axiom}
+
+By formation, $A \cap C$ is a class.
+
+
+\index{power set}
+\index{axiom! of power set}
+\begin{axiom}[of Power Set]
+If $Q$ is a set, the $P(Q)$, the {\em power set} of $Q$, is a set.
+\end{axiom}
+
+\define If $A_\alpha$, a family of sets indexed over some indexing set $I$ 
+(REMARK: here I say that I may be a class or a set.... dunno 
+whether this or the previous is true, leaning toward this),
+then $\intover{\alpha}{I}A_\alpha$ is defined as $\{z \mid \fall \alpha \in
+I,\ z \in A_\alpha\}$. Here we assume $I \neq \emptyset$. By sifting, such an
+intersection is a set.
+
+\index{axiom!of foundation}
+\begin{axiom}[of Foundation]
+If $A$ is a non-empty set, then $\exst x \in A \st x \cap A = \emptyset$.
+\end{axiom}
+
+That is, in any nonempty set, there must be some element which
+is \index{disjoint} {\em disjoint} to that set; i.e. they have no element in
+common.\\
+
+\claim This rules out any infinitely descending chains of containment: 
+$ \cdots \in x_3 \in x_2 \in x_1$.
+
+\begin{proof}
+Suppose, we have $x_1$, $x_2$, $\cdots$, and each $x_i$ is a set. Then their
+union is a set $B = \{x_1, x_2, x_3, \cdots\}$, Now suppose each $x_i \in B$
+contains $x_{i+1}$, as above. This violates the axiom of foundation since for
+no $i$ does $x_i \cap B = \emptyset$. 
+\end{proof}
+
+As a consequence,  it is impossible to have $x \in x$
+(self-containment) or $x_1 \in ... \in x_1$ (cyclic containment).\\
+
+With the axioms of formation and the axiom of foundation, we can discuss a
+little more about the difference between classes and sets. 
+
+Consider the predicate $S(x) := (x = x)$. By formation, there is a class, call
+it $C$, such that $x \in C \iff x$ is a set and $(x = x)$. Since $x = x$ is a
+tautology, we see that $C$ is the class of all sets.
+
+The question arises; is $C$ a set? If it is, then $C = C$ certainly, so then
+$C \in C$. But this cannot be, of course, since then $C$ would contain itself,
+which the axiom of foundation prevents. So $C$ is not a set.\\
+
+\define \index{successor} Consider a set $x$. By the above, $x \not \in x$, so
+$x \subseteq x \cup \{x\}$ but $x \neq x \cup \{x\}$. We denote $x \cup \{x\}$
+by $s(x)$, and call it the {\em successor} of $x$.\\
+
+We can now construct a na\"ive model for the natural numbers:
+Let $0 = \emptyset$, $1 = s(0) = \emptyset \cup \{\emptyset\} = \{\emptyset\}$,
+$2 = s(1) = \{\emptyset\} \cup \{\{\emptyset\}\} = \{\emptyset,
+\{\emptyset\}\}$, $\cdots$
+
+\index{axiom!of infinity}
+\begin{axiom}[of Infinity]
+There is a set $A$ with the following properties:
+\begin{enumerate}
+\item $\emptyset \in A$
+\item $\fall a,\  a \in A \Rightarrow s(a) \in A$
+\end{enumerate}
+\end{axiom}
+
+Let $\mathcal{I}$ be a class defined formation using by the above properties;
+that is, $A \in I \iff (\emptyset \in A) \land (\fall a,\ a \in A \Rightarrow
+s(a) \in A)$, and let $\mathcal{N} = \intover{A}{\mathcal{I}}A$. Then
+$\mathcal{N} \in \mathcal{I}$, since $\emptyset \in \mathcal{N}$ and if $a \in
+\mathcal{N}$ then $a \in A$ for all $A \in \mathcal{I}$, and so $s(a) \in A$
+for all $A \in I$, which means $s(a) \in \mathcal{N}$.
+
+Since for all $A \in I$, $\mathcal{N} \subseteq A$, we have the logical basis
+for \index{induction} {\em induction}.\\
+
+\define {\sc (Induction)}. Let $U(n)$ be a predicate valid
+for all $n \in \mathcal{N}$.  Let $T(U(n))$ be $\mathcal{N} \cap \{n|U(n)\}$,
+by axiom of formation.
+$T(U)$ is the set of all elements of $\mathcal{N}$ for which $U$ is true. If
+$\emptyset \in T(U)$, and $\fall a,\ a \in T(U) \Rightarrow s(a) \in T(U)$,
+then $T(U) \in I$ and therefore $\mathcal{N} \subseteq T(U)$. But $T(U)
+\subseteq \mathcal{N}$; hence $T(U) = \mathcal{N}$.
+
+We will revisit this more thoroughly soon.\\ 
+
+\exercise If $x$ is a set, then there exists $\{x\}$ satisfying $z \in \{x\}
+\iff z = x$.\\
+
+\index{ordered pair!orig. definition}
+\define If $x$ and $y$ are sets, then the {\em ordered pair} $(x,y)$ is 
+defined as $\{\{x\},\{x,\}\}$.\\
+
+Notice that by this definition, 
+\begin{displaymath}
+(0,0) = \{\{0\},\{0,0\}\} = \{\{0\},\{0\}\} = \{\{0\}\} = \{1\}.
+\end{displaymath}
+Strange, huh?
+
+\section{Functions \& Relations}
+
+\subsection{Functions}
+We have yet to adequately describe what we mean when we use the word
+function.\\
+
+\define A \index{function!orig. definition} {\em function} is a symbol $f$, such that the
+following conditions holds:
+\begin{enumerate}
+\item The expression $f(x_1, x_2, \cdots, x_n)$ represents a variable.
+We call $n$ the \index{arity} {\em arity} of $f$, and $f$ always works
+on $n$ variables. 
+\item $f$ must be \index{well defined} {\em well defined}. I.e. $x_1 =
+x_1^{\prime} \land \cdots \land x_n = x_n^{\prime} \Rightarrow f(x_1, ...,
+x_n) = f(x_1^\prime, ... x_n^\prime)$.\\
+\end{enumerate}
+
+We will generally look at functions of a single variable, since it suits us
+to, but we may at some points look at other kinds of functions.\\
+
+Given sets $A$ and $B$, if $f$ is defined on $A$ and
+$\fall a \in A,\ f(a) \in B$, then we write $f:A\rightarrow B$.\\
+
+\define \index{graph} Given some function $f:A\rightarrow B$ for some sets $A$
+and $B$, consider the predicate 
+$S(x) := \exst a \in A \land x = (a, f(a))$. With formation, we can define a
+subset of $A \times B$, which is what we generally think of as the {\em graph}
+of a f. We know that the graph is a set, not just a class, by sifting, since
+it is a subset of of $A \times B$.\\
+
+In ``na\"ive'' set theory, we don't distinguish between a function and its
+graph. The reason we don't bother to is that we could prove that a function is
+known if and only if it's graph is known; so they are kind of equivalent. But
+we won't do that proof here. With that in mind, an alternative definition of
+function...\\
+
+\define A \index{function!alt. definition} {\em function} from a set $A$ to a set $B$ is a
+subset of $A \times B$ satisfying:
+\begin{enumerate}
+\item $\fall a \in A,\ \exst b \in B \st (a,b) \in f$ and
+\item $\fall a \in A$, there exists no more than one $b \in B \st (a,b) \in
+f$. I.e. $(a,b) \in f \land (a, b^\prime) \in f \Rightarrow (b = b^\prime)$.
+\end{enumerate}
+
+The above two conditions constitute an ``existence/uniqueness'' pair, which is
+very common through mathematics.
+
+We generally write $f(a) = b$ to mean $(a,b) \in f$. With this definition of
+functions, we can talk about such things as intersections of functions,
+containment, etc.\\
+
+As discussed earlier, for a function $f:X\rightarrow Y$, given a subset 
+$A$ of $X$, we can consider $f(A) \subseteq Y$, where 
+$f(A) = \{y \in Y \mid \exst x \in A \st f(x) = y\}$. Recall, $f(A)$
+is the image of $f$ under $A$.
+
+We can also look at $f^{-1}$ in this way. Given $B \subseteq Y$, $f^{-1}(B)
+\subseteq X$, where by $f^{-1}(B)$ we mean $\{x \in X \mid f(x) \in B\}$. We
+call $f^{-1}(B)$ the \index{inverse image} {\em inverse image of B under f}.\\
+
+\subsection{Relations}
+
+\define A \index{relation} {\em relation} from a set $A$ to a set $B$ is a
+subset of $A \times B$. \\
+
+All functions are relations, but obviously the converse is not true. For some
+relation $r$ with $(a,b) \in r$, we say ``$a$ is related to $b$ by $r$. There
+are many common relations, such as ``<'', from $\reals$ to $\reals$. For a
+binary relation $r$ (one operating on two variables), we generally write $a\
+r\ b$ rather than $(a,b) \in r$. \\
+
+There are many common relations, such as >, <, $\leq$, $\geq$, =, and |.
+($|:\integers \rightarrow \integers$, the ``divides'' relation).\\
+
+Our original definition of order pairs is not associative. I.e. $(a,(b,c))
+\neq ((a,b),c)$.  Since this can lead to messiness that we don't wan to deal
+with, we have an alternative definition.
+
+\index{ordered pair!alt. definition}
+\define An {\em ordered pair} is a function whose domain is {0,1}. 
+
+I.e. For $(a,b)$, $f(0) = a$ and $f(1) = b$.\\
+
+We prefer this definition over the previous because it extends well to
+n-tuples: 
+
+\index{ordered n-tuple}
+\define An {\em ordered n-tuple} is a function whose domain is \{0, 1, ...,
+$n-1$\}. \\
+
+So an element of $A_0 \times A_1 \times \cdots \times A_{n-1}$ is a function f
+defined on \{0, 1, ..., $n-1$\} so that $f_i \in A_i$ for $0 \leq i \leq
+n-1$.\\
+
+\define For $A_\alpha$ a family of sets indexed over indexing set $I$, 
+\begin{displaymath}
+\productover{\alpha}{I}A_\alpha = \{\textrm{ functions }
+f:I\rightarrow \unionover{\alpha}{I}A_\alpha \mid \alpha \in I, f(\alpha)
+\in A_\alpha\}.
+\end{displaymath}
+This is a set since $I$ is a set and all $A_\alpha$ are sets,
+so their union is a set. Now, it makes it easier to understand this if we
+always try to remember here that these functions are just ways of representing
+points which are mathematically convenient. I tend to get myself confused with
+the function terminology and start thinking all kinds of wrong things.\\
+
+Now, if each $A_\alpha \neq \emptyset$, is $\productover{\alpha}{I}A_\alpha =
+\emptyset$ or not? With the information we have so far, we cannot answer this
+question in general. This leads us to our next topic.
+
+\subsection{The Axiom of Choice}
+\index{axiom!of choice}
+We will describe the axiom of choice in two different forms:
+
+\define {\sc axiom of choice - set form}\\ If $\{A_\alpha\}$, $\alpha \in I$, is
+a family of sets indexed over $I$, such that each $A_\alpha \neq \emptyset$,
+and they are \index{disjoint!pairwise} {\em pairwise disjoint} (i.e. $\alpha \in I,\ \beta \in I,\ \alpha \neq \beta \Rightarrow A_\alpha \cap A_\beta = \emptyset$), then there is some set $C$ such that $\fall \alpha \in I,\ C \cap A_\alpha$ has exactly one element.\\
+
+\define {\sc axiom of choice - function form}\\ If $\{A_\alpha\}$, 
+$\alpha \in I$, is a family of sets indexed over $I$ such that each $A_\alpha
+\neq \emptyset$, then there exists a function $f: I \rightarrow
+\unionover{\alpha}{I}A_\alpha$, so that for all $\alpha \in I$, $f(\alpha) \in
+A_\alpha$.\\
+
+The function form of the axiom of choice tells us the answer to the above
+question. If each $A_\alpha$ is nonempty, then there is some function such
+that $\productover{\alpha}{I}A_\alpha$ is nonempty.\\
+
+\subsection{More on Functions \& Relations}
+
+\define If $A$ and $B$ are sets, then $A-B = \{x \in A \mid x \nin B \}$. This is often written as $A \setminus B$.
+
+If $B \subseteq A$, then $A - B$ is called the \index{complement} {\em
+complement of B in A}. Often it will just be discussed as the ``complement of
+$B$'', but in such a case there must be some agreed upon $A$ such that $B
+\subseteq A$. Otherwise, the term ``complement'' has no meaning.\\
+
+\define A function $f:A\rightarrow B$ is \index{onto} {\em onto} if 
+$\fall b \in B,\ \exst A \in
+A \st f(a) = b$.  That is, every element in $B$ is the result of $f$ operating
+on some element of $A$.\\
+
+\define A function $f:A\rightarrow B$ is \index{one to one} {\em one to one}
+(or 1 -- 1) if $\fall a,a^\prime \in A,\ f(a) = f(a^\prime) \Rightarrow a =
+a^\prime$. That is, for each  $b \in B$ there is no more than one $a \in A$
+such that $f(a) = b$; but there may be zero!\\
+
+\define If $h$ is a relation on $A,B$ and $k$ is a relation on $B,C$, then we
+can create a relation $k \circ h$, called the \index{composition} {\em
+composition} of $h$ and $k$, on $A,C$ defined by
+\begin{displaymath}
+(a,c) \in k \circ h \iff \exst b \in B \st (a,b) \in h \land (b,c) \in k
+\end{displaymath}
+So $k \circ h$ relates $a$ to $c$ by way of $b$.
+
+If $f:A\rightarrow B$ is a function and $g:B\rightarrow C$ is a function, then
+$g \circ f:A\rightarrow C$ is a function, defined as above, since all
+functions are relations.\\
+
+\define A relation $\mathcal{R}$ on $A,A$ is \index{transitive} {\em transitive}
+if $(a\ \mathcal{R}\ b) \land (b\ \mathcal{R}\ c) \Rightarrow a\ \mathcal{R}\ c$ for all $a,b,c \in A$.
+
+This is equivalent to saying $\mathcal{R} \circ \mathcal{R} = \mathcal{R}$.\\
+
+\define A relation $\mathcal{R}$ on $A,A$ is \index{symmetric} {\em symmetric}
+if $(a\ \mathcal{R}\ b) \Rightarrow (b\ \mathcal{R}\ a)$ for all $a,b \in A$.\\
+
+\define A relation $\mathcal{R}$ on $A,A$ is \index{reflexive} {\em reflexive} 
+if $a\ \mathcal{R}\ a$ for all $a \in A$.\\
+
+\define A relation $\mathcal{R}$ on $A,A$ is \index{antisymmetric} {\em
+antisymmetric} if $(a\ \mathcal{R}\ b) \land (b\ \mathcal{R}\ a) \Rightarrow
+(a = b)$ for all $a,b \in A$.\\
+
+An example of a relation which is symmetric, but not transitive is $\neq$. A
+relation that is transitive, but not symmetric is $\leq$.\\
+
+Let $A$ be a set and $\mathcal{R}$ any binary relation on $A$. Consider the
+collection of all 
+binary relations on $A$ which contain $\mathcal{R}$ and are transitive. First,
+note that $A \times A$ is such a relation, so this set is nonempty. Call this
+collection $\mathcal{C}$.
+
+Now, consider $\mathcal{T} = \intover{C}{\mathcal{C}}C$. Clearly, $\mathcal{R}\
+\subseteq \mathcal{T}$, since $\mathcal{R}\ \subseteq C$ 
+for all $C \in \mathcal{C}$.
+Also, $\mathcal{T}$ is transitive: If $(a,b)$ and $(b,c)$ are
+in $\mathcal{T}$, then they are in
+each $C \in \mathcal{C}$; all of which are transitive and so contain $(a,c)$.
+And so, $(a,c)$ is also in $\mathcal{T}$. So $\mathcal{T}$ is transitive.
+
+Furthermore, for all $C \in \mathcal{C}$,
+$\mathcal{T} \subseteq C$. So $\mathcal{T}$ is the
+smallest binary operation on $A$ that contains $\mathcal{R}$ and is
+transitive. We call $\mathcal{T}$ the \index{closure!transitive} {\em
+transitive closure} of $\mathcal{R}$.
+
+Notice that we haven't exactly established what $\mathcal{T}$ really is.
+Still, it is useful to know that it exists; and with some effort we can do
+this. We can construct the \index{closure!symmetric} {\em symmetric} and
+\index{closure!reflexive} {\em reflexive} closure in a similar fashion. We can
+even  construct the reflexive, symmetric, and transitive closure if we so
+desire.\\
+
+\define A binary relation on a set $A$ is an \index{relation!equivalence} {\em
+equivalence relation} if it is reflexive, symmetric, and transitive.\\
+
+The obvious example of an equivalence relation is =, while
+congruence module $x$, for any $x \in \integers$, would be another.\\
+
+
+\define A binary relation ``$\leq$'' on a set $A$ is a \index{order!partial}
+{\em partial order} if it is reflexive, transitive, and antisymmetric.\\
+
+There are two important partial orders with which we are already well
+acquainted. In $\reals$, $\leq$ is a partial order. Given some 
+set $X$, $\subseteq$ is a partial order in $P(X)$.\\
+
+\define If $\leq$ is a partial order on $A$, then we say it is a 
+\index{order!total} {\em total order} if 
+$\fall a,b \in A,\ (a \leq b) \lor (b \leq a)$.\\
+
+\define A function $f:A\rightarrow B$ is a \index{one to one correspondence}
+{\em one to one correspondence} if it is 1 -- 1 and onto.
+
+If there is a 1 -- 1 correspondence between two sets $A$ and $B$, we write
+$A \sim B$; and we can say that $A$ and $B$ have the same size.\\
+
+The fact that a composition of 1 -- 1 correspondences is a 1 -- 1
+correspondence follows directly from the facts that a composition of 1 -- 1
+functions is 1 -- 1, and a composition of onto functions is onto.\\
+
+\define If $\mathcal{R}$ is a binary relation, then $\mathcal{R}^{-1}$ is
+defines by $[(a,b) \in\ \mathcal{R}^{-1} \iff (b,a) \in \mathcal{R}]$.\\
+
+\exercise For a function $f$, $f$ is a 1 -- 1 correspondence if and only if
+$f^{-1}$ is a function.\\
+
+\exercise $\sim$ is an equivalence relation.\\
+
+Clearly $\emptyset \not \sim \{\emptyset\}$, $\{\emptyset\} \not \sim
+\{\emptyset,\{\emptyset\}\}$, and for any finite set $A$, $\naturals \not \sim
+A$. But what about $A \sim B$ when $A$ and $B$ are infinite? Well, obviously
+there are infinite sets such that this relation holds, since we can find some
+which have a 1 -- 1 correspondence; but in fact it is not true for all
+infinite sets.
+
+\subsection{Cantor's Diagonal Argument}
+\index{Cantor}
+\index{Diagonal Argument}
+
+\begin{theorem} 
+There is no 1 -- 1 correspondence between a set $X$ and it's power set $P(X)$.
+More precisely, for any function $f:X\rightarrow P(X)$, $f$ is not onto.
+\end{theorem}
+
+\begin{proof}
+Given such a function $f$, consider the predicate $S(x) := (x \nin f(x))$. 
+Notice that since
+$f:X\rightarrow P(X)$, $f(x) \subseteq X$, and for any $x \in X$, it actually
+makes sense to consider $S(x)$. Call the class defined by formation with
+$S(x)$ $\mathcal{C}$. Since $\fall x \in \mathcal{C},\ x \in X$, we can use
+sifting (with $X$) to show that $C \subseteq X$. So $\mathcal{C} \in P(X)$. It
+is, in fact, the set of all elements $x$ of $X$ for which $f(x)$ does not
+contain $x$.
+
+We will now show that there is no $x \in X$ such that $f(x) = \mathcal{C}$.
+For an arbitrary $x \in X$. we have two cases: either $f$ is in $\mathcal{C}$
+or it is not. In the first case, then, $f(x) \neq \mathcal{C}$, since if it
+did, $x$ would not be in $C$. In the second case, $f(x) \neq \mathcal{C}$
+because $x \in f(x)$ and $x \nin \mathcal{C}$.
+
+To put it another way: we have constructed this set $\mathcal{C}$ in such a
+way that the following holds: 
+\begin{displaymath}
+\fall x \in X,\ f(x) = \mathcal{C} \Rightarrow x \in f(x) \land x \nin
+(\mathcal{C} = f(x)).
+\end{displaymath}
+Clearly this is a contradiction. Hence, for every $x \in X,\ f(x) \neq
+\mathcal{C}$. 
+
+We have found a set in $P(X)$ to which $f$ cannot map any element of $X$.
+Therefore, $f$ cannot be onto. Since $f$ and $X$ were arbitrarily chosen, we
+see that no function that maps a set onto its power set can be onto. This
+means that there can be no 1 -- 1 correspondence between any set and its power
+set.
+\end{proof}
+
+\define A set $X$ is said to be \index{countable} {\em countable} if 
+there exists a 1 -- 1 correspondence between $X$ and $\naturals$, the natural
+numbers.\\
+
+Cantor's diagonalization argument can be used to prove that the real numbers,
+$\reals$, are not countable. In computer science, it has been used to prove the
+``halting problem'', which says that it is not possible to write a program
+which takes as input another program and decides whether or not that program
+will run forever.\\
+\\
+
+Generally, when speaking of infinite sets, because there can be no onto
+function from a set to it's power set, we say that the power set is ``bigger''
+than the set. Dr. Brin prefers the phrase ``more complex'' since discussion of
+sizes of infinity is a bit of a can of worms.\\
+
+\define For sets $X$ and $Y$, if there exists a function $f:X\rightarrow Y$
+such that $f$ is a 1 -- 1 correspondence, then we say $X$ and $Y$ have the
+same \index{cardinality} {\em cardinality}. We write {\tt cardinality} $X =$
+{\tt cardinality} Y, or just $|X| = |Y|$.\\
+
+\section{On Infinity \& $\naturals$}
+
+Recall how we defined the natural numbers: $0 = \emptyset$, $1 =
+\{\emptyset\} = \{0\}$, $2 = \{\emptyset, \{\emptyset\}\} = \{0,1\}$, $\cdots$.
+Notice that for any number $n$, the set that it corresponds to contains the
+$n$ elements, $0, ..., n - 1$.\\
+
+\define We say a set is \index{finite} {\em finite} if it has 1 -- 1
+correspondence with some $n \in \naturals$. If a set is not finite, then it is
+infinite.\\
+
+Let us assume that a set $X$ is infinite; i.e. it has no 1 -- 1 correspondence
+with any $n \in \naturals$. Notice $X \neq \emptyset$ by this assumption; so
+there is at least some $x_0 \in X$. We can define a function 
+$f_1:\{0\}\rightarrow X$ by $f_1(0) = x_0$. Clearly, this $f_1$ is
+1 -- 1, but not onto. 
+
+Since $f_1$ is not onto, there is some $x_1 \in X$ with $x_1 \neq x_0$. So now
+let the function $f_2:\{0,1\}\rightarrow X$ so that $f_2(0)=x_0$ and $f_2(1) =
+x_1$. Again, we have a function which is 1 -- 1 and not onto.
+
+Following this pattern, assume that we have $n$ such 1 -- 1 functions:
+\begin{itemize}
+\item[] $f_1:(\{0\} = 1) \rightarrow X$
+\item[] $f_2:(\{0,1\} = 2) \rightarrow X$
+\item[] $\vdots$
+\item[] $f_n:(\{0,...,n-1\} = n) \rightarrow X$
+\end{itemize}
+so that $f_n(n)=x_{n-1}$ and for all $1 \leq i < j \leq n$ $f_i$ is a restriction
+of $f_j$ to $\{0,...,i-1\}$. Of course, $f_n$ is also not onto. So there is
+some $x_n \in X-($ Image of $f_n)$.
+
+Now define $f_{n+1}(j)$ as follows: 
+\begin{displaymath}
+f_{n+1}(j) = \left\{ \begin{array}{ll}
+
+f_n(j) & \textrm{if } j \leq n - 1\\
+x_n & \textrm{if } j = n
+\end{array} \right.
+\end{displaymath}
+Again, $f_{n+1}$ is 1 -- 1 and not onto. Also, for $i < j$, $f_i$ is still a
+restriction of $f_j$ (though this is tedious to prove). By the
+{\em principle of inductive definition} we can state that for any $n \in
+\naturals$, there is an $f_n$.\\
+
+Let $f = \unionover{n}{\naturals}f_n$. Remember, functions are really just
+maps: sets of ordered pairs. We could also just write ``let $f(j) = f_n(j)$
+for any $n > j$''. Since each $f_i$ is a restriction of $f_j$ when $i < j$,
+$f$ is well-defined. 
+
+We claim that $f$ is 1 -- 1. If $i \neq j$, take $m > \max(i,j)$. Then $f(i) =
+f_m(i)$ and $f(j) = f_m(j)$; and since $f_m$ is 1 -- 1, $f_m(i) \neq f_m(j)$.
+Since this works for any $i \neq j$, $f$ is 1 -- 1.
+
+We have created, for an arbitrary infinite set $X$, a 1 -- 1 function from
+$\naturals$ to $X$. This means that every infinite set is at least as large as
+$\naturals$; so $\naturals$ are (in a sense) the smallest infinite set.\\
+
+\subsection{Induction, Weak and Strong}
+
+Recall that the natural numbers have the ``inductive'' property:
+\begin{displaymath}
+(A \subseteq \naturals) \land (0 \in A) \land (\fall n \in A,\ n + 1 \in A)
+\Rightarrow A = \naturals.
+\end{displaymath}
+
+This is equivalent to stating that if a predicate $S(n)$ is valid for natural
+numbers, and $S(0)$ is true, and for all $n$, $S(n) \Rightarrow S(n+1)$; then
+for all $n \in \naturals, S(n)$.\\
+
+Recall the successor function; and consider $s:\naturals \rightarrow
+\naturals$. Clearly $s$ is 1 -- 1, and 0 is the only element not in the image
+of $s$.\\
+
+\define We define $+:\naturals \times \naturals \rightarrow \naturals$ as:
+\begin{itemize}
+\item[] $n + 0 = n$, and
+\item[] $n + s(m) = s(n + m)$.
+\end{itemize}
+We can use induction to prove that $n+m$ is defined for all $n$ and $m$ in
+$\naturals$. If I were industrious, I would have done so.\\
+
+\define We define the relation $``\leq'' \subseteq \naturals \times \naturals$
+as $n \leq m \iff \exst k \in \naturals \st m = n + k$.\\
+
+\define A \index{least element} {\em least element} $x$ of $A$  must satisfy:
+\begin{itemize}
+\item[$(i)$] $x \in A$
+\item[$(ii)$] $\fall x \in A,\ x \leq A$
+\end{itemize}
+\
+\define If $X$ is a set and $\leq$ is a partial order on X, then we say $\leq$
+is a \index{order!well} {\em well order} if for each nonempty subset subset 
+$A \subseteq X$, there is a least element of $A$.\\
+
+For example, $\leq$ is not a well order on $\reals$ or $\integers$, since
+neither has a least element. It is, however, a well order on $\naturals$. \\
+
+\exercise Prove that $\leq$ is a well order on $\naturals$.\\
+
+Let $S(n)$ be a statement valid on $\naturals$ such that 
+\begin{itemize}
+\item[(1)] $S(0)$ is true and 
+\item[(2)] $\fall n \in \naturals,\  [(\fall m < n,\ S(m)) \Rightarrow S(n)]$.
+\end{itemize}
+The reason for this predicate will become evident soon.
+
+In trying to prove the statement $(\fall n,\ S(n))$,
+we can let $F = \{n \in \naturals \mid
+S(n) \textrm{ is false }\}$ and try to show that $F = \emptyset$. If $F$ is
+nonempty, then it has a least element, $j$, since $\naturals$ is 
+well ordered and $F \subseteq \naturals$. This $j$ is the smallest natural
+number such that $S(j)$ is false. So $\fall k < j,\ S(k)$ is true. But then
+$j$ cannot exist: $j \neq 0$ by condition (1), and $j$ cannot be anything
+else, by condition (2). Therefore $F = \emptyset$ and 
+$\fall n \in \naturals,\ S(n)$.\\
+
+We have just found another form of induction. Let us compare the two forms we
+have:
+\begin{equation}
+(S(0) \land \fall k > 0 \in \naturals,\ [(\fall m < k,\ S(0))
+\Rightarrow S(k)]) \Rightarrow \fall n \in N,\ S(n) \label{strong}
+\end{equation}
+and
+\begin{equation}
+(S(0) \land [\fall k > 0 \in \naturals,\ S(k-1) \Rightarrow S(k)]) \Rightarrow
+\fall n \in \naturals S(n) \label{weak}
+\end{equation}
+
+Recall from the section on logic (which I may or may not have 
+actually typed up) that we can evaluate logical implications in the hopes of
+determining their relative usefulness. 
+
+Here we have two statements with the same conclusion. So let us look at the
+hypotheses:\\
+
+\ref{strong}: 
+$(S(0) \land \fall k > 0 \in \naturals,
+\ [(\fall m < k,\ S(m)) \Rightarrow S(k)])$
+\\
+
+\ref{weak}: 
+$(S(0) \land [\fall k > 0 \in \naturals,\ S(k-1) \Rightarrow S(k)])$\\
+
+Since they both have the expression $S(0) \land \fall k > 0 \in \naturals,)$,
+we can ignore that and look at what remains:\\
+
+\ref{strong}: $[(\fall m < k,\ S(m)) \Rightarrow S(k)]$\\
+
+\ref{weak}: $[S(k-1) \Rightarrow S(k)]$\\
+
+Again, we have two implications with the same conclusion; so look further:\\
+
+\ref{strong}: $(\fall m < k,\ S(m))$\\
+
+\ref{weak}: $S(k-1)$\\
+
+We can say that $\fall m < k,\ S(m)$ a stronger statement than $S(k-1)$ since
+it is a broader statement. Recall that a stronger hypothesis makes a weaker
+implication. So the statement\\
+
+$(S(0) \land [\fall k > 0 \in \naturals,\ S(k-1) \Rightarrow S(k)])$\\
+
+is stronger than \\
+
+$(S(0) \land \fall k > 0 \in \naturals,
+\ [(\fall m < k,\ S(m)) \Rightarrow S(k)]).$
+\\
+
+But then, again, we are still in a hypothesis; so statement \ref{strong} is
+stronger than \ref{weak}. This is why statement \ref{strong} is known as the
+\index{induction!strong} {\em strong form of indunction} and statement
+\ref{weak} \index{induction!weak} the {\em weak form}. \\
+
+The point is: would you rather prove a statement based on the assumption that
+$\fall m < k,\ S(k)$ or just that $S(k - 1)$ is true?\\
+
+A practical example of this is to prove that every $j \in \naturals$ is a
+product of primes. We define $S(j) := (j = 0 \lor j = 1 \lor j \textrm{is a
+product of primes})$.
+
+We want to prove $S(n)$, assuming $\fall j < n,\ S(j)$. There are two cases.
+In the first case, $n$ is a prime number, and we are done. In the second case,
+$n$ is not a prime number, so $n = a \dot b$ for some $a < n$ and $b < n$.
+But we know that $S(a)$ and $S(b)$ hold true. So $a$ and $b$ are products of
+primes, and therefore $n = a \dot b$ is also a product of primes.
+
+This proof could be accomplished with weak induction, but it would be a major
+pain. Most likely, one would have to essentially prove strong induction via
+weak induction to do so.\\
+
+Practically speaking, strong induction is much more useful than weak
+induction. But, in fact, they are logically equivalent.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\chapter{Real Numbers}
+
+It is good to understand the properties of the real numbers. It is.\\
+
+\index{field}
+\define A field is a set containing the following operators:
+$0,\, 1,\, +,\, -,\, \cdot,$ and $^{(-1)} $. 
+
+It may be strange to think of $0$ and $1$ as operators, but you can think of
+them as operators of rank 0; i.e. they require no arguments. Note that the $-$
+is rank 1; that is, it is the unary additive inverse operator. Also note that the multiplicative inverse, $^{(-1)}$ operates only on $\reals - \{0\}$.
+\begin{enumerate}
+\item $\naturals$ denotes the natural numbers
+\item $\integers$ denotes the integers
+\item $\rationals$ denotes the rational numbers
+\item $\irrationals$ denotes the irrational numbers
+\item $\reals$ denotes the real numbers
+\end{enumerate}
+The field must be
+closed under addition and multiplication, and must satisfy the following
+properties:
+\begin{enumerate}
+\item $a + b = b + a$ (commutativity, additive)
+\item $\fall a, \exst -a \st a + (-a) = 0$ (additive inverse)
+\item $a + (b + c) = (a + b) + c$ (associativity, additive)
+\item $a + 0 = a$ (additive identity)
+\item $a \cdot b = b \cdot a$ (commutativity, multiplicative)
+\item $a \cdot (b \cdot c) = (a \cdot b) \cdot c)$ (associativity,
+multiplicative)
+\item $a \cdot a^{-1} = 1 $ for $a \neq 0$ (multiplicative inverse)
+\item $a \cdot 1 = a$ (multiplicative identity)
+\item $a \cdot (b + c) = a \cdot b + a \cdot c$ (distributivity)
+\end{enumerate}
+
+The set of real numbers, $\reals$, is a {\em field}. Furthermore, it is {\em
+totally ordered} field. There is a binary operation $(\leq)$ on $\reals \times
+\reals$ that is a total (or linear) order, satisfying 
+
+$(a)\ a \leq b \Rightarrow a + c \leq b + c$ and 
+$(b)\ $If $a \geq 0$ and $b \leq c$, then $a \cdot b \leq a \cdot c$.\\
+
+Question: Does the above guarantee that $0 < 1$? Find out.\\
+
+We can embed $\naturals$ in $\reals$ inductively by $0 \rightarrow 0$,
+$\textrm{s(n)} \rightarrow n+1$. With this, we can think of $\naturals
+\subseteq \reals$. (This is necessary because of how we previously defined the
+natural numbers, which I haven't actually added to these notes yet.)\\
+
+\index{Archimedean property}
+The real numbers have the {\em Archimedean property}: $\fall x \in \reals
+\exst n \in \naturals \st x \leq n$.\\
+
+\index{least upper bound property}
+\index{complete}
+Finally, $\reals$ is {\em complete}: it has the least upper bound property. If
+$S \subseteq \reals$ and $S$ has an upperbound, then the set of upper bounds
+\begin{enumerate}
+\item $\naturals$ denotes the natural numbers
+\item $\integers$ denotes the integers
+\item $\rationals$ denotes the rational numbers
+\item $\irrationals$ denotes the irrational numbers
+\item $\reals$ denotes the real numbers
+\end{enumerate}
+of $S$ has a least element.\\
+
+Let some $C$ satisfy the conditions stated above; then there is some function
+$f: C \rightarrow \reals$, a 1 -- 1 correspondence preserving those properties.
+I.e. $f(0) = 0,\ f(-a) = -f(a),$ etc.\\
+
+
+
+
+
+
+
+\chapter{Topology}
+
+\section{Topologies}
+
+In the same way that linear algebra is a nice general setting for discussing
+linear combinations, topology is a nice general setting for discussion of 
+{\em limits}, {\em convergence}, and {\em continuity}. We begin with the
+definition stated earlier, which is the most typical way a topology is
+defined:\\
+\\
+\define A {\em topological space} \index{topological space} is a pair $(X, T)$ where $X$ is a set and
+$T$ is a collection of subsets of $X$ satisfying: 
+\begin{enumerate}
+\item $\emptyset \in T$.
+\item $X \in T$.
+\item $A, B \in T \Rightarrow A\cap B \in T$.
+\item $A_{\alpha}, \alpha \in I, \in T \Rightarrow \bigcup A_{\alpha} \in T$.
+\end{enumerate}
+
+We call $X$ the {\em underlying set} and $T$ the {\em topology}. \\
+\index{topology}
+\indent
+Often, the topological space (top. space) $(X, T)$ is referred to simply as
+$X$. It is important to notice that this is 
+{\em (a)} wrong,
+{\em (b)} only done if there is a single topology being 
+discussed in association with $X$, and {\em (c)} done all the time.\\
+\\
+
+\example Consider $\reals$, the set of real numbers, with 
+\index{topology!usual on $\reals$}
+\begin{equation}
+T = \{S\subseteq
+\reals \mid \forall\, x \in S \ \exists\, \varepsilon > 0 \st
+(x-\varepsilon, x + \varepsilon) \subseteq S \}.
+\end{equation}
+
+$(\reals, T)$ is a topological space:
+Clearly $T \subseteq P(\reals)$.
+That $\emptyset \in T$ is vacuously true. That $\reals \in T$ is also trivial.
+\\
+\indent Second, given $\{A_{\alpha}\}, \alpha \in I$, a family of sets indexed over
+set $I$ such that $\forall\, \alpha \in I, A_{\alpha} \in T$, we must have that 
+$\bigcup_{\alpha \in I}\ A_{\alpha} \in T$; and we do: Let $W =
+\bigcup_{\alpha \in I}\ A_{\alpha}$. 
+Then $\forall\,x \in W, \exists\,\alpha \in I$
+s.t. $x \in A_{\alpha}$; and so, by hypothesis $\exists\,\varepsilon > 0$ s.t.
+$(x-\varepsilon, x+\varepsilon) \subseteq A_{\alpha} \subseteq W$.
+\\
+\indent Finally, given $A, B \in T$, we must have that $A \cap B \in T$. Let $x
+\in A \cap B$ be given. Then, $\exists\, \varepsilon_{\alpha} > 0$ s.t. 
+$(x-\varepsilon_{\alpha},x+\varepsilon_{\alpha})\subseteq A$ and $\exists\, \varepsilon_{\beta}$ 
+s.t. $(x-\varepsilon_{\beta}, x+\varepsilon_{\beta}) \subseteq B$. Choose
+$\varepsilon = min\{\varepsilon_{\alpha},\varepsilon_{\beta}\}$. Then
+$(x-\varepsilon, x+\varepsilon) \subseteq A$ and 
+$(x-\varepsilon, x+\varepsilon) \subseteq B$; and so
+$(x-\varepsilon, x+\varepsilon) \subseteq A \cap B$. 
+Therefore, $A\cap B \in T$. 
+
+Hence, $T$ is a topology; it is called the ``usual topology on $\reals$''. \\
+
+\claim If $T_1$ and $T_2$ are both topologies on $X$, then $T_1 \cap T_2$ is
+at topology on $X$. Furthermore, if $T_\alpha$, $\alpha \in I$, is a family of
+topologies on $X$, then $\intover{\alpha}{I}T_{\alpha}$ is a topology on
+$X$. These are simple to verify by checking the conditions.\\
+\\
+
+\define Any element of $T$ in the topological space $(X,T)$ is called an
+{\em open set}\index{set!open} of $(X,T)$ (with respect to $T$).
+\\
+
+\example There are always at least two topologies on any set $X$. The power
+set of $X$, $P(X)$, is a topology on $X$, since everything is in it. This is
+called the \index{topology!discrete} {\em discrete topology}. Also,
+$\{\emptyset, X\}$ is a topology on $X$. This is called the
+\index{topology!indiscrete} {\em indiscrete topology}. It is easy to verify
+that these are topologies.
+
+Why the word ``discrete''? Notice that in the discrete topology, every
+singleton is open. The open singleton set $\{x\}$ for a given $x \in X$,
+is interpreted to mean that $x$ (and nothing else!) is close to $x$. Hence, it
+is discrete. \\
+
+One should be careful when using the word ``open''. Open intervals in
+$\reals$ are generally not the same thing as open sets in a topological
+space. Open sets are a generalization of the concept of open intervals. Often,
+they are denoted as $U$.
+
+The idea of open sets represents ``all of the points near $x$'', but of
+course, each open set containing $x$ may only contain some of the points near
+$x$, since $x$ is likely to be contained in many distinct open sets. So,
+rather, each open set containing $x$ represents one picture, or idea, of
+points close to $x$.  We can only completely understand what is happening very
+near $x$ when we look at {\em all} open sets containing $x$. 
+
+We often refer to an open set containing $x$ as an ``open set about $x$'' or
+an ``open neighborhood of $x$''.\\
+\\
+\begin{lemma}\label{unionlemma}
+Let $A$ be a set, and $B \subseteq P(A)$. Let $C \subseteq A$. Then $C$ is a
+union of elements of $B$ if and only if $\forall\, x \in C, \exists\, Q \in B$
+s.t. $x \in Q$ and $Q \subseteq C$.
+\end{lemma}
+
+\begin{proof}
+The statement ``$C$ is a union of elements of
+$B$'' can be rewritten more formally as 
+\begin{displaymath}
+\exst\{D_{\alpha}\},\alpha \in I  \st
+C = \bigcup_{\alpha \in I} D_{\alpha}
+\textrm{ and  each }D_{\alpha} \in B.
+\end{displaymath}
+
+$(\Rightarrow)$ $\fall x \in C, \exst \beta \in I \st x \in D_{\beta}$,
+since $C \subseteq \bigcup_{\alpha \in I} D_{\alpha}$. But $D_{\beta} \subseteq
+\bigcup_{\alpha \in I} D_{\alpha} \subseteq C$. So let $Q = D_{\beta}$. Then 
+$\fall x \in C,\; \exst Q \in B \st x \in Q \subseteq C$.
+
+$(\Leftarrow)$ We are given the hypothesis: $\fall x \in C,\; \exst Q_{x} \in B$
+s.t. $x \in Q_{x} \subseteq C$. So $C$ is itself the indexing set. I.e. 
+$\exst \{Q_{x}\}, x \in I$, a family of sets indexed over $C$, such that 
+$C = \bigcup_{x \in C} Q_{x}$ and each $Q_{x} \in B$. So $C$ is a union of all
+such $Q_{x}$.
+\end{proof}
+
+As an application of this theorem, we can rewrite $T$ as 
+$T = \{ S \subseteq \reals \mid S$ 
+is a union of open intervals in $\reals\}$.
+\\
+
+\exercise Prove this by showing\\
+$\{S \subseteq \reals \mid \fall x \in S \exst \varepsilon > 0$ s.t.
+$(x - \varepsilon, x+\varepsilon) \subseteq S\} = $\\
+$\{S \subseteq \reals \mid\ S$ is a union of open intervals in 
+$\reals\}$ by mutual containment {\em (in notes of 10/18)}.\\
+
+\section{Limits and Continuity}
+
+\claim $\bigcup_{\alpha \in \emptyset} D_{\alpha} = \emptyset$. 
+
+\begin{proof}From the definition of union, 
+$x \in \unionover{\alpha}{\emptyset} D_{\alpha} \Leftrightarrow \exst \alpha \in
+\emptyset \st x \in D_{\alpha}$. Since no such $\alpha$ can exist, there can be
+no such $x$.
+\end{proof}
+
+\define Let $f:\reals \rightarrow \reals$ be a function. We say $f$ is {\em
+continuous at $x$} if $\fall \varepsilon >0 \ \exst \delta > 0$ s.t. 
+$y \in (x - \delta, x + \delta) \Rightarrow f(y) \in (f(x) - \varepsilon, f(x)
++ \varepsilon)$. \\
+\\
+\define If $\fall x \in \reals$, $f$ is continuous at $x$, then we say $f$ is 
+{\em continuous on $\reals$}, or just {\em continuous}.
+
+\begin{theorem}
+If $f:\reals \rightarrow \reals$ is a function and $\reals$ is given the usual
+topology $T$, then $f$ is continuous if and only if $\fall U \in T,\; f^{-1}(U)
+\in T$.
+\end{theorem}
+
+\exercise prove this (it's in the handwritten notes)\\
+\\
+Based on this, we can redefine continuity in a more general way:\\
+\\
+\define Let $(X,T)$ and $(Y,S)$ be topological spaces. Let $f:X \rightarrow Y$
+be a function. We say $f$ is {\em continuous} if $\fall A \in S,\; f^{-1}(A)
+\in T$. \index{function!continuous}
+
+I.e. $f$ is continuous if the inverse image of every open set is open.
+\\
+
+\define Let $(X,T)$ be a topological space, and let $x \in X$ and $W
+\subseteq X$. We say $x$ is a {\em limit point}\index{limit point} of $W$ if
+$\fall U \st x \in U$, $U \cap (W - x) \neq \emptyset$.\\
+
+\define For a topological space $(X,T)$ with $W \subseteq X$ and $x \in W$, we
+say $x$ is \index{isolated} {\em isolated in } $W$ if $x$ is not a limit point
+of $W$.\\
+
+\define For a topological space $(X,T)$ with $x \in X$, we say $x$ is {\em
+isolated} if $x$ is isolated in X.\\
+
+\example Consider $\reals$ with the usual topology, and let $W = (0,1)$. Is 0
+a limit point of $W$? Yes. Any open interval containing 0 must contain points
+in $W$. Is $\frac{1}{2}$ a limit point of $W$? Yes, for the same reason; note
+that the fact that $\frac{1}{2} \in W$ is irrelevant. Is $-\frac{1}{2}$ a
+limit point of $W$? No; many open intervals containining $-\frac{1}{2}$ will
+not contain any points in $(0,1)$; for example, $(-1,0)$ does not.\\
+\\
+Recall that the usual topology on $\reals$ is the set of all unions of open
+intervals in $\reals$. So, in a sense, this topology is generated by the open
+intervals in $\reals$. We generalize this concept with bases.\\
+
+
+\section{Bases}
+\define Let $(X,T)$ be a topological space, and let $B \subseteq P(X)$. We say
+$B$ is a {\em basis} \index{basis} for $T$ if $T = \{$ all unions of subsets
+of $B$ \}.
+
+Every topological space has a basis. In the very least, any topology is a
+basis for itself.  \\
+\\
+If $B$ is a basis for $T$, then every element of $T$ is a union over subsets
+of $B$. I.e. $T = \{ \unionover{S}{C}S\mid C \subseteq B \}$.\\
+\\
+\example In the $\reals$, the open intervals form a basis of the usual
+topology.\\
+\\
+Let $C = \{1, \frac{1}{2}, \frac{1}{3}, \dots, 0\}$, and 
+\begin{displaymath}
+E = \reals - C = (-\infty, 0) \cup (1, \infty) \cup (\frac{1}{2}, 1) \cup 
+(\frac{1}{3}, \frac{1}{2}) \cup \dots
+\end{displaymath}
+
+Is $E$ an open interval? No. Is it an open set in the usual topology on
+$\reals$? Yes, because it is a union of open intervals.\\
+\\
+
+\claim If $B$ is a basis for topology $T$, then $B \subseteq T$: 
+$U \in B \Rightarrow \{U\} \subseteq B$, and the union over $\{U\}$ is simply
+$U$, since it is the only one there. Hence, $U \in T$.\\
+\\
+\exercise Let $(X,T)$ be a topological space, and $B$ a basis for $T$. Let 
+$x \in X$ and $W \subseteq X$. Then $x$ is a limit point of $W$ if and only if 
+$\fall U \in B$ with $x \in U$, $(U\cap(W - x) \neq \emptyset)$. \\
+\\
+\exercise Let $f:(X,T)\rightarrow(Y,S)$ be a function between topological 
+spaces. Let $B$ be a basis for the topology $S$. Then $f$ is continuous if 
+and only if $\fall U \in B, f^{-1}(U) \in T$.\\
+\\
+
+\example Consider function $f: \reals \rightarrow \reals$, with the usual
+topology. $f$ is continuous if $f^{-1}((a,b))$ is open, where $(a,b)$ is any
+open interval. It should be noted that we only require that $f^{-1}((a,b))$ be
+in the usual topology (i.e. a union of open intervals), not necessarily an
+open interval itself. That would be too restrictive: consider $f(x) = x^2$;
+which is obviously continuous. 
+But $f^{-1}((1,2)) = (-\sqrt{2}, -1) \cup (1, \sqrt{2})$, which is not a basis
+element.\\
+\\
+\begin{theorem}
+\label{basisthm}
+Let $X$ be a set, and $B \subseteq P(X)$. $B$ is 
+a basis for a topology on $X$ (i.e. $\{\unionover{S}{C}S\mid C \in B\}$ a 
+topology on $X$) if and only if 
+
+\begin{enumerate}
+\item $\unionover{S}{B} S = X$ and 
+\item $A,\;B \in B \Rightarrow A \cap B$ is a union of some elements of $B$.
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+\noindent
+$(\Rightarrow)$ Assume there is a topology $T$ on $X$ for which $B$ is a
+basis.
+
+$1)$ We must show that $\unionover{S}{B}S = X$:
+\\[2pt]
+
+\noindent
+$(\subseteq): B \subseteq P(X) \textrm{, so } \fall S \in B, \fall x \in S, 
+x \in X, so \unionover{S}{B} S \subseteq X.$
+\\[2pt]
+
+\noindent
+$(\supseteq): T \subseteq \{\unionover{S}{C} S\mid C \subseteq B\}$ ,
+but $ X \in T \textrm{. So } \exst C^{\prime} \subseteq B \st X =
+\unionover{S^{\prime}}{C^{\prime}}S^{\prime}$. Hence, $ \fall x \in X,
+x \in \unionover{S^{\prime}}{C^{\prime}}S^{\prime}$.
+
+But $ \unionover{S^{\prime}}{C^{\prime}}S^{\prime} \subseteq \unionover{S}{B}S$
+: $\fall S^{\prime} \in C^{\prime}$, $S^{\prime} \in B$, so 
+$\fall y \in \unionover{S^{\prime}}{C^{\prime}}S^{\prime}$, $y \in 
+\unionover{S}{B}S$. So $\fall x \in X$, $x \in \unionover{S}{B}S$. Hence, 
+$X \subseteq \unionover{S}{B}S.$\\[2pt]
+
+$2)$ We must show that $A,A^\prime \in B \Rightarrow \fall x \in A \cap
+A^\prime$, 
+$\exst C \in B \st x \in C \subseteq A \cap B$.
+
+Assume $A$ and $A^\prime$ are in $B$. Then $A \cap A^\prime \in T$, since $T$ is closed
+under pairwise intersections.  Then $A \cap A^\prime$, being in $T$, is a union of
+elements of $B$, because $B$ is a basis of $T$. We have previously shown that
+a $F$ is a union of elements of a set $G$ if and only if $\fall x \in F$, 
+$\exst H \in G \st x \in H \subseteq F$. So we are done.
+\\[2pt]
+
+\noindent
+$(\Leftarrow)$ Given conditions $(1)$ and $(2)$, let $T$ be the set of all
+unions of elements of $B$. We must show that $T$ is topology on $X$. 
+\\[1pt]
+
+\noindent
+$\emptyset \in T$: $\emptyset$ is a union of 0 elements of $B$, 
+so this is true.
+\\[1pt]
+
+\noindent
+$X \in T$: $\unionover{S}{B}S = X$ by condition $(1)$, so $X$ is the union of
+all elements of $B$. So this is true.
+\\
+
+\noindent
+$A,A^\prime \in T \Rightarrow A \cap A^\prime \in T$:
+
+In other words, we need to show that $A \cap A^\prime$ is a union of elements of $B$. We know that 
+$\fall x \in A \exst G \in B \st x \in G \subseteq A$ and 
+$\fall y \in A^\prime \exst H \in B \st y \in H \subseteq A^\prime$. Given 
+$w \in A \cap A\prime $, then, $\exst G (\in B) \subseteq A \st w \in G$ and 
+$\exst G^\prime (\in B) \subseteq A^\prime \st w \in G^\prime$. So, by
+condition $(2)$, $\fall w \in G \cap G^\prime$, $\exst F \in B \st w \in F
+\subseteq (G \cap G^\prime) (\subseteq (A \cap A^\prime)) $. By
+Lemma \ref{unionlemma}, the proof is complete.
+\end{proof}
+
+\noindent
+$A_{\alpha}, \alpha \in I, \in T \Rightarrow \bigcup A_{\alpha} \in T $:
+
+Any element of $T$ is a union of elements of $B$; so
+$\unionover{\alpha}{I}A_{\alpha}$ is a union of unions of elements of $B$. We 
+will show that, in general, 
+any union of unions of elements of some set is a union of elements
+of that set, which is really quite obvious, but what the hell:
+
+Given a family of sets which are unions of elements of some 
+$G \subseteq P(Q)$, where Q is a set, i.e.
+$\{Y_\alpha\} = \{\unionover{S}{C_\alpha}S \mid C_\alpha \subseteq G\}$, 
+for $\alpha \in I$, some indexing set, we must show that 
+$\fall \psi \in \unionover{\alpha}{I}Y_\alpha,\ \exst F \in G \st \psi \in F
+\subseteq \unionover{\alpha}{I}Y_\alpha$.
+
+Take $\psi \in \unionover{\alpha}{I}Y_\alpha$. 
+$\exst \beta \in I \st \psi \in Y_{\beta}$. Now, 
+$Y_{\beta} = \unionover{S}{C_\beta}S$, for some
+$C_\beta \in G$, so $\exst S \in C_\beta$, call it $S_\psi$, such that 
+$\psi \in S_\psi$ and $S_\psi \subseteq Y_\beta \subseteq
+\unionover{\alpha}{I}Y_\alpha$. Furthermore, $S_\psi \in G$, since $S_\psi \in
+C_\beta \subseteq G$.
+
+Hence, $\fall \psi \in \unionover{\alpha}{I}Y_\alpha,\ \exst S_\psi \st \psi
+\in S_\psi \in G$. So the union of unions of elements of a set is itself a
+\claim If $T_1$ and $T_2$ are both topologies on $X$, then $T_1 \cap T_2$ is
+at topology on $X$. Furthermore, if $T_\alpha$, $\alpha \in I$, is a family of
+topologies on $X$, then $\bigcap_{\alpha \in I}T_{\alpha}$ is a topology on
+$X$. These are simple to verify by checking the conditions.\\
+\\
+union of elements of that set. 
+
+This proves that any union of elements of $T$ is itself a union of elements of
+$B$, and is therefore in $T$; which complete the demonstration of the
+conditions required to make $T$ a topology.
+
+\exercise For a topological space $(X,T)$, the following are equivalent
+(TFAE):
+\begin{enumerate}
+\item $T$ is the discrete topology
+\item Every $x \in X$ is isolated
+\item Every $\{x\}$ is open
+\item $B = \{ \{x\} \} \mid x \in X \}$ is a basis for T
+\end{enumerate}
+
+The solution is in the hand-written notes.
+\\
+
+\exercise Let $B = \{[a,b) \mid a < b$ and $a,b \in \reals\}$. Show that $B$ is
+a basis for a topology on $\reals$. This topology is called the
+\index{topology!half-open} {\em half-open topology} on $\reals$.
+
+Show that the usual topology on $\reals$ is a proper subset of the half-open
+topology, which in turn is a proper subset of the discrete topology.
+
+\section{Subbases}
+
+Let $X$ be a set and $S \subseteq P(X)$. Let 
+$F = \{T \subseteq P(X) \mid T$ is a topology on $X$ and $S \subseteq T\}$.
+$F$ is not empty since it contains at least $P(X)$, the discrete topology.
+
+Consider $T_S = \intover{T}{F}T$. Being an intersection of topologies, $T_S$
+is itself a topology. Furthermore, $S \subseteq T_S$, since $S \subseteq T
+\fall T \in F$. 
+
+Therefore, $T_S$ must be the smallest topology on $X$ containing $S$; smallest
+here meaning that for any topology $T$ on $X$ such that $S \subseteq T$, it
+must be that $T_S \subseteq T$ also.\\
+\\
+\exercise For a topological space $(X,T)$, the following are equivalent
+(TFAE):
+\begin{enumerate}
+\item $T$ is the discrete topology
+\item Every $x \in X$ is isolated
+\item Every $\{x\}$ is open
+\item $B = \{ \{x\} \} \mid x \in X \}$ is a basis for T
+\end{enumerate}
+\define $T_S$ is called the topology generated by $S$, and $S$ is called a
+\index{subbasis} {\em subbasis} of $T_S$. (Note: the phrase ``generated by''
+has another, more common, meaning in topology).\\
+\\
+Let the  $B$ be the set containing all intersections of finitely many elements of
+$S$. By convention, when taking an intersection of no subsets of an agreed
+upon set $X$, the intersection is $X$ itself. By this convention, we are
+guaranteed that $X \in B$. T$_2$
+
+Notice that if $P,Q \in B$, then $P = H_1 \cap H_2 \cap \dots \cap H_r$ where
+each $H_i \in S$ and $Q = K_1 \cap K_2 \cap \dots \cap K_t$ where each $K_i
+\in S$; and $P \cap Q = H_1 \cap \dots \cap H_r \cap K_1 \cap \dots \cap K_t
+\in B$, so $B$ is closed under pairwise intersection. 
+
+By Theorem \ref{basisthm}, therefore, $B$ is a basis for some topology on $X$. Call
+this topology $T_B$.\\ 
+
+\claim $T_B = T_S$:
+
+\begin{proof}
+$(\supseteq)$: $S \subseteq B$ since $B$ contains intersections of single
+elements from $S$, and $B \subseteq T_B$; so $T_B$ is a topology on $X$
+containing $S$ and therefore $T_S \subseteq T_B$, since $T_S$ is the smallest
+topology on $X$ containing $S$.\\
+
+$(\subseteq)$: $T_S$ is a topology on $X$; so all finite intersections of $S$,
+a.k.a. all elements of the set $B$, are contained in $T_S$. So $B \subseteq
+T_S$. But $T_B$ is just all the unions of finite intersections of of subsets
+of $B$, so since $T_S$ is closed under arbitrary union, $T_B \subseteq T_S$.
+\end{proof}
+
+\section{Sequences \& Convergence}
+
+\subsection{Sequences}
+
+\index{sequence}
+\define A {\em sequence} in a set $X$ is a function from $\naturals$ to $X$.
+For a sequence $a \in X$, we usually write $a_i$ rather than $a(i)$.\\
+
+\index{convergence}
+\index{limit!of a sequence}
+\define If $(a_i)$ is a sequence in a topological space $(X,T)$, then $y \in
+X$ is the {\em limit of } $(a_i)$ if $\fall \textrm{ open } U \textrm{ about }
+y$, $\exst N \in \naturals \st (i > N) \Rightarrow (a_i \in U))$.
+
+We say $\lim_{i \rightarrow \infty} a_i = y$, $a_i \rightarrow y$, or ``$a_i$
+converges to $y$''.\\
+
+\exercise In the above; if $T$ has a basis $B$, then $a_i \rightarrow y$ if
+and only if $\fall$ basic open $U$ around $y$, $\exst N \in \naturals \st i >
+N \Rightarrow a_i \in U$.  Is this true for the subbasis?\\
+
+\define Given a topological space $(X,T)$ If $a:\naturals \rightarrow X$ is a
+sequence then a \index{subsequence} {\em subsequence} is a composition
+$a \circ j: \naturals \rightarrow X$ where $j$ is strictly increasing.
+(I.e. $(i_1 > i_2 \Rightarrow j(i_1) > j(i_2)$. We denote the 
+$a(j(i))$ as $(a_{j_i})$.
+
+
+\subsection{Hausdorff Spaces}
+\index{Hausdorff}
+\index{T$_2$}
+\define A topological space $(X,T)$ is {\em Hausdorff} (also called {\em \T{2}}) 
+if $\fall x,y \in X, x \neq y,$ there exist open sets $U$ and $V$ such that $x
+\in U$, $y \in V$, and $U \cap V = \emptyset$.
+
+``In Hausdorff spaces, points really don't ever get too close together''. \\
+
+\exercise For a Hausdorff topological space $(X, T)$, let $(a_i)$ be a
+sequence in $X$. If $a_i \rightarrow x$ and $a_i \rightarrow y$, then $x = y$.
+
+Proof in hand-written notes.\\
+
+The above exercise implies that if $X$ is not Hausdorff, then it may be that
+$a_i \rightarrow x$, $a_i \rightarrow y$, and $x \neq y$. Indeed, this is the
+case. Consider $\reals$ with the indiscrete topology, and the sequence $a_i =
+0$. $\fall x \in \reals$, $x$ is a limit point of $a_i$. After all, $\reals$
+is the only open set containing $x$, and $\reals$ contains the entire
+sequence.\\
+
+Is $\reals$ with the usual topology Hausdorff? Yes.  For two points $x$
+and $y \in \reals$, let $x < y$. Let $\delta = \frac{y - x}{2}$. Then $x \in
+(x-\delta,x+\delta)$, and $y \in (y-\delta, y_\delta)$, and these two sets are
+disjoint. 
+
+How about $\reals$ with the discrete topology? If $x \neq y$, then $\{x\}$ and
+$\{y\}$ satisfy the definition of \T{2}. (REMARK: I think I can argue that the
+usual topology is Hausdorff, and it is a subset of the discrete topology, so
+the discrete topology must also be Hausdorff.)
+
+Obviously, the indiscrete topology is not Hausdorff, since for a given set $X$
+with $x \neq y \in X$, the only set containing $x$ or $y$ is $X$, which
+contains both.
+
+How about $\reals$ with the half-open topology? Yes. If $x \neq y$, say $x <
+y$, consider $[x,y)$ and $[y,y+\epsilon)$ for any $\epsilon > 0$.\\
+
+\example Let $a_i = 1 - \frac{1}{2^i}$, i.e. $a_i = 0, \frac{1}{2},
+\frac{3}{4}, \dots$.
+
+\exercise Show that in the usual topology $a_i \rightarrow 1$. Notice that in
+the half-open topology, $a_i \nrightarrow 1$ since $[1,2)$ is open about $1$,
+but no $a_i$ is in $[1,2)$. In fact, it can be proven that in the half-open
+topology, this sequence does not converge to any $x$ in $\reals$. Prove it.\\
+
+Now, consider $a_i = 1 + \frac{1}{2^i}$, i.e. $a_i = 2, 1\frac{1}{2}, 
+1\frac{1}{4}, \dots$
+
+In the usual topology, $a_i \rightarrow 1$; this is also
+true in the half-open topology.
+
+\begin{proof}
+We need to show that for any basic set $[p, q)$ containing $1$, there
+is an $N \in \naturals \st i > N \Rightarrow a_i \in [p,q)$. 
+
+Let $d = q - 1 > 0$. We want $\frac{1}{2^i} < d$, or $2^i > \frac{1}{d}$.
+Since the logarithm is an increasing function, we can also express this as 
+$\log_2 2^i > \log_2 \frac{1}{d}$, and $i > -\log_2 d$ by the properties of
+logarithms.
+
+So, for $N \in \naturals \st N > -\log_2 d,\ i > N \Rightarrow i > -\log_2 d
+\Rightarrow \frac{1}{2^i} > d$ and $a_i = 1 + \frac{1}{2^i} < 1 + d = 1 + (q -
+1) = q$. So $p \leq 1 < 1 + \frac{1}{2^i} < q$, thus $1 + \frac{1}{2^i} \in
+[p,q)$.
+\end{proof}
+
+Furthermore, since we believe the half-open topology to be Hausdorff; $1$ must
+be the only point to which this sequence converges.\\
+
+Note that while it may seem reasonable that every limit point of a set $S$ is
+a limit of a sequence in $S$, this is wrong. \\
+
+\section{Closed Sets}
+
+\index{closed}
+\define For topological space $(X, T)$, we say $S$ is {\em closed in } $X$ if
+it contains all of its limit points.  I.e. $S$ is closed in $X$ if and only
+if:
+\begin{displaymath}
+y \textrm{ is a limit point of } S \Rightarrow y \in S.
+\end{displaymath}
+
+\claim For a topological space $(X,T)$ with $S \subseteq X$, if $a_i$
+is a sequence in $S$ such that $a_i \rightarrow y$, then $y$ is in $S$
+or $y$ is a limit point of $S$.
+
+\begin{proof}
+We will show that if $y \not \in S$, then $y$ is a limit point of $S$.
+Let $U$ be open about $y$. Since $S - \{y\} = S$, we need only show that $U
+\cap S \neq \emptyset$. By hypothesis, there is some $N \in \naturals \st 
+i > N \Rightarrow a_i \in U$, but $a_i \in S \fall i$, so $a_i \in (S \cap
+U)$. So $y$ is a limit point of $S$.
+
+If $y$ is not a limit point of $S$; it must be an isolated point in $S$ (i.e.
+it is possible that $y \in S$,  $a_i = y,\;y,\;y,\dots$ and there is some open
+set containing $y$ which does not contain any other element of $S$). So it is
+possible that a sequence contained entirely within a set converges to a point
+which is not a limit point of that set; in which case, as we have just proven,
+that point must be in the set.
+\end{proof}
+
+\corollary For topological space $(X,T)$, $S$ closed in $X$, $(a_i)$ a
+sequence in $S$, with $a_i \rightarrow y$; it must be that $y \in S$. 
+
+\begin{proof}
+By above, either $y \in S$ or $y$ is a limit point of $S$. If $y$ is a
+limit point of $S$, then $y \in S$, since $S$ is closed. 
+\end{proof}
+
+\claim In topological space $(X,T)$ with $A \subseteq X$, $A$ is closed if and
+only if $X-A$ is open.
+
+\begin{proof}
+$(\Rightarrow)$ Take any closed set $A$, and and consider any $x \in X-A$.
+Since $x \not in A$, $x$ is
+not a limit point of $A$. So there is some open set $U$ about $X$ such that $U
+\cap A - \{x\} = \emptyset$; so then $U \cap A = \emptyset$, which means $U
+\subseteq (X - A)$. So $x \in U \subseteq (X - A)$. By Lemma
+\ref{unionlemma}, then $(X-A)$ is a union of open sets and is therefore open. \\
+
+$(\Leftarrow)$ If $X-A$ is open, then for any $x \in X-A$, $X-A$ is itself an
+open set about $x$ which is disjoint from $A$. So no point in $X-A$ can be a
+limit point of $A$. Therefore, all limit points of $A$ must be contained in
+$A$, and so $A$ is closed.
+\end{proof}
+
+\corollary Given a topological space $(X,T)$, the set $\{X-U \mid U \in T\}$
+is all the closed sets under $T$.
+
+While it might seem to indicate that ``closed'' is the
+opposite of ``open'', i.e. that for a given set the two conditions are mutually
+exclusive, this is false! Indeed; since in a topological space $(X,T)$, the
+complement of $X$ is $\emptyset$, and both are open; it must be that both are
+also closed. (Which is trivial to see anyway).\\
+
+In the discrete topology on a set $X$, every set is closed, since every set is
+open. 
+
+\example Consider $\reals$ with the usual topology. The following facts are
+true:
+\begin{enumerate}
+\item Every singleton $\{x\}$ is closed, since its complement is a union of
+open intervals, and therefore an open set.
+\item Any closed interval is closed, for the same reason.
+\item Half-open intervals ($[a,b)$ or $(a,b]$ where $a<b$) are neither open
+nor closed.
+\end{enumerate}
+
+In summary, if you are trying to show that a certain set is closed (or open),
+it is often a good idea to try showing that it's complement is open (or
+closed); as in the following theorem.
+
+\begin{theorem}
+If a topological space $(X,T)$ is Hausdorff, then all singleton sets are
+closed.
+\end{theorem}
+
+\begin{proof}
+We show that $X - \{x\}$ is open. Let $y \in X - \{x\}$; i.e. $y \neq x$.
+Since $X$ is Hausdorff, there are open sets $U$ and $V$ where $x \in U$ and $y
+\in V$ and $U \cap V = \emptyset$, which means $V \subseteq X - \{x\}$.
+We have now that for all $y \in X - {x}$
+there is some $V \in T$ such that $y \in V \subseteq X - \{x\}$, which by
+Lemma \ref{unionlemma} implies that $X - \{x\}$ is open.
+\end{proof}
+
+Note that the converse of the above theorem is not necessarily true.\\
+
+\define A topological space $(X,T)$ where every proper subset of $X$ other
+than $\emptyset$ is either open or closed, but not both is called a
+\index{door space} {\em door space}.\\
+
+\example One can generate a door space in the following way: choose $x \in X$
+and let $T = \{S \subseteq X \mid x \in S\} \cup \{emptyset\}$. This is called
+a \index{topology!principle} {\em principle topology}. Since a set (other than
+$X$ or $\emptyset$) is open if and only if $x$ is in it, and $x$ is either
+in a set or not, but not both; each set must be open or closed, but noth both.
+\\
+
+\begin{theorem}
+Let $(X,T)$ be a topological space. Let $K = \{C \mid C$ closed in $X \}$.
+Then
+\begin{enumerate}
+\item $\emptyset \in K$
+\item $X \in K$
+\item $K$ is closed under finite union.
+\item $K$ is closed under arbitrary intersection.
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+The first two statements are obvious; the final two follow from the fact that
+$X-\unionover{\alpha}{I}A_\alpha = \intover{\alpha}{I}(X-A_\alpha)$ and
+$X-\intover{\alpha}{I}=\unionover{\alpha}{I}(X-A_\alpha)$. The verification of
+these statements is left as an easy exercise.
+\end{proof}
+
+Note the symmetry between $K$ and $T$. It could have been that topologies were
+defined based on closed sets, and the open sets derived from them. This might
+have been nice, actually, since intersections have a tendency to preserve
+properties, which unions don't (for example, consider vector spaces). \\
+
+\define Let $(X, T)$ be a topological space, with $A \subseteq X$. Consider
+$\mathcal{C} = \{ C \subseteq X \mid A \subseteq C$ and $C$ closed $\}$.
+$\mathcal{C}$ is nonempty since $X$ is in it. Let $\bar{A} =
+\intover{C}{\mathcal{C}}C$; we call $\bar{A}$ \index{closure} the {\em
+closure} of A.\\
+
+$\bar{A}$ is the smallest closed set containing $A$, since every other closed
+set containing $A$ contains $\bar{A}$. What is $\bar{A}$? We know that $A
+\subseteq \bar{A}$, and the set of all limit points of $\bar{A}$ is contained
+in $\bar{A}$, since it is closed.
+
+Now consider $A^{?} = A \cup \{$ limit points of $A\}$. Is $A^{?}$ closed? \\
+
+\exercise $P \subseteq Q \Rightarrow [x$ is a limit point of P $\Rightarrow
+x$ is a limit point of $Q]$. \\
+
+\exercise If $x$ is a limit point of $A^{?}$ then $x$ is a limit point of
+$A$.\\
+
+As a consequence of the above exercises, we see that $A^{?}$ is closed, and so
+$\bar{A} = A^{?}$: We know that $A^{?} \subseteq \bar{A}$, and since $\bar{A}$
+is the smallest closed set containing $A$, and $A \subseteq A^{?}$ and $A^{?}$
+closed, we know that $\bar{A} \subseteq A^{?}$.\\
+
+\exercise Prove that the following facts hold true in any topological space: 
+\begin{enumerate}
+\item $A \subseteq \bar{A}$
+\item $\bar{\bar{A}} = \bar{A}$
+\item $\bar{A \cap B} \subseteq \bar{A} \cap \bar{B}$
+\item $\bar{A \cup B} = \bar{A} \cup B$ ?
+\end{enumerate}
+
+\example In $\reals$, with the usual topology:
+\begin{enumerate}
+\item $\bar{(0,1)} = \bar{[0,1)} = \bar{(0,1]} = [0,1]$
+\item For $0 < x < 1$, $\bar{(0,x) \cup (x,1)} = [0,1]$
+\item $\bar{(0,1) - \{\frac{1}{2},\frac{1}{3},\frac{1}{4}, \dots\}} = [0,1]$
+\item $\bar{\rationals \cap (0,1)} = [0,1]$
+\item $ \bar{\irrationals \cap (0,1)} = [0,1] $
+\end{enumerate}
+
+Notice that for sets $A$ and $B$, it does not necessarily hold that 
+$\bar{A \cap B} = \bar{A} \cap \bar{B}$. For example, let 
+$A = \rationals \cap (0,1)$ and $B = \irrationals \cap (0,1)$. Since $A \cap
+B = \emptyset$, $\bar{A \cap B} = \emptyset$. But $\bar{A} \cap \bar{B} = [0,1]
+\cap [0,1] = [0,1]$. 
+
+Also, $\bar{\{x\}} = \{x\}\ \fall x \in \reals$, so
+\begin{displaymath}
+\bar{\unionover{x}{\rationals}\{x\}} = \bar{\rationals} = \reals \neq
+\rationals = \unionover{x}{\rationals}\{x\} =
+\unionover{x}{\rationals}\bar{x}.
+\end{displaymath}
+
+You can use closure to determine whether or not a set is closed, since $A =
+\bar{A}$ if $A$ is closed. 
+
+Also, you can think of closure as a function $\bar{}:P(X)\rightarrow P(X)$.
+This implies that topologies can be approached from the point of view of
+closures. For that matter, topologies may be approached from the point of view
+of limit points, since closures are defined in terms of limit points.
+
+
+
+
+
+
+
+\section{First Countability}
+
+\define Given a point $x$ in a topological space $(X, T)$, a \index{neighborhood
+base} {\em neighborhood base} for $x$ is a collection of open sets about $x$
+such that every open set containing $x$ has at least one element of that
+collection as a subset. That is, $\mathcal{N} \subseteq P(X)$ is a neighborhood base for
+$x$ if and only if: 
+\begin{displaymath}
+\fall U \in T \st x \in U,\ \exst V \in \mathcal{N} \st V \subseteq U.
+\end{displaymath}
+Every point has at least one countable neighborhood base; namely, the set of
+all open sets which contain that point.\\
+
+\define A topological space $(X,T)$ is \index{first countable} {\em first
+countable} if every $x \in X$ has a countable neighborhood base.\\
+
+\example $\reals$, with the usual topology, is first countable.
+
+Let $x \in \reals$ and 
+$\mathcal{N} = \{(x - \frac{1}{n}, x + \frac{1}{n}) \mid n \in (\naturals - \{0\})\}$.
+Then for a given open $U$ about $x$; there is $\varepsilon > 0,\ (x -
+\varepsilon, x + \varepsilon) \subseteq U$.  So choose $(x - \frac{1}{n}, x +
+\frac{1}{n})$ where $\frac{1}{n} < \varepsilon$. We know this exists because
+the Archimedean property guarantees that for all $\delta > 0,\ \exst M \in
+\naturals \st \frac{1}{M} > \delta$.\\
+
+\begin{lemma}
+\label{firstcountablesequencelemma}
+Let $(X,T)$ be a first countable topological space. 
+Let $S \subseteq X$ and $y$ a limit point of $S$. Then $y$ is a limit 
+point of a sequence in $S$.
+\end{lemma}
+
+\begin{proof}
+Let $\{U_1, U_2, \dots \}$ be a countable neighborhood base for $y$.
+Let $V_1 = U_1,\ V_2 = U_1 \cap U_2, \dots$ so that $V_2 = V_1 \cap U_2$, 
+$V_3 = V_2 \cap U_3$, and in general $V_{n + 1} = V_n + U_{n + 1}$.
+
+Now, $V_1 \supset V_2 \supset V_3 \supset \dots$, and we have another
+countable neighborhood base: $\{V_i \mid i > 1\}$. (We know that it is
+countable since there is a 1 -- 1 correspondence with $\{U_i\}$, and we know it
+is a neighborhood base since for any open $W$ about $y$, $\exst j \in
+\naturals \st V_j \subseteq U_j  \subseteq W$.
+
+Since $y$ is a limit point of $S$, and $y \in V_i$, we know that $V_i \cap (S
+- \{y\}) \neq \emptyset$. For each $i \in \naturals$ use the axiom of choice to
+choose some $a_i \in V_i \cap (S - \{y\})$. This creates a sequence $(a_i)$
+which converges to $y$.  
+
+Indeed, for any open $W$ about $y$, there is an $N \in \naturals \st V_N
+\subseteq W$, and since for all $i > N, V_i \subseteq V_N$, we know that
+$\fall i \geq N, a_i \in V_N \subseteq W$. Furthermore, each $a_i \in S$, so
+the sequence $(a_i)$ is in $S$. 
+\end{proof}
+ 
+\section{T$_*$ Time (Separation Axioms)}
+
+There is a set of categorize which help to further describe topological spaces
+by analyzing properties related to open sets. They are called the 
+\index{separation axioms} {\em separation axioms}, even though they are really
+definitions. We have already seen one, the  
+
+\define A topological space $(X,T)$ is \index{T$_1$} {\em \T{1}} if 
+$\fall x,y \in X$, with $x \neq y,\ \exst$ open $U$, $V$, $x \in U$, $y \in V$
+and $x \not \in V$ and $y \not \in U$. 
+
+It should be easy
+to show that this is equivalent to all singletons being closed.\\
+
+\define A topological space $(X,T)$ is \index{T$_{\frac{1}{2}}$}
+{\em \T{\frac{1}{2}}} if $\fall x,y \in X$,
+with $x \neq y$, either there is an open $U$ about $x$ with $y \not \in U$ or
+thre is an open $V$ around $y$ with $x \not \in V$. This is often written as
+\index{T$_0$} {\em \T{0}}, also.\\
+
+\define A topological space $(X,T)$ is \index{T$_3$} {\em \T{3}} if 
+$\fall x \in X$, $\fall C$
+closed in $X$, with $x \not \in C$, there exist open $U$ and $V$ such that $U
+\cap V = \emptyset$, $x \in U$, and $C \subseteq V$. Such a space is said to
+be \index{regular} {\em regular}.\\
+
+\define A topological space $(X,T)$ is \index{T$_4$} {\em \T{4}} if $fall C,
+D$ closed in $X$ with $C \cap D = \emptyset$, there exist open $U,V$ such that
+$C \subseteq U$, $D \subseteq V$, and $U \cap V = \emptyset$. Such a space is
+said to be \index{normal} {\em normal}.\\
+
+Recall that a Hausdorff space is also known as \T{2}.  It is clear that \T{2}
+$\Rightarrow$ \T{1}; and it can be demonstrated that the converse is not true:
+
+Let $X$ be any infinite set and $T$ be $\{\emptyset\} \cup$  $\{X-F \mid F$ is
+any finite union of $X \}$. $T$ is a topology on X, called the
+\index{topology!finite complement} ``finite complement'' topology. $(X,T)$ is
+\T{1}, but not \T{2}. It is \T{1} since all singletons are closed, and it
+isn't \T{2} because, other than $\emptyset$, it is impossible to get disjoint
+sets.
+
+Now, you may think that from our definition, any set which is \T{3} is also
+\T{2}, but this isn't true. The standard definitions of \T{3} and \T{4} assume
+that the set is also \T{2}. (Actually, I think you only need to assume \T{1},
+and then you can prove \T{2}).
+
+\section{Subspaces}
+
+\define Given a topological space $(X,T)$ with $A \subseteq X$, we can place a
+\index{topology!subspace} {\em subspace topology} on $A$, call it $T_A$, defined by $T_A = \{A \cap U \mid U \in T \}$.\\
+
+This is indeed a topology. Firstly, every element of $T_A$ is a subset of $A$,
+clearly; so $T_A \subseteq P(A)$. Furthermore,
+\begin{enumerate}
+\item[$(i)$] $\emptyset \in T_A$, since $\emptyset \in T$ and $A \cap
+\emptyset = \emptyset$
+\item[$(ii)$] $A \in T_A$, since $X \in T$ and $A \cap X = A$
+\item[$(iii)$] $P,Q \in T_A \Rightarrow P \cap Q \in T_A:$
+There exist $U,V \in T$ such that $P = A \cap U$ and $Q = A \cap V$, so 
+$P \cap Q = (A \cap U) \cap (A \cap V) = (U \cap V) \cap A$.
+Since $U \cap V$ is open in $T$, $U \cap V \cap A$ is open in $T_A$.
+\item[$(iv)$] $\{Q_\alpha\} \in T_A, \alpha \in I \Rightarrow
+\unionover{\alpha}{I}Q_\alpha$: For each $\alpha \in I$, 
+$Q_\alpha = A \cap U_\alpha$. where $U_\alpha \in T$. So
+$\unionover{\alpha}{I}Q_\alpha = \unionover{\alpha}{I}(A \cap U_\alpha) = A
+\cap (\unionover{\alpha}{I}U_\alpha)$. Since $T$ is closed under arbitrary
+union, we see that we are intersecting $A$ with an open set in $T$, so $T_A$
+is also closed under arbitrary union.
+\end{enumerate}
+
+The introduction of subspaces allows for some confusion which might not have
+been present previously. If $(X,T)$ is a topological space and $A \subseteq
+X$ with subspace topology $T_A$. Given $S \subseteq A$; is $S$ open?  
+
+That question, as asked, is flawed. It is now ambiguous. We could 
+be asking ``is $S \in T$?'', or we could be asking ``is $S \in T_A$''? And
+there is no way to tell the difference. To resolve this, one must always be
+careful to ensure the context is clear. It is sufficient to ask ``is $S$ open
+in $X$?'' or ``is $S$ open in $A$?''\\
+
+\example Consider $\reals$ with the usual topology. Let $A = [0,1]$, and 
+$S_1 = [0,1]$. Is $S_1$ open in $\reals$? No. But is $S_1$ open in $A$? Yes; in
+fact it is, since $S_1 = A \cap \reals$. This demonstrates that the subspace
+topology really isn't just the set of open sets which are also subsets of $A$.
+
+Consider $S_2 = (0,1]$. Again, we know that $S_2$ is not open in $\reals$, but
+it isn't hard to find a set $U_2 \in \reals$ so that $S_2 = U_2 \cap A$.
+In fact, for any $x > 1$, $U_2 = (0,x)$ will work. So $S_2$ is in fact open in
+$A$.\\
+
+\begin{theorem}
+Given a topological space $(X,T)$ and an open set $A \subseteq X$, and some $S
+\subseteq A$, then $S$ is open in $A$ if and only if $S$ is open in $X$.
+\end{theorem}
+
+\begin{proof}
+$(\Rightarrow)$ $S = A \cap U$, where $U$ is open in $X$. $U \cap A$ is an
+intersection of two open sets in, which is in $T$. So $S$ is open in $X$.
+
+$(\Leftarrow)$ Since $S$ is open in $X$, and $S \subseteq A$, $S = A \cap S$,
+an open set in $A$.
+\end{proof}
+
+In a similar fashion, if there is a $U \in T$ such that $S = X - U$, then we
+say $S$ is closed in $X$, and if there is a $V \in A$ such that $S = A - V$,
+then we say $S$ is closed in $A$.\\
+
+\example In the previous example, we see that $S_1$ is closed in both $X$ and
+$A$, while $S_2$ is not closed in either $X$ or $A$. 
+
+It may not be immediately obvious that 0 is a limit point of $S_2$
+using $T_A$. Any open set in $T_A$ about 0 must contain the interval
+$[0, \varepsilon)$, for some $\varepsilon > 0$. Since all of these intersect
+$S_2$ at some point, 0 is a limit point of $S_2$ in A.\\
+
+Again, even when discussing limit points; note that we had to be explicit
+about the context; since in order to consider whether a point is a limit point
+or not, we must consider all the open sets around that point. And the
+open sets we are considering depend on what topology we are using.\\
+
+Now we have many examples of topologies; since any subset of the real
+line can be a topological space.\\
+
+\subsection{The Order Topology}
+
+Let $(X, \leq)$ be a totally ordered set; for example, $\reals$. Let $x < y$
+be in $X$. We now formally define \index{interval} the {\em intervals}.
+\begin{enumerate}
+\item[] $(x,y) = \{z \in X \mid x < z < y \}$
+\item[] $(x,y] = \{z \in X \mid x < z \leq y \}$
+\item[] $[x,y) = \{z \in X \mid x \leq z < y \}$
+\item[] $[x,y] = \{z \in X \mid x \leq z \leq y \}$
+\end{enumerate}
+
+The \index{topology!order} {\em order topology} is the topology given by the
+basis:
+\begin{displaymath}
+(x,y) \cup \{X\} \cup (x, M] \cup [m, y)
+\end{displaymath}
+where $x,y \in \reals$, $x < y$, $M$ is the largest element in $X$, and $m$ is
+the least element in $X$. Note that if $X$ does not contain a largest or least
+element; then we conveniently ignore the corresponding intervals in the above
+expression. We need the $\{X\}$ in the case that $X$ contains only one
+point.\\
+
+
+\exercise The order topology on $\reals$ turns out to be the usual topology.
+If $A \subseteq \reals$, then $\leq$ restricted to $A$ makes $A$ a
+totally ordered set.  Thus we can impose an order topology on $A$. Prove that
+if $\reals$ is given the usual topology, then the order topology on $A$ is the
+same as the usual topology on $A$.\\
+
+\section{Topological Interior of a Set}
+
+\define Let $(X,T)$ be a topological space, and $A \subseteq X$. Then the
+\index{interior} {\em topological interior} of $A$ is
+$A^{\circ} = \{V \subseteq X | V \textrm{ open }, V \subseteq A\}$. 
+
+$\interior{A}$ is the largest subset of $A$ open in $X$, since it is defined to
+contain all other such subsets of $A$.\\
+
+\exercise $A^{\circ} = A - \{ \textrm{ limit points of } X - A\}$.\\
+
+\exercise Choose a subset of the $\reals$ and find out how many sets you can
+build by repeated operations of closure, complement, and interior. What is the
+largest number that can be built?
+
+\section{Metric Spaces}
+
+\define A \index{metric space} {\em metric space} is a pair $(X, d)$ where $X$
+is a set and $d$ is a function $d: X \times X \rightarrow \reals$, called the 
+\index{distance function} {\em distance function} or the {\em metric}, which
+satisfies:
+\begin{itemize}
+\item[$i.$] $\fall x,y \in X,\ d(x,y) \geq 0$
+\item[$ii.$] $\fall x,y \in X,\ d(a,b) = d(b,a)$
+\item[$iii.$] $\fall x,y \in X,\ d(a,b) = 0$ if and only if $a = b$
+\item[$iv.$] $\fall x,y,z \in X,\ d(a,b) + d(b,c) \geq d(a,c)$
+\end{itemize}
+Property $iv$ is known as the \index{triangle inequality} {\em triangle 
+inequality} (often written \index{\triineq} \triineq).\\
+
+\define Given a metric space $(X,d)$, with some $a \in X$ and
+some $\varepsilon \geq 0$, let $\eball(a) = \{x \in X \mid d(a,x) <
+\varepsilon\}$. This is called the \index{$\varepsilon$-ball} {\em open
+$\varepsilon$-ball} with center at $a$.\\
+
+
+\claim The collection $\mathcal{B} = \{\eball(a) \mid a \in X,\ \varepsilon > 0\}$ is a
+basis for a topology.
+
+\begin{proof}
+Recalling Theorem \ref{basisthm}, we must show that $X =
+\unionover{\varepsilon}{0}\eball(a)$ and for any $\varepsilon_1 > 0$ and 
+$\varepsilon_2 > 0$, $\ball{\varepsilon_1}(a_1) \cap
+\ball{\varepsilon_2}(a_2)$ is a union of elements of $\mathcal{B}$.
+
+The first part simple:\\
+
+\noindent
+$(\supseteq)$: This is obvious\\
+$(\subseteq)$: For any $x \in X$, $x \in \ball{1}(x)$. So the union of all
+$\varepsilon$-balls contains every point in $X$.\\
+
+Recalling Lemma \ref{unionlemma}, we need to show
+that each $x \in \ball{\varepsilon_1}(a_1) \cap
+\ball{\varepsilon_2}(a_2)$  has some $\ball{\varepsilon_3}(a_3)$ such that $x
+\in \ball{\varepsilon_3}(a_3) \subseteq (\ball{\varepsilon_1}(a_1) \cap
+\ball{\varepsilon_2}(a_2))$. 
+
+Let $\zeta = \min\{\varepsilon_2 - d(x,a_2), \varepsilon_1 - d(x, a_1)\}$. We
+claim that $\ball{\zeta}(x) \subseteq (\ball{\varepsilon_1}(a_1) \cap
+\ball{\varepsilon_2}(a_2))$.  To demonstrate this, we must show that for any
+$z \in \ball{\zeta}(x)$, $d(a_1, z) < \varepsilon_1$ and $d(a_2, z) <
+\varepsilon_2$. We have that
+\begin{displaymath}
+d(z,a_1) \leq d(x, a_1) + d(z,x) < d(x, a_1) + \zeta \leq 
+d(x, a_1) + \varepsilon_1 - d(x,a_1) = \varepsilon_1
+\end{displaymath}
+since $\zeta \leq \varepsilon_1 - d(x,a_1)$. By the same logic $d(z, a_2) <
+\varepsilon_2$. So we are done. Notice we used the \triineq $\ $in this proof.
+\end{proof}
+
+\define Given a metric space $(X,d)$, the topology defined by $\mathcal{B}$
+above is called the \index{topology!metric} {\em metric topology}.\\
+
+\example Consider $(\reals, d)$, where $d(x,y)=|x - y|$. This is known as the
+\index{metric!usual} {\em usual metric on $\reals$}. And it is a 
+metric:
+\begin{itemize}
+\item[1.] $|x-y| \geq 0$
+\item[2.] $|x-y| = |y-x|$
+\item[3.] $|x-x| = |0| = 0$, and $|x| = 0 \iff |x = 0|$ so $|x - y| = 0 \iff x
+= y$
+\item[4.] \exercise Prove the \triineq. It's easy, but
+there are a number of cases to check.
+\end{itemize}
+
+The usual metric on $\reals$ leads to the metric topology on $\reals$.
+Consider:
+\begin{eqnarray*}
+\eball(x) & = & \{y \in \reals \mid d(x,y) < \varepsilon\} \\
+          & = & \{y \in \reals \mid |x-y| < \varepsilon\} \\
+          & = & \{y \in \reals \mid x - \varepsilon < y < x + \varepsilon\} \\
+          & = & (x - \varepsilon, x + \varepsilon) \\
+          & = & \textrm{ the usual topology on } \reals \\
+\end{eqnarray*}
+So the metric topology on $\reals$ is the same as the usual topology on
+$\reals$; which isn't too surprising.\\
+
+Now consider $\reals^{2} = \reals \times \reals = \{(x,y)|x,y \in \reals\}$.
+We can create a few different metrics: 
+\begin{eqnarray*}
+d_e((x_1,y_1),(x_2,y_2)) & = & \sqrt{(x_2 - x_1)^2 + (y_2 - y_1)^2} \\
+d_t((x_1,y_1),(x_2,y_2)) & = & |x_2 - x_1| + |y_2 - y_1| \\
+d_s((x_1,y_1),(x_2,y_2)) & = & \max\{|x_2 - x_1|, |y_2 - y_1|\} \\
+\end{eqnarray*}
+
+We call $d_e$ the \index{metric!Euclidean} {\em Euclidean metric}, $d_t$ the
+\index{metric!Taxi} {\em Taxi metric}, and $d_s$ the \index{metric!$\sup$}
+$\sup$ {\em metric}. \\
+
+\exercise Each of these is a metric.\\
+
+\exercise The topologies generated on $\reals^2$ by each of these
+metrics is the same.\\
+
+Sketch of proof of above exercise (incomplete; the gist is here, but it needs
+to be straightened out): 
+In order to avoid confusion, we will refer to $\varepsilon$-balls as
+follows:
+\begin{itemize}
+\item[-] $\eball^t(x)$: an $\varepsilon$-ball around $x$ using the Taxi
+metric.
+\item[-] $\eball^e(x)$: an $\varepsilon$-ball around $x$ using the Euclidean
+metric
+\item[-] $\eball^s(x)$: an $\varepsilon$-ball around $x$ using the sup metric.
+\end{itemize}
+
+We will demonstrate the following:
+\begin{itemize}
+\item[1.] Any $\varepsilon$-ball using the taxi metric can be
+expressed as a union of $\varepsilon$-balls using the sup metric
+\item[2.] Any $\varepsilon$-ball using the sup metric can be expressed as a 
+union of $\varepsilon$-balls using the Euclidean metric, and 
+\item[3.] Any $\varepsilon$-ball using the Euclidean metric can be expressed
+as a union of $\varepsilon$-balls using the taxi metric.
+\end{itemize}
+Here I am being a bit sloppy, since when I say $\varepsilon$-ball, I don't
+mean that the size of the balls will be the same. Putting these together, we
+can then express any basis element using any one of the three metrics as a
+union of basis elements using either of the other two.
+
+This turns out to be not too hard with the metrics we have. We can show that
+$d_s(x,y) \leq d_e(x,y) \leq d_t(x,y) \leq 2d_s(x,y)$ for all $x$ and $y$
+in $X$.  This means that, given any $x$,
+any $z$ in $\eball^t(x)$ will be contained in $\eball^e(x)$;
+and any $z$ in $\eball^e(x)$ will be, in turn, contained in 
+$\eball^s(x)$.  Likewise, any $z$ in a $\ball{\frac{\varepsilon}{2}}^s(x)$ 
+will be contained in $\eball^t(x)$.  
+
+Consider $\eball^t(x)$ for any $x \in X$. For any $z \in \eball^t(x)$, let
+$\delta = \varepsilon - d(x,z)$, so that $\dball^t(x) \subseteq \eball^t(x)$,
+but then $\ball{\frac{delta}{2}}^s(z) \subseteq \dball^t(x) \subseteq
+\eball^t(x)$. By Lemma \ref{unionlemma}, $\eball^t(x)$ is a union of
+elements of the sup topology basis.
+
+
+
+Using this, we can show that any $\eball^s(x)$  is a union of
+$\varepsilon$-balls in the other two metrics: Given $z \in \eball(x)$, let
+$\delta = \varepsilon - d(z,x)$. Then the sup $\dball(x) \subseteq \eball(x)$,
+but the 
+
+\exercise To help with the above exercise -- if $d_A$ and $d_B$ are 
+two metrics on a space $X$, then what must be true in order for the topologies
+to be the same?\\
+
+If, given any epsilon, there is a delta such that the delta-ball with metric B
+around a point $x$ is contained entirely within the epsilon-ball with metric
+A. Then we know that the metric topology from metric A must be a subset of the
+metric topology of metric B. This is because any basis element of A must be in
+the topology of metric B; which is shown as follows: given a basis element $U$, an open ball, of A, take any point in that ball. There is an epsilon ball with
+ametric A around that point contained entirely within $U$. And there is a
+delta ball with metric B contained entirely within that epsilon ball. Thus, by
+Lemma \ref{unionlemma}, $U$ is a union of balls from metric B, and is
+therefore in the topology imposed by B. 
+
+If $(X,d)$ is a metric space, and $A \subseteq X$, we can restrict $d$ to A to
+so that $(A,d|_A)$ is a metric space. The proof is trivial, since each of
+the required properties is inherited from $(X,d)$.
+
+Here again we run into the issue of context. If some point $x$ is in $A$, then
+to say $\eball(x)$ is ambiguous, since for $(X,d)$, $\eball(x) = \{y \in X \mid
+d(x,y) < \varepsilon\}$, while for $(A,d|_A)$, $\eball(x) = \{y \in A \mid
+d(x,y) < \varepsilon\}$. (Notice in the condition, I used $d$ instead of
+$d|_A$; that's actually fine, since inside $A$, $d = d|_A$.)\\
+
+
+\define Let $(X,T)$ be a topological space. We say $(X,T)$ is
+\index{metrizable} {\em metrizable} if there is a metric $d:X \times X
+\rightarrow \reals$ so that $T$ is the metric topology imposed by $d$. 
+
+Note we already know that $d$ is not unique, from a previous exercise. The
+usual topology has the Euclidean, taxi, and $\sup$ metrics.\\
+
+\example Let a set $X$ have the discrete topology. Is this space metrizable?
+
+Consider $d: X \times X \rightarrow \reals$ where 
+\begin{displaymath}
+d(x,y) = \left\{ \begin{array}{ll}
+
+1 & \textrm{if } x \neq y \\
+0 & \textrm{if } x = y
+\end{array} \right.
+\end{displaymath}
+It is easy to verify that this is a metric (verification in
+notes).
+
+Since $\ball{1}(x) = \{x\}$, we see that the singletons are open; so we do
+have the discrete topology. We call this the \index{metric!discrete} {\em
+discrete metric}.
+
+\subsection{Facts about Metric Spaces}
+
+\claim Every metric space is \T{2}.
+
+\begin{proof} Let $(X,T)$ be a metric space with metric $d$; and consider $x$
+and $y$ in $X$ such that $x \neq y$.  We need to show that there is a $U$ open
+about $x$ and a $V$ open about $y$ such that $U \cap V = \emptyset$.
+
+Let $\epsilon  = d(x,y) > 0$. Then let $U = \ball{\frac{\epsilon}{2}}(x)$ and
+$V = \ball{\frac{\epsilon}{2}}(y)$.  If $z \in U \cap V$ then $d(x,z) <
+\frac{\epsilon}{2}$ and $d(y,z) < \frac{\epsilon}{2}$. But then, by \triineq,
+\begin{displaymath}
+d(x,y) \leq d(y,z) + d(z,x) < \frac{\epsilon}{2} + \frac{\epsilon}{2}
+< \epsilon = d(x,y).
+\end{displaymath}
+which is obviously a contradiction; so there can be no such $z$, and the
+intersection of $U$ and $V$ must be empty. Hence, every metric space is \T{2}.
+\end{proof}
+
+\exercise Every metric space is \T{3}.\\
+
+\exercise Every metric space is \T{4}.\\
+
+\define Let $(X,d)$ be a metric space; with $x \in X$ and $A \subseteq X$.
+Define $d(x,A) = \inf\{d(x,a) \mid a \in A\}$. This is bounded below by
+zero.\\
+
+\exercise If $A$ is closed, then $d(x,A) = 0$ if and only if $x \in A$.\\
+
+Remark: If $x$ has more than one point, the indiscrete topology is not 
+\T{2}, and is therefore not metrizable.\\
+
+\begin{lemma}
+\label{metricfirstcountablelemma}
+Every metric space is first countable.
+\end{lemma}
+
+\begin{proof}
+Consider $x \in X$; we will show that $x$ has a countable neighborhood base.
+We want some set $\{U_i \mid i \in \naturals\}$, where each $U_i$ is open
+about $x$ and for any $V$ open about x, there is some $U_i \subseteq V$. So 
+let $U_i = B_{\frac{1}{i}}(x)$.
+
+Now, if $V$ is open and $x \in V$, then $x \in \eball(y) \subseteq V$. Let
+$\delta = \varepsilon - d(x,y)$, and note $\delta > 0$.\\
+
+We claim that $\dball(x) \subseteq \eball(y)$: Let $z \in \dball(x)$. Then
+$d(z,x) < \varepsilon - d(x,y)$. Furthermore, by the \triineq, 
+\begin{eqnarray*}
+d(z,y) & \leq & d(z,x) + d(x,y) \\
+       & \leq & \varepsilon - d(x,y) + d(x,y) \\
+d(z,y) & \leq & \varepsilon.
+\end{eqnarray*}
+So $\dball(x) \subseteq \eball(y)$. By the archimedean property, there is some
+$i \in \naturals$ so that $\frac{1}{i} < \delta$; so we have that
+\begin{displaymath}
+x \in (U_i = \ball{\frac{1}{i}}(x)) \subseteq \dball(x) \subseteq \eball(y)
+\subseteq V.
+\end{displaymath}
+And we see that every metric space is first countable.
+\end{proof}
+
+\section{Urysohn's Lemma}
+\index{Urysohn's Lemma} 
+In notes; need to add
+
+\section{Connectedness}
+
+\define A topological space $(X,T)$ is \index{not connected} {\em not
+connected} if there exist nonempty open sets $U$ and $V$ such that $U = X -
+V$. I.e. 
+\begin{displaymath}
+U \cap V = \emptyset \textrm{ and } U \cup V = X \textrm{ and }
+U \neq \emptyset \neq V
+\end{displaymath}
+A space is \index{connected} {\em connected} if it is not not connected.\\
+
+\exercise Show that the indiscrete topology is always connected.\\
+
+\exercise The discrete topology is never connected, unless it is over a
+singleton set.\\
+
+\exercise The half-open topology on $\reals$ is not connected. \\
+
+\define An \index{interval} {\em interval} on $\reals$ is any set
+$\mathcal{J}$ satisfying $[x < y < z \land x \in \mathcal{J}
+\land y \in \mathcal{J}] \Rightarrow y \in \mathcal{J}$.
+
+If we consider all combinations of properties such as ``bounded above''
+or not, ``contains least upper bound'' or not, ``bounded below'' or not,
+and ``contains greatest lower bound'' or not; we can easily list all types of
+intervals on $\reals$.\\
+
+\define If $(X,T)$ is a topological space with $S \subseteq X$, for $S$ to be
+connectect means $S$ is connected in the subspace topology on $S$.\\
+
+\claim $S \subseteq \reals$ (with the usual topology) is connected if and only
+if S is an interval.\\
+
+\begin{proof}
+In notes of 11/17; it's long but I should put it in here. 
+\end{proof}
+
+\begin{theorem} The continuous image of a connected space is connected. 
+
+I.e. if $f:(X,T) \rightarrow (Y,S)$ is a continuous function between
+topological spaces and if $(X,T)$ is connected and $f$ is onto, then $(Y,S)$
+is connected.
+\end{theorem}
+
+\begin{proof}
+We procede by contrapositive. Assume $f$ is continuous and onto, and that 
+$(Y,S)$ is not connected. So we have some $U,V \in S$, both nonempty, such
+that $U \cap V = \emptyset$ and $U \cup V = Y$. 
+
+Now, $f^{-1}(U)$ and $f^{-1}(V)$ are connected, since $f$ is continuous. 
+Furthermore, $f^{-1}(U) \cup f^{-1}(V) = f^{-1}(U \cup V)$ (this is easily
+proven), which in turn is just $f^{-1}(Y) = f^{-1}(X)$ since $f$ is onto.
+
+Also, $f^{-1}(U) \cap f^{-1}(V) = f^{-1}(U \cap V) = f^{-1}(\emptyset) =
+\emptyset$. And since $f$ is onto, it and neither of $U$ or $V$ is empty; it
+must be that neither of $f^{-1}(U)$ or $f^{-1}(V)$ is onto.
+
+And so we see that if $(Y,S)$ is not connected, then $(X,T)$ is not connected;
+equivalently, if $(X,T)$ is connected, then $(Y,S)$ is connected.
+
+\end{proof}
+
+\corollary {\sc to Urysohn's lemma}  If $(X,T)$ is \T{4}, connected, and has
+at least two points, then $X$ is uncountable.\\
+
+Before beginning this proof, we should know that if $(X,T)$ is a topological
+space with $B \subseteq X$ and $A \subseteq B$, then the subspace topology on
+$A$ imposed by $T$ is the same as the subspace topology on $A$ imposed by the
+subspace topology on $B$.\\
+
+\exercise Prove that.\\
+
+\begin{proof}
+There are $x,y \in X$ such that $x \neq y$, and $\{x\}$ and $\{y\}$ are
+closed, since the space is \T{2} and therefore \T{1}, which is equivalent to
+singletons being closed. So, by Urysohn's Lemma, there is a continuous
+function $f:X \rightarrow [0,1]$ with $f(x) = 0$, $f(y) = 1$ and $f(X)$ is
+connected. 
+
+Since $f(X)$ is connected in the subspace topology on $[0,1]$, it
+is connected in the usual topology on $\reals$, by the above exercise. Hence,
+by the previous proof, it is an interval; and since 0 and 1 are in $f(X)$, it
+must be that $[0,1] \subseteq f(X)$, wherein it is evident that $f(X)$ is not
+countable, and so $X$ cannot be countable.\\
+\end{proof}
+
+\exercise Given topological space $(X,T)$, let ${A_\alpha}$, $\alpha \in I$,
+be a family of subsets of $X$. Assume that each $A_\alpha$ is connected and
+that there exists an $x \in X$ such that $x \in \intover{\alpha}{I}A_\alpha$.
+Prove that $\unionover{\alpha}{I}A_\alpha$ is connected. \\
+
+\define Let $(X,T)$ be a topological space and $x \in X$. The
+\index{component} {\em component} of $X$ containing $x$ is
+\index{$\mathcal{C}_x$}
+$\comp{x} = \bigcup\{A \subseteq X \mid A \textrm{ connected and } x \in
+A\}$.\\
+
+We see from the previous exercise that $\comp{x}$ is connected. In fact,
+$\comp{x}$ is the largest connected subset of $X$ containing $x$, since if $A
+\subseteq X$ and $x \in A$, then $A \subseteq \comp{x}$.\\
+
+\claim A topological space $(X,T)$ is connected if and only if there is only
+one component.\\
+
+\begin{proof}
+$(\Rightarrow)$: is trivial.
+
+$(\Leftarrow)$: Call the component $\comp{X}$. $\fall x \in X, x \in \comp{X}$,
+so $X \subseteq \comp{X}$.
+But $\comp{X} \subseteq X$. So $X = \comp{X}$, which is connected.
+\end{proof}
+
+\exercise Let $B \subseteq A \subseteq \bar{B}$ in topological space $(X,T)$.
+Then if $B$ connected, $A$ is connected.\\
+
+\exercise As corollary to above; components are closed.\\
+
+But are components open?\\
+
+\example let $X = \{0, \frac{1}{2}, \frac{1}{3}, \cdots \}$ in $\reals$. 
+Each $\{x\} \subseteq X$ is a component, but $\{0\}$ is not an open set in
+$X$.\\
+
+\define \index{disconnected!totally} A topological space is {\em totally disconnected} if the components are the singletons.\\
+
+Discrete $\Rightarrow$ totally disconnected; but the converse is not
+necessarily true. Take the case of $\rationals \subseteq \reals$; this set is
+totally disconnected but not discrete.  \\
+
+\define In a topological space $(X,T)$ with $S \subseteq X$, we say $S$ is a
+\index{separating set} {\em separating set} if $X$ is connected and $X-S$ is
+not.\\ 
+
+\example $\{0\}$ is a separating set for $\reals$.\\
+
+\define If $\{x\}$ is a separating set for some topological space $(X,T)$,
+then we say $x$ is a \index{separating point} {\em separating point}.\\
+
+\example $0$ is a separating point for $\reals$.\\
+
+\example In $[0,1] \subseteq \reals$ with subspace topology imposed by the
+usual topology on $\reals$; every point in $(0,1)$ is a separating point, but
+0 and 1 are not separating points.\\
+
+\section{Homeomorphisms}
+
+\define If a $f: (X,T) \rightarrow (Y,S)$ is a function between topological
+spaces, we say $f$ is a homeomorphism if it satisfies the following
+conditions:
+\begin{itemize}
+\item[$i.$] $f$ is continuous
+\item[$ii.$] $f$ is one to one
+\item[$iii.$] $f$ is onto
+\item[$iv.$] $f^{-1}$ is continuous
+\end{itemize}
+
+Let $X = [0,1)$ and $Y = \{(x,y) \in \reals^{2} \mid x^2 + y^2 = 1 \}$.\\
+
+% Here there should be a FIGURE of a line and a circle.\\
+
+Let $f(x) = (cos(2\pi x), sine(2\pi x)$. Then $f$ is a 1--1 correspondence,
+and is continuous. (We will prove this later). But is $f^{-1}$ continuous? For
+it to be so, it must be that for every open set $A$ in $X$, $f^{-1})^{-1}(A)$
+is open in $Y$. Choose any $[0, \epsilon) \subseteq X$, then
+$(f^{-1})^{-1}([0, \epsilon))$ is a half-open interval in Y, and not an open
+set. \\
+
+% Again, here would be a good place for a FIGURE to demonstrate. See notes of 11/19. \\
+
+
+If $f:X\rightarrow Y$ is 1--1 and onto, we get $f:P(X) \rightarrow P(Y)$,
+where for $A \subseteq X$, $A \rightarrow f(A)$, where $f(A) \subseteq Y$;
+which is also 1--1 and onto.\\
+
+Given two sets $X$ and $Y$, we can impose topology $T$ on $X$ and topology
+$S$ on $Y$. Then if $f$ is continuous, then $f^{-1}:S\rightarrow T$; and if
+$f^{-1}$ is continous, then $f: T \rightarrow S$. In this case, there is a
+1--1 correspondence between open sets.\\
+
+Homeomorphisms are tremendously useful: for two topological spaces $(X,T)$ and
+$(Y,S)$, given any topological question, if there is a homeomorphism $f:X
+\rightarrow Y$; it will have the same answer for both $X$ and $Y$.\\
+
+\exercise: Assume $f:(X,T) \rightarrow (Y,S)$ is a homeomorphism. Show that 
+\begin{displaymath}
+(X,T) \textrm{ has property } x \iff (Y,S) \textrm{ has property } x
+\end{displaymath}
+where x is each of the following: \T{1}, \T{2}, \T{3}, \T{4}, 1$^{st}$
+countable, is connected.
+
+Also, show that 
+\begin{displaymath}
+\mathcal{C} \textrm{ is a component of } X \iff f(\mathcal{C}) \textrm { is a
+component of } Y
+\end{displaymath}
+and
+\begin{displaymath}
+A \textrm{ is a separating set of } X \iff f(A) \textrm{ is a separating set of } Y
+\end{displaymath}
+
+% there's alot more here in the notes... with FIGURE.\\
+
+\section{Compactness} 
+
+\subsection{Covers \& Generating Sets} 
+\define In a topological space $(X,T)$, we say that $C \subseteq P(X)$
+\index{generate} {\em generates} $T$ if 
+\begin{displaymath}
+\fall S \subset X\quad S \in T \iff [\fall A \in C,\ S \cap A \textrm{ is open
+in } A]
+\end{displaymath}
+Since $\Rightarrow$ is true by the definition of the subspace topology, when
+showing that a set generates a topology, only $\Leftarrow$ requires any
+work.\\
+
+\example Consider $\reals$ with the usual topology. Let $C$ be the collection
+of all singletons $\{x\}$ in $\reals$.
+
+Note that the topology of $\{x\}$ is well understood; it is $\{\{x\},
+\emptyset\}$. In this case the topology is both discrete and indiscrete.
+
+Since for any $\{x\} \in C$ and $S \subseteq X$, $S \cap \{x\}$ is open in
+$\{x\}$ regardless of whether $S$ is open or closed; so $C$ does not generate
+the usual topology. In fact, it generates the discrete topology.\\
+
+\define Given a topological space $(X,T)$, $C \subseteq P(X)$ is a
+\index{cover} {\em cover} of $X$ if $\unionover{A}{C}A=X$.
+
+If every $A \in C$ is open, then $C$ is an open cover; if every $A \in C$ is
+closed, then $C$ is a closed cover.\\
+
+\define If $C$ is a cover of $X$ and for all $x \in X$, there exists an open
+$U$ about $x$ so that $U \cap A \neq \emptyset$ for only finitely many $A \in
+C$, then we say $C$ is a \index{locally finite} {\em locally finite} cover of
+$X$.\\
+
+\example $C = \{(i, i+2) \mid i \in \integers\}$ is a locally finite cover of
+$\reals$ with the usual topology.\\
+
+\exercise Let $(X,T)$ be a topological space 
+\begin{itemize}
+\item[$(a)$] {\em (very easy)} Any open over of $X$ generates $T$.
+\item[$(b)$] {\em (easy)} Any locally finite closed cover of $X$ generates
+$T$.
+\end{itemize}
+Hint to part $(b)$: $C \subseteq A \textrm{ is closed in A } \iff \exst D
+\subseteq X \textrm { closed in X. with } C = D \cap A$.\\
+
+Note: The cover of $\reals$ by singletons is a closed cover, but it is not
+locally finite.
+
+\subsection{The Pasting Lemma}
+
+\begin{lemma}[The Pasting Lemma]
+Let $f: (X,T)\rightarrow(Y,S)$ be a function between topological spaces, and
+let $C \subseteq P(X)$ generate $T$. Then $f$ is continuous if and only if for
+all $A \in C$, $f|_A$ is continuous.
+\end{lemma}
+
+\begin{proof} 
+Exercise.
+\end{proof}
+
+\example Here is an application of the Pasting Lemma: Let $f:\reals
+\rightarrow \reals$ be defined by 
+\begin{displaymath}
+f(x)= \left\{\begin{array}{ll} 
+ x^2 - 3 & \textrm{ if } x \leq 1 \\
+ x - 3 & \textrm{ if } x \geq 1 
+ \end{array} \right.
+\end{displaymath}
+Note that $f$ is well defined, since $1^2 - 3 = 1 - 3$. Furthermore, $f$ is
+continuous on $(-\infty, 1]$ and $[1, \infty)$, and $\{(-\infty, 1], [1,
+\infty)\}$ is a locally finite closed cover of $\reals$. Hence, $f$ is
+continuous on $\reals$.
+
+Note that it was import here that $C$ was a locally finite {\em closed} cover;
+since we could have had $f = x + 7$ when $x  > 1$; and we would have still had
+a well-defined function, continuous on each of it's parts, whose set of parts
+constituted a locally finite cover. But clearly this function would not be
+continuous.\\
+
+
+\subsection{Subcovers \& Refinements} 
+
+Let $C$ and $D$ be two covers of $X$. Then,\\
+
+\define We say $D$ is a \index{subcover} {\em subcover} of $C$ if 
+for all $B \in D$, $B \in C$.\\
+
+\define We say $D$ is a \index{refinement} {\em refinement} of $C$ if for all
+$B \in D$, there exists an $A \in C$ such that $B \subseteq A$.\\
+
+Notice that every subcover is a refinement, since if $D$ is a subcover of $C$, 
+then for any $B \in D$, $B \in C$ and $B \subseteq B$. The converse is not
+true.\\
+
+\example Consider the following covers of $\reals$:
+\begin{eqnarray*}
+C & = & \{(i, i + 7) \mid i \in \integers\} \\
+D & = & \{(2i, 2i + 7) \mid i \in \integers\} \\
+E & = & \{(x, x + 1) \mid x \in \reals\} 
+\end{eqnarray*}
+$D$ is a subcover of $C$, but $E$ is not. $E$ is a refinement of $C$.\\
+
+\subsection{Compactness} 
+
+\define A topological space $(X,T)$ is \index{compact} {\em compact} if 
+every open cover has a finite subcover.\\
+
+\define A topological space $(X,T)$ is \index{paracompact} {\em paracompact}
+if every open cover has a locally finite subcover.\\
+
+\subsubsection{Compactness Lemmas} 
+
+\begin{lemma}
+\label{closedcompactlemma}
+A closed subset of a compact space is compact.
+\end{lemma}
+\begin{proof}
+Let $C$ be a closed subset of compact space $X$. Let $\{U_\alpha\}$ be an open
+cover of $C$. Each $U_\alpha = V_\alpha \cap C$ for some $V_\alpha$ open in
+$X$. 
+
+Let $V = X - C$; $V$ is open in $X$. Notice that $(\bigcup V_\alpha) \cup V
+= X$, since $(\bigcup V_\alpha) = C$. 
+
+Now, since each $V_\alpha$ is open in $X$, and $V$ is open in $X$, $\{V\} \cup
+\{V_\alpha\}$ is an open cover of $x$. And since $X$ is compact, some finite
+number of these sets must cover $X$. Say $V_{\alpha_1}, \cdots, V_{\alpha_n}$, and
+perhaps $V$.
+
+We claim that $U_{\alpha_1} = V_{\alpha_1} \cap C$, $\cdots$, 
+$U_{\alpha_n} = V_{\alpha_n} \cap C$, $\emptyset = V \cap C$,  covers $C$.
+{\setlength\arraycolsep{2pt}
+\begin{eqnarray*}
+(C \cap V_{\alpha_1}) \cup (C \cap V_{\alpha_2}) \cup \cdots \cup (C \cap
+V_{\alpha_n}) \cup (C \cap V) & = & \\
+C \cap (V_{\alpha_1} \cup \cdots V_{\alpha_n} \cup V) & = & \\
+C \cap X & = & C
+\end{eqnarray*}
+}
+So our claim is true; and so $(C \cap V_{\alpha_1}),\ \cdots,\ 
+(C \cap V_{\alpha_n}$ is a finite subcover of the original open cover. Hence,
+$C$ is compact.
+\end{proof}
+
+\example If $T$ in $(X,T)$ is finite, then $(X,T)$ is compact. This may happen
+when $X$ is finite, or $T$ is the indiscrete topology.\\
+
+\begin{lemma} 
+\label{compacthausdorfflemma}
+A compact subset of a Hausdorff space is closed.
+\end{lemma}
+
+\begin{proof}
+Let $C \subseteq X$, where $C$ is compact and $X$ is \T{2}. We will show that
+$X - C$ is open by showing that for any $x \in X - C$, there exists some $U$
+open about $x$ with $U \subseteq X - C$.
+
+Given $x \in X - C$, let $y \in C$. So then there are $U_y$ and $V_y$ which
+are open, such that $x \in U_y$, $y \in V_y$, and $U_y \cap V_y = \emptyset$.
+
+We claim that there exists a finite set $\{V_{y_1}, V_{y_2}, ..., V_{y_n}\}$
+such that $C \subseteq  \bigcup_{i = 1}^{n}V_{y_i}$. This is true because
+$\{W_y = V_y \cap C \mid y \in C\}$ is an open cover of $C$, and $C$ is compact.
+So there must be a finite subcover. I.e. there are $y_1, \cdots, y_n$ such
+that $C = \bigcup_{i = 1}^{n}W_{y_i}$. \\
+
+Now let $U = U_{y_1} \cap \cdots \cap U_{y_n}$. Since $x$ is in each $U_{y_i}$
+for $1 \leq i \leq n$, we see that $x \in U$; and furthermore, $U$ is open
+since it is a finite intersection of open sets.
+
+We claim that $U \subseteq X - C$. I.e. $U \cap C = \emptyset$. For any
+$z \in U \cap C$, there must be some $k$ such that $z \in V_{y_k}$. But also, 
+$z \in U_{y_i}$ for $1 \leq i \leq n$, so $z \in U_{y_k}$. But then 
+$U_{y_k} \cap V_{y_l} \neq \emptyset$, which is a contradiction \contra.
+This proves that a compact subset of a Hausdorff space is
+closed.
+\end{proof}
+
+\begin{lemma} 
+\label{continuouscompactlemma}
+The continuous image of a compact space is compact.
+\end{lemma}
+
+\begin{proof}
+Let $f:(X,T)\rightarrow (Y,S)$ be a function between topological spaces which
+is continuous and onto; and let $(X,T)$ be compact.
+
+Let $\{U_\alpha\}$, $\alpha \in I$, be an open cover of $Y$. Note 
+that each $f^{-1}(U_\alpha)$ is
+open in $X$, since $f$ is continuous.  In fact, $f^{-1}(U_\alpha)$ covers $X$:
+\begin{eqnarray*}
+\fall x \in X,\ f(x) \in Y & \Rightarrow & \\
+f(x) \textrm{ is in some } U_\alpha & \Rightarrow & \\
+x \in f^{-1}(U_\alpha)& \Rightarrow & \\
+X \subseteq \unionover{\alpha}{I} f^{-1}(U_\alpha) 
+\end{eqnarray*}
+So $\{f^{-1}(U_\alpha)\}$, $\alpha \in I$, is an open cover of $X$. Since $X$
+is compact, there exists an $n \in \naturals$ such that $\{f^{-1}(U_{\alpha_1}),
+\cdots, f^{-1}(U_{\alpha_n})\}$ covers $X$.
+
+We claim that $\{U_{\alpha_1}, \cdots, U_{\alpha_n}\}$ covers $Y$. Consider
+any $y \in Y$. Since $f$ is onto, there is an $x \in X$ such that $f(x) = y$.
+And there is a $U_{\alpha_k}$ such that $x \in f^{-1}(U_{\alpha_k})$, which
+means that $y \in U_{\alpha_k}$.  Hence, $Y \subseteq U_{\alpha_1} \cup \cdots
+\cup U_{\alpha_n}$, and is therefore compact.
+\end{proof}
+
+\begin{lemma} 
+\label{compacthausdorffhomeomorphismlemma}
+Let $f:(X,T) \rightarrow (Y,S)$ be a continuous 1--1
+correspondence between topological spaces, where $X$ is compact and $Y$ is
+Hausdorff. Then $f$ is a homeomorphism.
+\end{lemma}
+
+\begin{proof}
+We need only show that $f^{-1}$ is continuous; i.e. if $U$ is open in $X$,
+then $(f^{-1})^{-1}(U) = f(U)$ is open in $Y$.
+
+So, let $U$ be open in $X$. Then $C = X - U$ is closed, and therefore compact
+(by Lemma \ref{closedcompactlemma}), and so $f(C)$ is compact (by Lemma
+\ref{continuouscompactlemma}), and furthermore, $f(C)$ is closed (by Lemma 
+\ref{compacthausdorfflemma}). So $Y - f(C)$ is open.
+
+But since $f$ is a 1--1 correspondence, $Y-f(C) = f(U)$: 
+\begin{displaymath}
+f(U) \cup f(C) = f(U \cup C) = f(X) = Y
+\end{displaymath}
+Also, $f(U) \cap f(C) = \emptyset$. If not, then there is some $z \in f(U)
+\cap f(C)$. Then there exist $x_1 \in U$ and $x_2 \in C$ where $f(x_1) = z =
+f(x_2)$. But since $f$ is 1--1, it must be that $x_1 = x_2$, which means there
+is some point $x = x_1 = x_2 \in U \cap C$, a contradition \contra. 
+
+So $f(U) = Y - f(C)$, and $f(U)$ is therefore open. Since for any open set $U$
+in $X$, $f(U)$ is open, we know that $f^{-1}$ is continuous, and so $f$ is a
+homeomorphism.
+\end{proof}
+
+\begin{lemma}
+\label{comactt2t3lemma}
+If $(X,T)$ is \T{2} and compact, then it is \T{3}.
+\end{lemma}
+
+\begin{proof}
+Let $x \in X$ and $C \subseteq X$ such that $C$ is closed and $x \nin C$.
+We need to find disjoint open sets $U$ and $V$ such that $x \in U$ and $C
+\subseteq V$. 
+
+For $y \in C$, let $U_y$, $V_y$ be open and disjoint, where $x \in U_y$ and $y
+\in V_y$; these exist since $X$ is \T{2}. Now, since $X$ is compact, there
+exists an $n \in \naturals$ such that  $\{V_{y_1}, \cdots, V_{y_n}\}$ covers
+$X$, and so $C \subseteq \bigcup_{i = 1}^{n}V_{y_i}$.
+
+Let $U = U_{y_1} \cap \cdots \cap U_{y_n}$, which is open about $x$; and 
+$V = V_{y_1} \cup \cdots \cup V_{y_n}$, which is is open and contains $C$. If
+there is a point $z \in U \cap V$, then there is a $k$, $1 \leq k \leq n$,
+such that $z \in V_{y_k}$, and also $z \in U_{y_i}$ for each $1 \leq i \leq
+n$; so $z \in U_{y_k}$. But then $z \in U_{y_k} \cap V_{y_k}$, which is a
+contradiction \contra, since these were chosen to be disjoint. Hence there can
+be no such $z$, and we see that $U \cap V = \emptyset$. 
+
+Therefore, $U$ and $V$ satisfy the conditions for $X$ to be
+\T{3}.
+\end{proof}
+
+\exercise If $(X,T)$ is \T{2} and compact, it is \T{4}.\\
+
+\define A topological space $(X,T)$ is \index{Lindel\"of} {\em Lindel\"of} if
+every open cover has a countable subcover.\\
+
+\exercise* If $(X,T)$ is \T{2} and Lindel\"of, then it is \T{4}.
+
+\subsection{Sequential \& Limit-point Compactness}
+
+\define A topological space $(X,T)$ is \index{compact!sequentially} {\em
+sequentially compact} if every sequence in $X$ has a convergent subsequence.
+\\
+
+\example The sequence $a_i = (-1)^i$ has subsequences which may converge to
+either $1$ or $-1$. On the other hand, the sequence $b_i = i$ does not have
+any convergent subsequences. \\
+
+\define A topological space $(X,T)$ is \index{compact!limit-point} {\em
+limit-point compact} if for all $S \subseteq X$ such that $S$ is infinite,
+there is an $x \in X$ which is a limit point of $S$. In other words, every
+infinite subset of S has a limit point. This is also known as the
+\index{Bolzano-Weierstrass} Bolzano-Weierstrass property.
+
+\begin{lemma}
+\label{cimplieslclemma}
+If a topological space $(X,T)$ is compact, then it is limit-point compact.
+\end{lemma}
+
+\begin{proof}
+Assume that $X$ is compact, and that $S \subset X$ has no limit points. Since
+$S$ has no limit points, it is closed vacuously, and therefore it is also
+compact, by Lemma \ref{closedcompactlemma}. 
+
+$S$ is also discrete: since it has no limit points, every $x \in S$ is
+isolated. I.e. for any $x \in S$, there is a $U$ open in $X$ such that $U \cap
+S - \{x\} = \emptyset$.
+
+Now, if we suppose that $S$ is infite, we arrive at a contradiction! The 
+set of singletons in $S$ is an
+open cover of $S$ with no subcover of any kind; but we know $S$ is compact,
+and so that cover must have a finite subcover. So $S$ must be finite. 
+
+We have proved our claim by contrapositive. If any set with no limit points
+must be finite, then any set which is infinite must have at least one limit
+point.
+\end{proof}
+
+\begin{lemma}
+\label{scimplieslclemma}
+If a topological space $(X,T)$ is sequentially compact, then it is also
+limit-point compact.
+\end{lemma}
+
+\begin{proof}
+Consider $S \subseteq X$ where $S$ is infinite. Then there is some
+$a:\naturals \rightarrow S$ which is 1--1. Since we assume $X$ is sequentially
+compact, there must be a convergent subsequence $b$ of $a$; say $b_i
+\rightarrow x$. Also, notice that $b$, too, is clearly 1--1.
+
+We claim that $x$ is a limit point of $S$. It suffices to show that every open
+$U$ around $x$ contains at least 2 points from $S$; then,  if one of those
+points is $x$, the other is not. 
+
+Let $U$ be open about $x$; then there is a $k \in \naturals$ such that $i > k
+\Rightarrow a_i \in U$. Now, since $b$ is 1--1, $a_{k+1}$ and $a_{k+2}$ are
+two different elements of $S$ which are also in $U$.
+\end{proof}
+
+
+\begin{lemma}
+\label{metriclcimpliessclemma}
+If a metric space is limit-point compact, then it is sequentially compact.
+\end{lemma}
+
+\begin{proof}
+Let ($(a_i)$ be a sequence in $X$. Now, either the image of $(a_i)$, $\{a_i
+\mid i \in \naturals\}$, call it $I$, is finite, or it is not.
+
+In the first case, say $I =  \{x_1, \cdots,
+x_n\}$, and note that for each of the finitely many $x_i$,  $a^{-1}(x_i)
+\subseteq \naturals$.  Now, since the union of these $a^{-1}(x_i)$ is
+$\naturals$, an infinite set, at least one of the $a^{-1}(x_i)$ must be an
+infinite set, since it is impossible for a finite union of finite sets to be
+an infinite set. Hence, some $x_i$ appears infinitely times in the sequence.
+Let $M = a^{-1}(x_i)$ for that $i$.  The subsequence $a|_M$ converges
+to $x_i$, since $a|_M$ is constant. 
+
+In the second case, $I$ is infinite, and by assumption, it has some limit
+point; call it $x$. Thus, by lemmas \ref{metricfirstcountablelemma} and
+\ref{firstcountablesequencelemma}, there is a sequence in $I$ converging 
+to $x$. \\
+
+Before we continue the proof, let us demonstrate a useful fact: \\
+
+\noindent
+{\sc Useful Fact:} {\em For any open $U$ about $x$, $U \cap S$ has 
+infinitely many elements}. \\
+
+\noindent
+{\em Proof of {\sc Useful Fact}.} Since $x$ is a limit point of $S$, any 
+open set containing $x$ has some
+point in $S$ other than $x$. So, to begin with, choose $\ball{1}(x)$, and
+choose some point $s_1 \neq x$. Then let $\delta_1 = d(x,s_1)$, and choose an
+element $s_2 \neq x \in \ball{\delta_1}(x)$, and so on ad infinitum. \\
+
+Now, with that in mind, choose an element of $\ball{1}(x) \cap S$ which is not
+$x$, say $a_{i_1}$.  Then choose an element of $\ball{\frac{1}{2}}(x)$ which
+is not $x$, $a_{i_2}$, where $i_2 > i_1$. We are guaranteed that such an $i_2$
+exists because there are only finitely many points between $a_1$ and
+$a_{i_1}$, and we have infinitely many points to choose from for $a_{i_2}$.
+Continue this process, creating the subsequence $a_{i_j}$ which must converge
+to $x$.
+
+We know the sequence converges to $x$ because every open $U$ about $x$
+contains some $\eball(x)$, and by the Archimedean property,  there is some 
+$\frac{1}{n} < \varepsilon$ so that $U$ contains $ \ball{\frac{1}{n}}(x)$
+and for every $j > n$, $a_{i_j} \in \ball{\frac{1}{n}}$. 
+
+We have therefore found a convergent subsequence, and our proof is complete.
+\end{proof}
+
+\begin{lemma}
+If a metric space $(X,d)$ is sequentially compact, then it is compact.
+\end{lemma}
+
+\begin{proof}
+We procede by contraction. Assume that $X$ is sequentially compact and not
+compact. Let $D = \{U_\alpha\}$ be an open cover of $X$ with no finite
+subcover. For any $x \in X$, let $E_x = \{ \varepsilon > 0 \mid 
+\exst U_\alpha \in D \textrm { with } \eball(x) \subseteq U_\alpha \}
+\subseteq R$. Finally, let $\varepsilon(x) = \frac{1}{2}$ if $E_x$ is
+unbounded and
+$\frac{\textrm{lub }E_x}{2}$ if $E_x$ is bounded. We choose $\varepsilon(x)$ in this
+way so that $\ball{\varepsilon(x)}(x)$ is always contained in some member of
+$D$, and either it is  equal to $\frac{1}{2}$ or $\ball{3\varepsilon(x)}(x)$
+is contained in no element of $D$.
+
+Now choose $x_1 \in X$. Around $x_1$, there is 
+$\ball{\varepsilon(x_1)}(x_1) \subseteq U_{\alpha_1}$. Note that 
+$U_{\alpha_1} \neq X$, since $X$ has no finite subcover of $D$.
+Then choose $x_2 \in X - \ball{\varepsilon(x_1)}(x_1)$. For $x_2$,
+$\ball{\varepsilon(x_2)}(x_2) \subseteq U_{\alpha_2}$, and again 
+$U_{\alpha_2} \cap U_{\alpha_1} \neq X$. 
+Continue in this manner (with $x_3 \in X - (\ball{\varepsilon(x_1)}(x_1) \cup
+\ball{\varepsilon(x_2)}(x_2))$, and so on). Since no finite number of
+$U_\alpha$ will cover $X$, this process will
+construct a sequence in $X$. By hypothesis, there is a subsequence,
+call it $x_{i}$, which converges to some limit $L$.  Let us examine
+$\ball{\varepsilon(L)}(L) \subseteq U_\alpha \in D$.\\
+
+
+% Here would be a good place for a FIGURE\\
+
+There is some $k \in \naturals$ such that for all $i > k$, $x_i \in
+\ball{\frac{\varepsilon(L)}{90}}(L))$. We didn't need to pick a number as
+large as 90, but it works fine for our purposes. 
+
+Now, let $p = x_{k+1}$ and $q = x_{k+2}$. Both are in
+$\ball{\frac{\varepsilon(L)}{90}}(L)$, and $q \nin \ball{\varepsilon(p)}(P)$
+because that is how we constructed our sequence. By the triangle inequality, 
+\begin{displaymath}
+d(p,q) \leq d(p,L) + d(L,q) < \frac{\varepsilon(L)}{90} +
+\frac{\varepsilon(L)}{90} = \frac{\varepsilon(L)}{45}.
+\end{displaymath}
+And so it must be that $\varepsilon(p) < \frac{\varepsilon(L)}{45}$, and $3\varepsilon(p) <
+\frac{\varepsilon(L)}{15}$. \\
+
+Now, for all $z \in \ball{3\varepsilon(p)}(p)$, $d(z, p) < 3\varepsilon(p) <
+\frac{\varepsilon(L)}{15}$, and so, by the triangle inequality, 
+\begin{displaymath}
+d(z,L) \leq (\frac{\varepsilon(L)}{15} + \frac{\varepsilon(L)}{90} =
+\frac{4\varepsilon(L)}{90}) < \varepsilon(L).
+\end{displaymath}
+
+But then $\ball{3\varepsilon(p)}(p) \subseteq \ball{\varepsilon(L)}(L) \subseteq
+\textrm{ some } U_\alpha \in D$. \contra. This is a contradiction, since
+either $\varepsilon(p) = \frac{1}{2}$ or
+$\ball{3\varepsilon(p)}(p)$ is contained in no $U_\alpha$. We know that is
+is contained in some $U_\alpha$, and also
+$\varepsilon(p)$ cannot be $\frac{1}{2}$: it is strictly less than
+$\varepsilon(L)$ (by a large margin, the way we chose it), which in turn is
+less than or equal to $\frac{1}{2}$. So we see that if a metric space is
+sequentially compact, then it is also compact.
+\end{proof}
+
+The above lemmas lead directly to the following fact:
+\begin{lemma}
+\label{scicislc}
+In a metric space $(X,d)$, the following are equivalent:
+\begin{itemize}
+\item[$i.$] $X$ is compact
+\item[$i.$] $X$ is limit-point compact
+\item[$ii.$] $X$ is sequentially compact
+\end{itemize}
+\end{lemma}
+
+\exercise Given $a_i:\naturals \rightarrow \reals$ a sequence; prove that
+there is a monotonic subsequence.\\
+
+\subsection{Compactness in $\reals$}
+
+\claim $[0,1]$ is compact.\\
+
+\begin{proof}
+Let $S \subseteq [0,1]$ be an infinite set. Let $a_0 = 0$ and $b_0 = 1$, so
+that $S \subseteq [a_0, b_0]$. Now let $m_0 = \frac{a_0 + b_0}{2} =
+\frac{1}{2}$. Now, $[a_0, m_0] \cup [m_0, b_0]$ contains all of $S$, so at
+least one of these intervals must contain infinitely many points of $S$.
+Choose the one that does (if they both do, then either will work) and 
+call it $[a_1, b_1]$.  (So, for example, in the case that  $[\frac{1}{2}, 1]$ 
+contained infinitely many points in S, we might choose $a_1 = \frac{1}{2}$ and 
+$b_1 = 1$). 
+
+Now, let $m_1 = \frac{a_1 + b_1}{2}$, and repeat this process. We see that for
+all $i \in \naturals$, $[a_i, b_i]$ contains infinitely many points of $S$;
+$a_i \geq a_{i-1}$ and $b_i \leq b_{i-1}$, and $b_i - a_i = \frac{1}{2^i}$. 
+
+So we have created two bounded monotone sequences, $a_i \rightarrow A$ and
+$b_i \rightarrow B$. We claim that $A = B$: Consider $\varepsilon > 0$.
+There exists a $j \in \naturals$ so that $\frac{1}{2^j} <
+\frac{\varepsilon}{16}$, and there exist $k_1$ and $k_2$ such that when $i >
+k_1$, $d(a_i, A) < \frac{\varepsilon}{16}$ and when $i > k_2$, $d(b_i, B) <
+\frac{\varepsilon}{16}$. Now let $N = \max\{j, k_1, k_2\}$, and for any $i >
+N$, we have that 
+\begin{displaymath}
+d(A,B) \leq d(A,a_i) + d(a_i, b_i) + d(b_i, B) \leq \frac{3\varepsilon}{16} <
+\varepsilon
+\end{displaymath}
+So for any positive $\varepsilon$, $d(A,B) < \varepsilon$, so it must be 0;
+and so, $A = B$.
+
+Now let $L = A = B$. We claim $L$ is a limit point of $S$. For any $U$ open
+about $L$, there is a $\delta$ such that $(L - \delta, L + \delta) 
+\subseteq U$. We have the following: 
+\begin{eqnarray*}
+a_i \rightarrow L & \Rightarrow & \exst P \in \naturals \st i > P \Rightarrow
+a_i \in (L - \delta, L + \delta) \\
+b_i \rightarrow L & \Rightarrow & \exst Q \in \naturals \st i > Q \Rightarrow
+b_i \in (L - \delta, L + \delta)
+\end{eqnarray*}
+So, choosing $i > \max\{P,Q\}$, we have that $[a_i,b_i] \subseteq (L - \delta,
+L + \delta)$, and $[a_i, b_i]$ contains infinitely many points of $S$, so we
+are done. We have proved that $[0,1]$ is compact in the usual topology on
+$\reals$.
+\end{proof}
+
+The above fact is useful, since it allows us to demonstrate that any 
+closed interval is compact. This follows from the fact that for any 
+$a,b \in \reals$ with $a < b$, $[a,b]$ is the continuous image $[0,1]$, using
+the function
+\begin{displaymath}
+f(x) = xb + (1-x)a.
+\end{displaymath}
+Since the continuous image of a compact space is compact (Lemma 
+\ref{continuouscompactlemma}), we are done.
+
+Furthermore, any closed subset of a closed interval $[a,b]$ is compact,
+since any closed subset of a compact space is compact (Lemma 
+\ref{closedcompactlemma}).  This, in fact, describes all
+compact sets in $\reals$, and is summed up in the following lemma: 
+
+\begin{theorem}[(Heine-Borel)]
+Any $S \subseteq \reals$ is compact if and only if it is closed and bounded.
+\end{theorem}
+
+\begin{proof}
+$(\Leftarrow)$: If $S$ is closed and bounded, let $m$ be a lower bound and $M$
+an upper bound. Then $S$ is a closed subset of $[m,M]$,
+a closed interval; and so $S$ is compact.
+
+$(\Rightarrow)$: We can cover any compact $S \subseteq \reals$ 
+with 1-balls: $C = \{\ball{1}(x) \mid x \in S \}$ is an open cover. 
+There exists a finite subcover $\{\ball{1}(x_1), \ball{1}(x_2), \cdots,
+\ball{1}(x_n)\}$ for $S$. Let $M$ be the largest of $x_1$, $\cdots$, $x_n$, and
+$m$ be the smallest. Then $S \subseteq [m-1, M+1]$; $m-1$ is a lower
+bound, and $M+1$ is an upper bound. So $S$ is bounded. Since $S$ is 
+compact subset of a Hausdorff space, it is also closed, by Lemma
+\ref{compacthausdorfflemma}.
+
+Note that this does not work for all metric spaces!
+\end{proof}
+
+\section{Product Spaces}
+\subsection{The Product Topology}
+
+\subsubsection{Finding a Good Topology}
+
+Let $(X,T)$ and $(Y,S)$ be topological spaces. Consider the \index{product}
+{\em product} $(X \times Y) = \{(x,y) \mid x \in X, y \in Y\}$. What is a
+reasonable topology to place on this set?\\
+\\
+Parallel questions one might ask are:
+\begin{itemize}
+\item[-] What functions with domain $(X \times Y)$ would you like to be
+continuous?
+\item[-] What functions with range $(X \times Y)$ would you like to be
+continuous?
+\end{itemize}
+\vspace{12pt}
+\define The \index{projection} \index{$\pi_x$} {\em projections} from $(X \times
+Y)$ to its factors are:
+\begin{displaymath}
+\pi_x: (X \times Y) \rightarrow X \textrm{ defined by } \pi_x(a,b) = a
+\end{displaymath}
+and
+\begin{displaymath}
+\pi_y: (X \times Y) \rightarrow Y \textrm{ defined by } \pi_y(a,b) = b
+\end{displaymath}\\
+\\
+Now consider $X \times Y$ as a range. Take $f: Z \rightarrow X \times Y$. For
+each $z \in Z$, $f(z) \in X \times Y$. I.e $f(z) = (a,b)$ for $a \in X$ and $b
+\in Y$.  It is as if there are two functions ``inside'' the function $f$: 
+\begin{displaymath}
+f_x:Z \rightarrow X \textrm{ where } f_x(z) = a
+\end{displaymath}
+and
+\begin{displaymath}
+f_y: Z \rightarrow Y \textrm{ where } f_y(z) = b. 
+\end{displaymath}
+Actually,  $f_x = \pi_x \circ f$  and $f_y = \pi_y \circ f$. 
+
+We can turn this idea around: Let $h: Z \rightarrow X$ and
+$j: Z \rightarrow Y$ be given. We can now create $k: Z \rightarrow (X \times
+Y)$ by $k(z) = (h(z), j(z))$ and note that $\pi_x \circ k = h$ and $\pi_y \circ
+k = j$. \\
+
+% FIGURE\\
+
+We claim that $k$ is the only function such that $\pi_x \circ k = h $ and
+$\pi_y \circ k = j$. Assume some other function $g$ satisfies $\pi_x \circ g =
+h$ and $\pi_y \circ g = j$. What is $g(z)$? Say $g(z) = (c,d)$. Then 
+\begin{displaymath}
+c = \pi_x(c,d) = \pi_x \circ g(z) = h(z) 
+\end{displaymath}
+and 
+\begin{displaymath}
+d = \pi_y(c,d) = \pi_y \circ g(z) = j(z)
+\end{displaymath}
+so $h(z) = c$ and $j(z) = d$, whereby $g(z) = (h(z), j(z)) = k(z)$. \\
+
+Given $f: Z \rightarrow (X \times Y)$, the functions $\pi_x \circ f$ and
+$\pi_y \circ f$ are called the \index{coordinate functions} {\em coordinate
+functions} of $f$. \\
+
+We now introduce a ``{\sc Universally Accepted Desire}'' of the topology on
+$(X \times Y)$; which is to say, this is the condition which will make the
+topology on the product space useful to topologists. In our topology, we
+want any function with range $(X \times Y)$ to be continuous if and only
+if it's coordinate functions are continuous.
+
+We can think of this biconditional as a test. If a topology satisfies this
+condition, it may be useful to us. There is such a topology, and we call it
+the \index{topology!product} {\em product topology}.\\http://lolocaust.sonnyd.net/army-setup.php
+
+Consider the function $f:(X \times Y) \rightarrow (X \times Y)$ defined by
+$f(x,y) = (x,y)$. Certainly this function must be continuous in any topology,
+since for all $A \subseteq (X \times Y)$ $\inv{f}(A) = A$; so if $A$ is open,
+$\inv{f}(A)$ is of course also open. If $f$ is continuous, then we must make
+sure that $\pi_x \circ f$ and $\pi_y \circ f$ are also continuous. \\
+
+% FIGURE \\
+
+Since $f$ is the identity, $\pi_x \circ f = \pi_x$ and $\pi_y \circ f =
+\pi_y$. Thus, in order to make the coordinate functions continuous, each
+of $\pi_x$ and $\pi_y$ must be continuous. That is, each
+of $\inv{\pi_x}(U)$ for $U \in T$ and $\inv{\pi_y}(V)$ for $V \in S$
+must be open in $X \times Y$.
+
+There exists a smallest topology on $X \times Y$ making this condition true.
+This is the topology given by the subbasis 
+\begin{displaymath}
+\{\inv{\pi_x}(U) \mid U \in T\} \cup \{\inv{\pi_y}(V) \mid V \in S\}.
+\end{displaymath} 
+Call this topology $P$.\\
+
+
+It turns out that $P$ is the product topology. Consider the topological space 
+$(X \times Y, P)$. 
+As mentioned, $P$ is the smallest topology on $(X \times Y)$ making
+$\pi_x$ and $\pi_y$ continuous. 
+
+Now consider the topological space  $(X \times Y, \textrm{ "product top." })$, 
+which also makes
+$\pi_x$ and $\pi_y$ continuous. Since $P$ is the smallest such topology, 
+we know that every element of $P$ is in the product topology. 
+Now consider the function between these spaces,
+\begin{displaymath}
+f:(X \times Y, P) \rightarrow (X \times Y, \textrm{ "product top." }) \st
+f(x,y) = (x,y).
+\end{displaymath}
+
+Again, $\pi_x \circ f = \pi_x$ and $\pi_y \circ f = \pi_y$, and by assumption, 
+these functions are continuous in the product topology, which means that $f$
+has to be continuous. So, for 
+any $U$ in the product topology, $\inv{f}(U) = U$ must be in $P$. This says
+that every element of the product topology is in $P$. So the two are one in 
+the same.
+
+This means that any topology imposed on $(X \times Y)$ which makes every $f: Z
+\rightarrow X \times Y$ continuous exactly when $\pi_x$ and $\pi_y$ are
+continuous must be $P$, the product topology.\\
+
+\exercise If $P$ is the topology used on $(X \times Y)$, then any $f:(X \times
+Y)$ is continuous if and only if both $\pi_x \circ f$ and $\pi_y \circ f$ are
+continuous.\\
+
+\subsubsection{Basis for the Product Topology}
+
+Given topological spaces $(X,T)$ and $(Y,S)$, a basis for the product
+topology on $(X \times Y)$ would be the set of all finite intersections
+of $E = \{\inv{\pi_x}(U) \mid U \in T \} \cup \{ \inv{\pi_y}(V) \mid V \in
+S\}$. This leads to the question, what do elements in this basis for the
+product topology look like?\\
+
+Consider any two elements $O_1$ and $O_2$ of $E$; we want to understand 
+\mbox{$O_1 \cap O_2$}. There are 3 possibilities: 
+\begin{itemize}
+\item[Case I] $O_1 = \inv{\pi_x}(U_1)$ for some $U_1 \in T$ and 
+$O_2 = \inv{\pi_x}(U_2)$ for some $U_2 \in T$. Then $O_1 \cap
+O_2 = \inv{\pi_x}(U_1 \cap U_2) \in E$, since $U_1 \cap U_2 \in T$.
+
+\item[Case II] $O_1 = \inv{\pi_y}(V_1)$ for some $V_1 \in S$ and 
+$O_2 = \inv{\pi_y}(V_2)$ for some $V_2 \in S$. Again, we have nothing new
+here.
+
+\item[Case III] $O_1 = \inv{\pi_x}(U)$ for some $U \in T$ and $O_2 =
+\inv{\pi_y}(V)$ for some $V \in S$. In this case, 
+\begin{eqnarray*}
+\inv{\pi_x}(U) & = & \{(x,y) \in (X \times Y) \mid \pi_x(x,y) \in U\} \\
+               & = & \{(x,y) \in (X \times Y) \mid x \in U\} \\
+               & = & (U \times Y).
+\end{eqnarray*}
+In similar fashion, $\inv{\pi_y}(V) = (X \times V)$. And we see that
+\begin{displaymath}
+\inv{\pi_x}(U) \cap \inv{\pi_y}(V) = \{(x,y) \in (X \times Y) \mid x \in U
+\land y \in V\} = U \times V.
+\end{displaymath}.\\
+\end{itemize}
+
+% A FIGURE would be good here.\\
+
+In all cases, we have the product of an open set in $X$ and an open set in
+$Y$. Let $B = \{ U \times V \mid U \in T \land V \in S \}$, and consider 
+$(U_1 \times V_1) \cap (U_2 \times V_2)$ for some $(U_1 \times V_1)$ and $(U_2
+\times V_2)$ in $B$.
+
+We claim that 
+\begin{displaymath}
+(U_1 \cap U_2) \times (V_1 \cap V_2) = (U_1 \times V_1) \cap (U_2 \times V_2).
+\end{displaymath}
+Indeed,
+\begin{eqnarray*}
+(U_1 \times V_1) \cap (U_2 \times V_2) 
+ & = & \{(x,y) \mid x \in U_1 \land
+                    x \in U_2 \land y \in V_1 \land y \in V_2 \} \\
+ & = & \{(x,y) \mid x \in (U_1 \cap U_2) \land y \in (V_1 \cap V_2)\} \\
+ & = & (U_1 \cap U_2) \times (V_1 \cap V_2)
+\end{eqnarray*}.
+
+So $B$ is closed under intersection, which means $B$ contains all finite
+intersections of elements of $E$; and $B$ is the basis of the product
+topology.\\
+
+To sum up, any open set in the product topology is a union of sets of 
+the form $U \times V$ where $U$ is open in $X$ and $V$ is open in $Y$.\\
+
+\example $\reals^2 = \reals \times \reals$, and it turns out that the
+product topology on $\reals^2$ is the same as the topology for the sup metric
+(which we have show is the same as the topologies for the Taxi and Euclidean
+metrics).\\
+
+\exercise The basis $B$ may also be written as
+$\{U \times V \mid (U,V) \in T \times S\}$. Given a topological space $(X,T)$
+with basis $B_1$ and another topological space $(Y,S)$ with basis $B_2$; then
+a valid basis for the product topology is $\{U \times V \mid (U,V) \in B_1
+\times B_2\}$.\\
+
+\subsubsection{Product Topology on Arbitrary Dimensions}
+
+We may extend the concept of product topologies to arbitrary dimensions:\\
+
+Let $(X_\alpha, T_\alpha)$ be an indexed family of topological spaces with
+indexing set $I$. Then 
+\begin{displaymath}
+\productover{\alpha}{I}X_\alpha = \{f: I \rightarrow
+\unionover{\alpha}{I}X_\alpha \mid \fall\alpha \in I,\ f(\alpha) \in
+X_\alpha\}.
+\end{displaymath} 
+
+Of course, we have coordinate functions here, too.
+For any $\beta \in I$, there is a function $\pi_\beta:
+\productover{\alpha}{I}\rightarrow X_\beta$ given by $\pi_\beta(f) =
+f(\beta)$ ($\pi_\beta$ is the projection from $\productover{\alpha}{I}X_\alpha$
+to $X_\beta$. 
+
+\index{topology!product, arbitrary}
+In $\productover{\alpha}{I}X_\alpha$ consider 
+$E = \unionover{\alpha}{I}\{\inv{\pi_\alpha}(U) \mid U \in T_\alpha\}$; the
+product topology on $\productover{\alpha}{I}X_\alpha$ is the one given by the
+subbasis $E$. \\
+
+\exercise The product topology as defined above on
+$\productover{\alpha}{I}X_\alpha$ has the property that if $(Z,Q)$ is a
+topological space, then
+\begin{displaymath}
+g: Z \rightarrow \productover{\alpha}{I}X_\alpha \textrm{ is continuous } \iff
+\fall \beta \in I,\ \pi_\beta \circ g : Z \rightarrow X_\beta \textrm{ is 
+continuous }
+\end{displaymath}
+
+\subsubsection{Basis for Product Topology on Arbitrary Dimensions}
+
+Now, what about the basis for the product topology? Again, let $(X_\alpha,
+T_\alpha)$ be a family of topological spaces indexed over $I$, and consider 
+$\productover{\alpha}{I}X_\alpha$ with the product topology, with subbasis $E$
+as indicated above. In order to get a basis, we will need all finite
+intersections. Recall,
+\begin{displaymath}
+\productover{\alpha}{I}X_\alpha = \{f:I\rightarrow
+\unionover{\alpha}{I}X_\alpha \mid \fall \alpha \in I,\ f(\alpha) \in
+X_\alpha\}.
+\end{displaymath}
+And
+\begin{eqnarray*}
+\inv{\pi_\beta}(U) & = & \{f:I\rightarrow \unionover{alpha}{I}X_\alpha \mid
+(\fall \alpha \in I,\ f(\alpha) \in X_\alpha) \land \pi_\beta(f) \in U \subseteq
+X_\beta\} \\
+& = & \{f:I\rightarrow \unionover{\alpha}{I}X_\alpha \mid (\fall \alpha \neq
+\beta,\ f(\alpha) \in X_\alpha) \land f(\beta) \in U\} \\
+& = &  U \times \productover{(\alpha \neq \beta)}{I}X_\alpha.
+\end{eqnarray*}\\
+
+I.e., $\inv{\pi_\beta}(U)$ is the product of the following subsets of
+$X_\alpha$, $\alpha \in I$:
+\begin{displaymath}
+\left\{\begin{array}{lll}
+       \textrm{ when } \alpha & = & \beta \textrm{ use subset } U\\
+       \textrm{ when } \alpha & \neq & \beta \textrm{ use } X_\alpha
+       \end{array}
+\right\}
+\end{displaymath}\\
+
+
+Any finite intersection of such elements, 
+\begin{displaymath}
+\inv{\pi_{\beta_1}}(U_1) \cap \cdots \cap \inv{\pi_{\beta_n}}(U_n)
+\end{displaymath}
+would be a product of the following subsets of $X_\alpha$...
+\begin{displaymath}
+\left\{\begin{array}{lll}
+       \textrm{ if } \alpha   =  \beta_1 &\textrm{ use }& U_1 \\
+       \textrm{ if } \alpha  = \beta_2 & \textrm{ use }& U_2 \\
+         &\vdots & \\
+       \textrm{ if } \alpha  = \beta_n & \textrm{ use }& U_n \\
+       \textrm{ otherwise} & \textrm{ use } & X_\alpha
+       \end{array}
+\right\}
+\end{displaymath}
+If two $U_i$ come from the same $X_\alpha$, then you must use the intersection
+which is another element of that $X_\alpha$.
+
+These form the basis for the product topology: all products of open sets in
+$X_\alpha$ where {\em all but finitely} many are the $X_\alpha$ themselves.\\
+
+\subsubsection{Example: The Product Topology on the Set of Real Sequences}
+\index{topology!on collection of sequences}
+
+\begin{displaymath}
+\reals^\infty = \reals^1 \times \reals^1 \times \cdots =
+\productover{i}{\naturals}X_i
+\end{displaymath}
+where each $X_i = \reals$.
+\begin{eqnarray*}
+\productover{i}{\naturals}X_i 
+& = & \{f:\naturals \rightarrow \unionover{X_i} 
+        \mid \fall i \in \naturals,\ f(i) \in X_i\} \\
+& = & \{f: \naturals \rightarrow \reals 
+        \mid \fall i \in \naturals,\ f(i) \in \reals\} \\
+& = & \{f:\naturals \rightarrow \reals\} \\
+& = & \textrm{ all real sequences.}
+\end{eqnarray*}
+So we now have a product topology, $\reals^\infty$,
+on the collection of real sequences.\\
+
+Let $(a_i)$ be a real sequence. That is, $(a_i) \in \reals^\infty$. A basic open
+set in $\reals^\infty$ about $a_i$ is ... (really need a picture for this one)
+... a set which for finitely many $i \in \naturals$ restricts the value of the
+the $a_i$ to an open set in $\reals$ about $a_i$, but for the rest of $i$, is
+completely unrestricted.
+
+% FIGURE
+
+Essentially, the open set can be seen as a finite number of ``gates'' through
+which a sequence must fit in order to be an element of that set. The important
+point to grasp is that we can force a sequence to be  ``very close'' to
+$(a_i)$ in only  finite many places.\\
+
+By way of contrast, there is another topology, called the \index{topology!box}
+{\em box topology} (box top for short), on $\productover{\alpha}{I}X_\alpha$
+where basic open sets look like $\productover{\alpha}{I}U_\alpha$ where for all
+$\alpha$, $U_\alpha$ is open in $X_\alpha$. We will discuss this more later.\\
+
+\subsubsection{Facts about Product Spaces}
+
+Recall, $f: Z \rightarrow X \times Y$ is continuous if and only if $\pi_x
+\circ f$ and $\pi_y \circ f$ are continuous.\\
+
+% FIGURE 
+
+Consider $p \in \productover{\alpha}{I}X_\alpha$, so 
+$p:I\rightarrow \unionover{\alpha}{I}X_\alpha$ such that for all $\alpha$, 
+$p(\alpha) \in X_\alpha$. Now consider $\beta \in I$; let 
+\begin{displaymath}
+C_\beta(p) = \{f \in \productover{\alpha}{I}X_\alpha \mid \fall \alpha \neq
+\beta,\ f(\alpha) = p(\alpha)\}.
+\end{displaymath}
+Recall, a function is really just point, an ``ordered arbitrarily long
+tuple''. So $C_\beta(p)$ is actually the set of point which contains $p$, and
+contains every other point for which all values except in the $\beta$
+direction are the same as those in $p$. Another way to say it is that a slice
+is always a ``copy'' of $X_\beta$ in the product space, which contains $p$.
+So if $X_\beta$ is a line, the slice will be a line; if it is a plane, the
+slice will be a plane, etc.
+
+In two dimensions, say $X \times Y$, it helps to think of a slice as $\{x_0\}
+\times Y$ for some $x_0 \in X$.
+
+
+
+\exercise $\pi_\beta|_{C_{\beta}:C_\beta(p) \rightarrow X_\beta(p)}$ is
+a homeomorphism.\\
+
+We can call $C_\beta(p)$ \index{slice} the {\em slice} parallel to $X_\beta$
+through $p$.\\
+
+\exercise If $X_\alpha$, $\alpha \in I$, is a family of topological spaces,
+then 
+\begin{displaymath}
+\productover{\alpha}{I}X_\alpha \textrm{ is connected } \iff \fall \alpha \in
+I,\ X_\alpha \textrm{ is connected }
+\end{displaymath}
+$(\Rightarrow)$ is trivial, since the continuous image of a connected set is
+connected. $(\Leftarrow)$ is more interesting.\\
+
+\begin{lemma}
+If $X_\alpha$, $\alpha \in I$, is a family of topological spaces, then
+\begin{displaymath}
+\productover{\alpha}{I}X_\alpha \textrm{ is compact } \iff \fall \alpha \in
+I,\ X_\alpha \textrm{ is compact }.
+\end{displaymath}
+\end{lemma}
+
+Again, $(\Rightarrow)$ is trivial since the continuous image of a compact set
+is compact. Before we discuss $(\Leftarrow)$, some terminology:\\
+
+\define A function $f: (X,T) \rightarrow (Y,S)$ is called
+\index{function!open} {\em open} if for all $U \in T,\ f(U) \in S$. 
+
+Note that this does not mean that $\inv{f}$ is continuous, because $\inv{f}$
+may not even be a function. From this, we can say that a homeomorphism is a
+function which is 1--1, onto, and open.\\
+
+\exercise $\pi_\beta: \productover{\alpha}{I}X_\alpha \rightarrow X_\beta$ is
+open.\\
+
+Consider the problem in two dimensions: we can project the open cover of
+$X \times Y$ to an open cover of $X$ and an open cover of $Y$, but now we
+want to do the converse. From an open cover of $X$ and an open cover of $Y$,
+we want to construct an open cover of $X \times Y$.
+
+% FIGURE FIGURE FIGURE
+
+A first attempt might be to take an open cover, find a finite subset that 
+covers $X$, and a finite subset that covers $Y$, and take the union of those
+two subsets. This will likely fail though, since there really is no guarantee
+that this will cover all of $X \times Y$. (A
+visual aid would be very helpful here. Look in the notes.)\\
+
+\begin{proof}
+(For finite dimensions): Given an open cover $\mathcal{C}$ of $X \times Y$, consider any $x_0$ in $X$. 
+Then $\{x_0\} \times Y$ is a slice parallel to the $Y$ axis. Now take the set
+of all $A \in \mathcal{C}$ which contain $(x_0,y)$ for any $y \in Y$. The set
+of projections of these $A$ onto $Y$ must cover $Y$ since each $(x_0,y)$ must be
+contained in some $A$.  Thus, there is a finite subset which also covers $Y$.
+
+Now we have a finite set $A_1, \cdots, A_n$, each of which contain $(x_0,y)$
+for some $Y$. Projecting these onto $X$, we have finitely many sets $U_1,
+\cdots, U_n$, all of which are open in $X$ and which contain $x_0$.
+Intersecting these, we obtain another open neighborhood around $x_0$; call it
+$N_{x_0}$. Notice that $N_{x_0} \times Y$ is covered by $A_1, \cdots, A_n$. We
+call $N_{x_0} \times Y$ an open \index{tube} {\em tube} about $x_0$.
+
+When we do the above for every $x$ in $X$, the set of neighborhoods creates an
+open covering of $X$,
+which must have a finite subcovering: $N_1, \cdots, N_n$. For each $N_i$, the
+tube 
+$N_i \times Y$ is covered by finitely many elements of $C$. And the set
+of neighborhoods $N_i$ covers $X$, so we have finitely many elements of $C$
+which cover $X \times Y$.
+
+The proof for any finite number of dimension follows by induction. For
+arbitrary dimensions, additionaly work is required: see the Tychonoff Theorem.
+\end{proof}
+
+\subsubsection{Topologies on Sequences}
+
+Recall, $\reals^\infty = \reals \times \reals \times \reals \times \cdots$ is
+the set of all real sequences.
+
+Consider the sequence $\vec{0} = (0, 0, 0, \cdots) \in
+\reals^\infty$, and 
+\begin{eqnarray*}
+x_1 & = & (1, \frac{1}{2}, \frac{1}{3}, \cdots)\\
+x_2 & = & (\frac{1}{2}, \frac{1}{4}, \frac{1}{6}, \cdots)\\
+x_3 & = & (\frac{1}{3}, \frac{1}{6}, \frac{1}{9}, \cdots)\\
+    & \vdots &
+\end{eqnarray*}
+
+Does $\vec{x_i} \rightarrow \vec{0}$ in the product topology?  \\
+
+Yes. For any $\varepsilon > 0$, there is an $N_0$ such that beyond all $N_0$, 
+all $x_{i_1}$ are within $\varepsilon$ of 0. Remember, we can only construct
+finitely many ``gates'', so given those gates, choose the largest $i \in N$
+such that there is a gate at $i$.  This is called
+\index{convergence!pointwise} {\em pointwise convergence}.
+
+What about in the box topology? It turns out that almost nothing converges in
+the box topology, because you can make any restriction you want an any point
+you want. 
+
+Between the product topology and the box topology is the
+\index{topology!uniform} {\em uniform topology}, which allows you to restrict
+any and all $i \in N$, but they must all be restricted by the same value
+$\varepsilon$.
+
+
+
+
+
+\printindex
+\end{document}
