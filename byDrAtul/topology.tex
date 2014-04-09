@@ -1,0 +1,1265 @@
+% Converted from Microsoft Word to LaTeX
+% by Chikrii Softlab Word2TeX converter (version 3.0)
+% Copyright (C) 1999-2003 Chikrii Softlab. All rights reserved.
+% http://www.chikrii.com
+% mailto: info@chikrii.com
+% License: infern0 / 
+
+\documentclass[12pt]{amsart}
+\usepackage{latexsym}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{fullpage,graphicx,times}
+
+\begin{document}
+\begin{quote}
+What is a great man does, is follows by others; people go by the example he sets
+\end{quote}
+
+\hrule
+\section*{Syllabus}
+Definition and some examples, relative topology, weak topology, open basis, open sub basis, continuity and homeomorphism, compact spaces, product 
+spaces, compactness in a metric space.
+Separation axioms (T$_{1}$, T$_{2}$, T$_{3}$, Housdorff spaces), connected spaces, components, totally disconnected space, locally connected space.
+\hrule
+\vspace{1cm}
+
+\textbf{Remark:} $\mathop \cap \limits_{\lambda \in \phi } A_\lambda  = X$, 
+$\mathop \cup \limits_{\lambda \in \phi } A_\lambda =\phi $.
+
+\textbf{Topology:} Let $X$ be a nonempty set. A collection $T$ of subsets of $X$ is 
+called a topology on $X$ if 
+
+\begin{enumerate}
+\item $X \in T$, 
+\item $\phi 
+\in T$,
+\item $A \in T$, $B\in T \Rightarrow A\cap B\in T$,
+\end{enumerate}
+(Intersection of any two members of $T$ is also a member of $T )$, 
+
+\begin{enumerate}
+\item If {\{}$A_\lambda \vert \lambda \in \Lambda ${\}} is a collection of members of $T$, then$\mathop \cup \limits_{\lambda \in \Lambda } A_\lambda \in T$ 
+\end{enumerate}
+(Union of any collection of members of $T$ is a member of $T )$.
+
+\textbf{Remark:} If $T $is a topology on $X$, then ($X$, $T )$ is called a topological 
+space. Members of $T$ are called $T$-\textit{open} \textit{sets} or simply \textit{open sets}.
+
+\textbf{Examples}
+
+\begin{enumerate}
+\item $X$ = {\{}1, 2, 3{\}}, collection of all subsets of $X = P (X)$ = {\{}$\phi $, {\{}1{\}}, {\{}2{\}}, {\{}3{\}}, {\{}1, 2{\}}, {\{}1, 3{\}}, {\{}2, 3{\}}, {\{}1, 2, 3{\}}{\}}. Then $T_{1}$ = {\{}$\phi $, {\{}1{\}}, {\{}2{\}}{\}}, $T_{2}$ = {\{}{\{}1, 2, 3{\}}, $\phi $, {\{}1, 2{\}}, {\{}2, 3{\}}{\}} and $T_{3}$ = {\{}{\{}1, 2, 3{\}}, $\phi $, {\{}1{\}}, {\{}2{\}}{\}} are not topologies on $X$.
+\item \textit{Indiscrete topology} $I =$ {\{}X, $\phi ${\}}
+\item \textit{Discrete topology} $D =$ collection of all subsets of $X$.
+\item \textit{Cofinite topology:} Let $X$ be a infinite set. Let $T$ consists of $\phi $ and all those subsets of $X$ whose complements are finite. Then $T$ is a topology called the cofinite topology.
+\end{enumerate}
+
+\textbf{Remarks}
+
+\begin{enumerate}
+\item Intersection of any family of topologies on $X$ is a topology on $X$.
+\item Union of two topologies on $X$ is not necessarily a topology on $X$.
+\end{enumerate}
+
+\textbf{Closed Set:} Let ($X$, $T)$ be a topological space and $A$ be a subset of 
+$X$. Then $A$ is said to be $T$ -- closed or simply closed if $X$ -- $A$ is $T$- open.
+
+\textbf{Example:} $X =$ {\{}1, 2, 3{\}}, $T =$ {\{}{\{}1, 2, 3{\}}, $\phi $, 
+{\{}1{\}}, {\{} 2, 3{\}}. {\{}1{\}} is open as well as closed. {\{}1, 2{\}} 
+is neither open nor closed.
+
+\textbf{Properties of Closed Sets:} \textbf{(i)} $X$ is closed, \textbf{(ii)} 
+$\phi $ is closed, \textbf{(iii)} Union of any two closed sets is 
+closed,\textbf{ (iv)} Arbitrary intersection of closed sets is closed.
+
+\textbf{Neighbourhood:} Let ($X$, $T)$ be a topological space. $N$ be a subset of$ X$ 
+and, $a$ be an element of $X$, $N$ is called a $T$ -- neighbourhood of `$a$' if there 
+exists a $T$-open set $G$ such that $a\in G\subset N$.
+
+\textbf{Example:} $X =$ {\{}1, 2, 3, 4{\}}, $T =$ {\{}$X$, $\phi $, {\{}2{\}}, {\{}1, 
+2{\}}, {\{}2, 3{\}}, {\{}1, 2, 3{\}}{\}}, $N =$ {\{}1, 2, 3{\}}. $N$ is \textit{nbd} of 1, $N$ is 
+not a \textit{nbd} of 4. $N$ is \textit{nbd} of 2.
+
+\textbf{Remarks}
+
+\begin{enumerate}
+\item Set of all neighbourhoods of $x$ is denoted by $N_{x}$.
+\item $N $
+\item \begin{figure}[htbp]
+\centerline{\includegraphics[width=0.13in,height=0.13in]{topology1.pdf}}
+\label{fig1}
+\end{figure}
+
+\item $N_{x}$, $M \supset N $
+\item \begin{figure}[htbp]
+\centerline{\includegraphics[width=0.19in,height=0.15in]{topology2.pdf}}
+\label{fig2}
+\end{figure}
+
+\item $M \in N_{x}$.
+\item $N \in N_{x}$, $M\in N_{x}N \cup M \in N_{x}$, $N \cap M \in N_{x}$.
+\end{enumerate}
+
+\textbf{Theorem:} A set $G$ is open if and only if $G$ is a neighbourhood of each 
+of its points. 
+
+\textbf{Limit Point or Accumulation Point:} Let ($X, T)$ be a topological space 
+and $A$ be a subset of $X$. Let $p$ be a point of $X$. $p$ is called a limit point of $A$ if 
+every open set $G$ containing $p $contains at least one point of $A$ other than $p$.
+
+Or
+
+If for every open set $G$ containing $p$, ($G\cap A)$ -- {\{}$p${\}}, or ($G --$ 
+{\{}$p${\}})$\cap A$.
+
+\textbf{Remark}
+
+\begin{enumerate}
+\item Collection of all limit points of the set $A$ is called the derived set of $A$ and is denoted by $A$' or $d(A)$ or $D(A)$.
+\item $p$ is said to be an isolated point of $A$ if $p\in A$ but $p$ is not a limit point of $A$.
+\item $A$ is said to be isolated set if each point of A is an isolated point of $A$.
+\end{enumerate}
+
+\textbf{Example: }$X =$ {\{}1, 2, 3, 4{\}}, $T =$ {\{}$X$, , {\{}1{\}}, {\{}1, 2{\}}, 
+{\{}1, 3{\}}, {\{}1, 2, 3{\}}{\}}, $A =$ {\{}2, 3, 4{\}}. 4$\in D (A)$, 1$\notin D (A)$, 
+2 $\notin D (A)$. 2 and 3 are isolated points of $A$. 1 is neither a point of $A$ nor 
+a limit point of $A$. Thus $D (A)$ = {\{}4{\}}.
+
+\textbf{Theorem:} \textbf{(1)} $A\subset B\Rightarrow D (A)\subset D (B)$, 
+\textbf{(2)} $D (A\cap B)\subset D (A)\cap D (B)$, \textbf{(3)} $D (A\cup B) \quad = D (A)\cup 
+D(B)$.
+
+\textbf{Theorem:} $A$ subset $F$ of a topological space $X$ is closed iff $F$ contains 
+all its limit points, i.e., $D (F )\subset F$.
+
+\textbf{Adherent point:} A point $p$ is called an adherent point of $A$ if every 
+open set containing $p$ contains at least one point of $A$. Set of all adherent 
+points of $A$ is called adherence of $A$ and is denoted by \textit{adh}($A)$. 
+
+\textbf{Remark: }
+
+\begin{enumerate}
+\item \textit{adh} ($A) \quad = A \quad \cup D(A)$.
+\item Every point of $A$ is an adherent point of $A$.
+\item If $p\notin A$ and $p$ is an adherent point of $A$ then $p$ is also a limit point of $A$.
+\end{enumerate}
+
+\textbf{Example:} $X =$ {\{}1, 2, 3{\}}, $T = ${\{}$X$, , {\{}1{\}}, {\{}2{\}}, {\{}1, 
+2{\}}{\}}, $A =$ {\{}2, 3{\}}. 2 is not a limit point of $A$ but 2 is an adherent 
+point of $A$.
+
+\textbf{Closure:} Let ($X, T)$ be a topological space and $A$ be a subset of $X$. 
+Closure of $A$ is the intersection of all closed supersets of $A$ and is denoted 
+by $\overline A $ or $C (A)$.
+
+\textbf{Theorem}
+
+\begin{enumerate}
+\item $\overline A $ is the smallest closed superset of $A$.
+\item A$\subset $B$\Rightarrow \overline A \subset \overline B $.
+\item A set $A$ is closed iff $A = \quad \overline A $.
+\item $\overline {A\cap B} \subset \overline A \cap \overline B .$
+\item $\overline {A\cup B} =\overline A \cup \overline B .$
+\item $\overline A \quad = \quad A\cup D(A)$ \textit{= adh A}.
+\end{enumerate}
+
+\textbf{Interior:} Let ($X$, $T)$ be a topological space and $A$ be a subset of $X$. Let 
+$a$ be any point of $X$. $a$ is called an interior point of $A$ if $A$ is \textit{nbd} of $a$. Collection 
+of all interior points of $A$ is called the interior of $A$ and is denoted by 
+$A^{o}$ or $i (A)$.
+
+\textbf{Theorem}
+
+\begin{enumerate}
+\item $A^{o}=\cup ${\{} $G\vert G$ is open and $G\subset A${\}}.
+\item $A^{o}$ is the largest open subset of $A$.
+\item $A$ is open iff $A^{o}=A$.
+\item $A\subset B\Rightarrow  A^{o}\subset  B^{o}$.
+\item ($A\cap B)^{o}=A^{o}\cap  B ^{o}$.
+\item $A^{o}\cup  B^{o} \quad \subset (A\cup B)^{o}$ .
+\end{enumerate}
+
+\textbf{Exterior:} Interior of complement of $A$ is called exterior of $A$ and is 
+denoted by $e(A)$ or \textit{ext}($A)$, i.e., \textit{ext}($A)$ = ($X$ -- $A)^{o}$
+
+\textbf{Theorem: 1. }($X$ -- $A)^{o} \quad = X-\overline A $. \textbf{2.} $\overline 
+{X-A} $ = X - A$^{o}$. \textbf{3.} $\overline A $ = X -- (X -- A)$^{o}$.
+
+\textbf{Boundary of A or Frontier of A:} Let ($X, T)$ be a topological space, and 
+$A$ be a subset of $X$. Boundary of $A$ written as $b(A)$ is the set of those points of 
+$X$ which are neither interior point of $A$ nor interior point of $X$ -- $A$. Therefore 
+$b (A) \quad = X$ -- ($A^{o}\cup (X$ -- $A)^{o}) \quad = X$ -- ($A^{o}\cup $\textit{ext}($A))$ = ($X$ -- 
+$A^{o})\cap (X$ -- ($X$ -- $A)^{o})=\overline {X-A} \cap \overline A $.
+
+{\ldots}{\ldots}{\ldots}{\ldots}{\ldots}{\ldots}{\ldots}{\ldots}{\ldots}{\ldots}{\ldots}{\ldots}{\ldots}{\ldots}{\ldots}{\ldots}{\ldots}{\ldots}{\ldots}{\ldots}{\ldots}{\ldots}{\ldots}{\ldots}{\ldots}{\ldots}{\ldots}{\ldots}{\ldots}{\ldots}{\ldots}{\ldots}{\ldots}{\ldots}{\ldots}{\ldots}{\ldots}{\ldots}{\ldots}{\ldots}{\ldots}{\ldots}{\ldots}{\ldots}{\ldots}{\ldots}{\ldots}{\ldots}{\ldots}{\ldots}{\ldots}{\ldots}
+
+\textbf{Theorem:} Let $R$ be the set of real numbers. Let $U$ consists of null set 
+and those subsets $A$ of $R$ such that for every $x \in A $there exists a real number 
+$p \quad $>$ 0$ such that ] \textit{x -- p x + p }[ $\subset A$. Then $U$ is a topology for $R$ called the \textit{usual topology}.
+
+\textbf{Remarks}
+
+\begin{enumerate}
+\item Every open interval is an open set.
+\item Every closed interval is a closed set.
+\item In the usual topology no nonempty finite set is open.
+\item In ($R, U)$, if $p$ is a limit point of $A$ then every open set containing $p$ contains infinite points of $A$.
+\item If $p$ is a limit point of $A$ then every open interval containing $p$ contains infinite points of $A$.
+\item In usual topology no finite set can have a limit point.
+\item Every finite set is closed in usual topology.
+\end{enumerate}
+\textbf{Definition: }
+
+\begin{enumerate}
+\item $A$ is dense -- in -- itself if $A\subset A'$.
+\item $A$ is closed if $A'\subset A$.
+\item $A$ is perfect if $A = A'$
+\end{enumerate}
+\textbf{Example}
+
+\begin{enumerate}
+\item Every open interval is dense -- in -- itself. But no open interval is a closed set.
+\item Every closed interval is a perfect set.
+\end{enumerate}
+\textbf{Exercise}
+
+\begin{enumerate}
+\item Give an example to illustrate that intersection of members of a topology may not be a member of topology.
+\item Give an example to show that union of closed sets may not be a closed set.
+\item Give an example in which$\overline {A\cap B} \ne \overline A \cap \overline B $.
+\end{enumerate}
+{\ldots}{\ldots}{\ldots}{\ldots}{\ldots}{\ldots}{\ldots}{\ldots}{\ldots}{\ldots}{\ldots}{\ldots}{\ldots}{\ldots}{\ldots}{\ldots}{\ldots}{\ldots}{\ldots}{\ldots}{\ldots}{\ldots}{\ldots}{\ldots}{\ldots}{\ldots}{\ldots}{\ldots}{\ldots}{\ldots}{\ldots}{\ldots}{\ldots}{\ldots}{\ldots}{\ldots}{\ldots}{\ldots}{\ldots}{\ldots}{\ldots}{\ldots}{\ldots}{\ldots}{\ldots}{\ldots}{\ldots}{\ldots}{\ldots}{\ldots}{\ldots}{\ldots}
+
+\textbf{Subspace:} A topological space ($Y$, $T_{Y})$ is called a subspace of 
+($X, T)$ if $Y\subset X$ and for every $H\in T_{Y}$ there exists $G$ in $T$ such that $H = Y\cap 
+G$.
+
+\textbf{Example:} $X =$ {\{}1, 2, 3, 4{\}}, $T =$ {\{}$X$, $\phi $, {\{}1, 2{\}}, {\{}2, 
+3{\}}, {\{}2{\}}, {\{}1, 2, 3{\}}{\}}, $Y =$ {\{}2, 3, 4{\}}, $T_{Y}$ = {\{}{\{}2, 
+3, 4{\}}, $\phi $, {\{}2{\}}, {\{}2, 3{\}}{\}}.
+
+\textbf{Remark:} $T_{Y}$ is called \textit{relative topology on Y} or \textit{topology relativized by T on Y} and ($Y, T_{Y})$ is called a subspace of 
+($X, T)$.
+
+\textbf{Theorem:} Let ($X, T)$ be a topological space and $Y$ be a subspace of $X$. Let 
+$T_{Y}$ = {\{}$Y\cap G\vert G\in T${\}}. Then $T_{Y}$ is a topology for $Y$. ($Y, T_{Y})$ 
+is called subspace of ($X, T)$.
+
+\textbf{Theorem:} Let ($Y, V)$ be a subspace of ($X, T)$. Let $F$ be a subset of $Y$. Then $F$ is 
+$V$-closed iff $F = Y\cap H$ for some $T$-closed set $H$.
+
+\textbf{Theorem:} If ($Z, W)$ is a subspace of ($Y, V)$ and ($Y, V)$ is a subspace of ($X, T)$. Then 
+($Z, W)$ is a subspace of ($X, T)$.
+
+\textbf{Theorem:} Let ($X$*, $T$*) be a subspace of ($X, T)$. Let $A$ be a subset of $X$*. Let 
+$y\in X$*. Then $y $is a $T$*-limit point of $A$ iff $y$ is a $T$-limit point of $A$.
+
+\textbf{Lemma:} $y$ is a $T$*-adherent point of $A$ iff $y$ is a $T$-adherent point of $A$.
+
+\textbf{Theorem:} Let ($X$*, $T$*) be a subspace of ($X, T)$. Let $A$ be a subset of $X$*. 
+Then $T$*-closure of $A = X$*$\cap (T$-closure of $A)$, or, $C$*($A) \quad = X$*$\cap C(A)$.
+
+\textbf{Weak topology:} Let ($X$, $T_{1})$ and ($X$, $T_{2})$ be two topological 
+spaces. If $T_{1}\subset T_{2}$, then $T_{1}$ is weaker than $T_{2}$, or 
+$T_{2}$ is stronger than $T_{1}$, or $T_{1}$ is coarser than $T_{2}$, or 
+$T_{2}$ is finer than $T_{1}$, or $T_{1}$ is smaller than $T_{2}$, or $T_{2}$ is 
+larger than $T_{1}$. If $T_{1}\not\subset T_{2}$ and $T_{2}\not\subset 
+T_{1}$, we say that $T_{1}$ and $T_{2}$ are not comparable.
+
+\textbf{Example:} $X =$ {\{}1, 2, 3{\}}, $T_{1}$ = {\{}$X$, $\phi $, {\{}1{\}}{\}}, 
+$T_{2}$ = {\{}$X$, $\phi $, {\{}2{\}}{\}}, $T_{3}$ = {\{}$X$, $\phi $, {\{}1{\}}, 
+{\{}2{\}}, {\{}1, 2{\}}{\}}. $T_{1}$ and $T_{2}$ are not comparable, 
+$T_{1}\subset T_{3}$, $T_{2}\subset T_{3}$.
+
+\textbf{Complete lattice:} A complete lattice is a partially ordered set in 
+which every nonempty subset has a least upper bound and greatest lower 
+bound.
+
+\textbf{Theorem:} The set of all topologies on a set $X$ is a `complete 
+lattice' with respect to `inclusion' relation.
+
+\textbf{Base:} Let ($X, T)$ be a topological space. A collection B of subsets of 
+$X$ is called a base for $T$ if (i) B $\subset T$, (ii) for every $G$ in $T$ and $x$ in $G$, 
+there exists $B$ in B such that $x\in B\subset G$.
+
+\textbf{Example:} $X =$ {\{}\textit{a, b, c, d}{\}}, $T =$ {\{}$X$, $\phi $, {\{}$a${\}}, {\{}$b${\}}, {\{}$a, b${\}}, 
+{\{}$c, d${\}}, {\{}$a, c, d${\}}, {\{}$b, c, d${\}}{\}}, B = {\{}{\{}$a${\}}, {\{}$b${\}}, {\{}$a, b${\}}, 
+{\{}$c, d${\}}{\}}. For $G =$ {\{}$a, c, d${\}}, $c\in ${\{}$c, d${\}}$\subset G$.
+
+\textbf{Theorem:} Let ($X, T)$ be a topological space. A collection B of members 
+of $T$ is a base iff each member of $T$ is expressible as a union of some 
+subfamilies of B$.$
+
+\textbf{Theorem:} Let ($X, T)$ be a topological space and B be a base for $T$. Then 
+$T$ is identical with the collection of unions of all subfamilies of B.
+
+\textbf{Example: }X = {\{}1, 2, 3{\}}, T = {\{}X, $\phi $, {\{}1{\}}, 
+{\{}2{\}}, {\{}3{\}}, {\{}1, 2{\}}, {\{}1, 3{\}}, {\{}2, 3{\}}{\}}, B = 
+{\{}{\{}1{\}}, {\{}2{\}}, {\{}3{\}}{\}}. Family of unions of subfamilies of 
+B = T, therefore B is a base for T 
+
+\textbf{Example: }Is B = {\{}{\{}0, 1{\}}, {\{}1, 2{\}}{\}} a base for some 
+topology on X = {\{}1, 2, 3{\}}?
+
+\textbf{Solution:} If B is a base for a topology T on X, then T must be the 
+collection of unions of all subfamilies of B, i.e., T = {\{}$\phi $, {\{}0, 
+1{\}}, {\{}1, 2{\}}, {\{}0, 1, 2{\}}{\}}. But T is not a topology for X and 
+hence B is not a base for any topology on X.
+
+\textbf{Theorem:} Let $X$ be a nonempty set. A collection B of subsets of $X$ is a 
+base for some topology $T$ on $X$ if and only if (i) $\cup ${\{}$B\vert B\in $ B 
+{\}} = $X$, (ii) For $U, V\in $ B and $x\in U \cap V$ there exists $W$ in B such that 
+$x\in W \subset U \cap V$.
+
+Or 
+
+What is the necessary and sufficient condition for a family to become a base 
+for a topology.
+
+\textbf{Theorem:} Let B be a collection of subsets of X such that (i) $\cup 
+${\{}$B\vert B\in $ B {\}} $= X$, (ii) $U, V\in $ B $\Rightarrow  \quad U\cap V\in $ B. 
+Then B is a base for some topology on $X$.
+
+\textbf{Sub-base:} $X =$ {\{}0, 1, 2{\}}, $S$ = {\{}{\{}0, 1{\}}, {\{}1, 2{\}}{\}} , 
+B = {\{}X, {\{}{\{}0, 1{\}}, {\{}1, 2{\}}, {\{}1{\}}{\}}, $T =$ {\{}$\phi $, X , 
+{\{}1{\}}, {\{}0, 1{\}}, {\{}1, 2{\}}{\}}.
+
+\textbf{Definition:} Let $X$ be any nonempty set and $S$ be a collection of 
+subsets of $X$. Let B be the collection of intersections of all finite 
+subfamilies of S. Then $\cup ${\{}B$\vert $B$\in $ B {\}} = $X$ and 
+intersection of any two members of B is a member of B. Hence B is a base for 
+some topology on $X$, say $T$. $S$ is called a sub-base for $T$ and $T$ is called the 
+topology generated by $S$. 
+
+\textbf{Remark:} If $S$ is a sub-base for topology $T$. Then $T$ is the smallest 
+topology containing $S$.
+
+\textbf{Continuity}
+
+If $X =$ {\{}1, 2, 3, 4, 5, 6, 7{\}}, $Y =$ {\{}\textit{a, b, c, d, p, q, r, s, t}{\}}, $f : X\to Y$ such that $f $(1) $= a$, $f $(2) $= a$, $f $(3) 
+$= a$, $f $(4) $= d$, $f $(5) $= d$, $f $(6) $= p$, $f $(7) $= q$, $A =$ {\{}2, 3, 4, 6{\}}, $f (A)$ = {\{}$a, d, p${\}}, $f^{-1}(f (A))$ $= f$ 
+$^{-1}${\{}$a, d, p${\}} = {\{}1, 2, 3, 4, 5, 6{\}}$\ne A$. $A\subset f^{-1}(f (A))$ and 
+$A = \quad f^{-1}(f (A))$ if $f$ is one-one. Similarly $f (f^{-1}(E))$ $= E$ if $f $is onto.
+
+\textbf{Continuous function:} Let ($X, T)$ and ($Y, V)$ be two topological spaces and 
+$f$ be a function from $X $to $Y$. Let $a\in X$. $f$ is said to be \textit{T-V continuous at} $a$ if for every $V-$open set 
+$H$ containing $f (a)$ there exists at least one $T-$open set $G$ containing $a$ such that $f (G)\subset 
+H. f$ is said to be a \textit{T-V continuous} if $f$ is continuous at each point of $X$.
+
+\textbf{Theorem:} Let ($X, T )$ and ($Y, V )$ be two topological spaces and $f$ be a function 
+from $X$ to $Y$. Then $f$ is $T-V $continuous iff inverse image of each $V-$open set under $f$ is 
+$T-$open.
+
+\textbf{Theorem:} Let ($X, T )$ and ($Y, V )$ be two topological spaces and $f$ be a function 
+from $X$ to $Y$. Then $f$ is $T-V$ continuous iff for every $V- $closed set $E$, $f ^{-1}$(E) is $T- $closed.
+
+\textbf{Theorem:} Let ($X, T )$ and ($Y, V )$ be two topological spaces and $f$ be a function 
+from $X$ to $Y$. Then $f$ is $T-V $continuous iff $f (\overline E ) \quad \subset \overline 
+{f(E)} $ for every $E \subset X$.
+
+\textbf{Open and Closed functions:} Let ($X, T )$ and ($Y, V)$ be two topological spaces 
+and $f$ be a function from $X$ to $Y$. 
+
+\begin{enumerate}
+\item $f$ is called an \textit{open function} if for every $T$-open set $G$, $f (G)$ is $V- $open.
+\item $f$ is called a \textit{closed function} if for every $T$-closed set $H$, $f (H)$ is $V$- closed.
+\end{enumerate}
+
+\textbf{Example:} Give an example of a function which is continuous, open 
+but not closed.
+
+\textbf{Solution:} $X =$ {\{}$a, b, c${\}}, $T =$ {\{}$X$, $\phi $, {\{}$a${\}}, {\{}$b, c${\}}{\}}, $Y =$ 
+{\{}1, 2, 3{\}}, $V =$ {\{}$Y$, $\phi $, {\{}1{\}}{\}}. $f$:$X\to Y$ such that $f(a) \quad = f(b) \quad = f(c)$ = 
+1. Then $f$ is the required function.
+
+\textbf{Example:} Give an example of a function which is continuous and 
+closed but not open.
+
+\textbf{Theorem:} Let ($X, T )$ and ($Y, V)$ be two topological spaces and $f$ be a function 
+from $X$ to $Y$. Then $f$ is $T-V $closed mapping iff $\overline {f(E)} \subset 
+f(\overline E )$ for every $E\subset X$.
+
+\textbf{Theorem:} Let ($X, T )$ and ($Y, V)$ be two topological spaces and $f$ be a function 
+from $X$ to $Y$. Then $f$ is an open function iff $f (E^{o})\subset (f (E))$$^{o}$ for 
+every $E \subset X$.
+
+\textbf{Homeomorphism:} Let ($X, T )$ and ($Y, V )$ be two topological spaces and $f$ be a 
+function from $X$ to $Y$. $f$ is called a homeomorphism if (i) $f$ is one-one and onto, 
+(ii) $f$ is $T-V $continuous, (iii) $f^{-1}$ is $V-T $continuous. 
+
+($X, T)$ and ($Y, V)$ are said to be homeomorphic spaces if there exists a homeomorphism 
+between $X$ and $Y$.
+
+\textbf{Bi-continuous:} $f$ is called \textit{bi-continuous} if $f$ is continuous and open.
+
+\textbf{Theorem:} Let ($X, T )$ and ($Y, V)$ be two topological spaces and $f$ is a one-one 
+function from $X $onto $Y$. Then the following conditions are equivalent.
+
+\textbf{(i)} $f$ is homeomorphism, \textbf{(ii)} $f$ is continuous and open, 
+\textbf{(iii)} $f$ is continuous and closed.
+
+\textbf{Theorem:} Homeomorphism is an equivalence relation in the set of all 
+topological spaces.
+
+\textbf{Theorem:} Let ($X, T )$ and ($Y, V)$ be two topological spaces and $f$ be a 1-1 
+function from $X$ onto $Y$. Then $f$ is is a homeomorphism iff $\overline {f(E)} $ = 
+$f(\overline E )$ for every $E\subset X$.
+
+\textbf{Theorem:} Let ($X, T )$ and ($Y, V)$ be two topological spaces and $f$ be a 1-1 
+function from $X$ onto $Y$. Then $f$ is a homeomorphism iff $f (A^{o})$ = ($f (A))$$^{o}$for 
+every $A \subset X$.
+
+\textbf{Theorem:} Let ($X, T )$ and ($Y, V)$ be two topological spaces and $f$ be a function 
+from $X$ to $Y$. Then $f$ is continuous iff $\overline {f^{-1}(E)} \subset 
+f^{-1}(\overline E )$ for every $E\subset Y$.
+
+\textbf{Theorem:} Let ($X, T )$ and ($Y, V)$ be two topological spaces and $f$ be a function 
+from $X$ to $Y$. Then $f$ is continuous iff $f^{-1}(E^{o})\subset 
+(f^{-1}(E))$$^{o}$ for every $E\subset Y$.
+
+\textbf{Theorem:} Let ($X, T )$ and ($Y, V)$ be two topological spaces and B be a base 
+for $V$. Let $f$ be a function from $X$ to $Y$. Then $f$ is continuous iff inverse image of 
+each member of B under $f$ is in $T$.
+
+\textbf{Theorem:} Let ($X, T )$ and ($Y, V)$ be two topological spaces and S be a base 
+for $V$. Let $f$ be a function from $X$ to $Y$. Then $f$ is continuous iff inverse image of 
+each member of S under $f$ is in $T$, i. e., $f^{-1}(S)\in T$ for every $S\in $S.
+
+\textbf{Open Cover:} Let ($X, T)$ be a topological space and $A$ be a subset of $X$. A 
+collection {\{}$G\lambda \vert  \quad \lambda \in \Lambda ${\}} of T-open sets 
+is called a $T$-\textit{open cover} of $A$ if $A\subset \mathop \cup \limits_{\lambda \in \Lambda } 
+G_\lambda $.
+
+\textbf{Compact Space:} Let ($X, T)$ be a topological space and $A$ be a subset of 
+$X$. A is said to be $T$-\textit{compact} set if every $T$-open cover of $A$ has a finite subscover.
+
+X is called \textit{compact space }if every $T$-open cover of $X$ has a finite subcover.
+
+\textbf{Example:} $A =$ {\{}1, 2, 3, 4, 5, 6{\}}, $G_{1}$ = {\{}1, 2, 3{\}}, 
+$G_{2}$ = {\{}2, 3, 4{\}}, $G_{3}$ = {\{}3, 4, 5{\}}, $G_{4}$ = {\{}4, 5, 
+6{\}}, $G_{5}$ = {\{}5, 6, 7{\}}. Then $A\subset G_{1} \quad \cup G_{2}\cup 
+${\ldots}
+
+\textbf{Example:} Let $C_{1}$ = {\{} ] - $n$, $n$ [ $\vert n\in N${\}}, $C_{2}$ = 
+{\{} ] -3$n$, 3$n$[ $\vert  \quad n\in N${\}}, $C_{3}$ = {\{} ] 2$n$ -- 1, 2$n \quad +$ 1[, ]2$n$ , 2$n$ + 
+2[ $\vert  \quad n\in N${\}}. Then $C_{1}$, $C_{2}$, $C_{3}$ are all $U$-open covers of 
+$R$ and $C_{2}$ is a subcover of $C_{1}$.
+
+\textbf{Theorem:} Let ($Y$, $T_{Y})$ be a subspace of ($X$, $T)$, and $A$ be a subset of 
+$Y$. Then $A$ is $T_{Y}$-compact if and only if $A$ is $T$-compact, or, Compactness is an 
+absolute property of the set.
+
+\textbf{Theorem:} Every closed set in a compact space is compact.
+
+\textbf{Finite Intersection property (FIP):} A family of sets is said to 
+have \textit{finite intersection property} if for every finite subfamily has a nonempty intersection.
+
+\textbf{Example:} $A_{1}$ = {\{}1, 2, 3, {\ldots}{\}}, $A_{2}$ = {\{}2, 3, 4, 
+{\ldots}{\}}, {\ldots}. Consider {\{}$A_{1}$, $A_{2}$, $A_{3}$, {\ldots}{\}}. 
+Then $A_{2}\cap A_{7}\cap A_{123} \quad = \quad A_{123}$ and $A_{1}\cap 
+A_{2}\cap ${\ldots} = $\phi $
+
+\textbf{Theorem:} A topological space $X$ is compact iff every family of 
+$T$-closed sets having \textit{FIP} have a nonempty intersection.
+
+\textbf{Example:} Consider the following class of open intervals $A =$ {\{}(0, 
+1), (0, 1/2), (0, 1/3), {\ldots}{\}}. Now A has the FIP because (0, 
+$a_{1})\cap $(0, $a_{2}) \quad \cap ${\ldots}$\cap $(0, $a_{n})$ = (0, $b)$ , where 
+\textit{b = min}($a_{1}$, $a_{2}$, {\ldots}, $a_{m}) \quad >$ 0. Observe that $A$ itself has an empty 
+intersection.
+
+\textbf{Topological Property:} A property $P$ possessed by a topological space 
+$X$ is called a \textit{topological property} if $P$ is possessed by every homeomorphic image of $X$.
+
+\textbf{Theorem:} Continuous image of a compact space is compact, or, 
+Compactness is a topological property, Or Compactness is preserved under 
+continuity.
+
+\textbf{Theorem:} ($R, U )$ is not compact.
+
+\textbf{Theorem:} Every closed interval is a compact set.
+
+\textbf{Heine - Borel Theorem:} A subset $A$ of $R$ is compact iff it is closed 
+and bounded.
+
+{\ldots}{\ldots}{\ldots}{\ldots}{\ldots}{\ldots}{\ldots}{\ldots}{\ldots}{\ldots}{\ldots}{\ldots}{\ldots}{\ldots}{\ldots}{\ldots}{\ldots}{\ldots}{\ldots}{\ldots}{\ldots}{\ldots}{\ldots}{\ldots}{\ldots}{\ldots}{\ldots}{\ldots}{\ldots}{\ldots}{\ldots}{\ldots}{\ldots}{\ldots}{\ldots}{\ldots}{\ldots}{\ldots}{\ldots}{\ldots}{\ldots}{\ldots}{\ldots}{\ldots}{\ldots}{\ldots}{\ldots}{\ldots}{\ldots}{\ldots}{\ldots}{\ldots}
+
+\textbf{Metric Spaces:} Let X be a nonempty set. A mapping d: X$\times 
+$X$\to $R is called a metric on X if d satisfies the following conditions:
+
+\begin{enumerate}
+\item d(x, y) $\geqslant $0; 
+\item d(x,y) = 0 $\Leftrightarrow $x = y;
+\item d(x, y) = d(y, x); Symmetric property
+\item d(x, y) $\leqslant $d(x, z) + d(z, y) for all x, y, z$\in $X. Triangle inequality
+\end{enumerate}
+If d is a metric on X, then (X, d) is called the metric space. 
+
+\textbf{Examples}
+
+\begin{enumerate}
+\item $d$ ($x, y)=\vert x -- y\vert $ is a metric on $R$.
+\item $d$ ($z_{1}$, $z_{2})=\vert z_{1}$ -- $z_{2}\vert $ is a metric on $C$.
+\item $d: \quad R^{n}\to R^{n}$ : $d (x, y)=\sum\limits_{i=1}^n {[(x_i -y_i )^2]^{1/2}} $is a metric on $R^{n}$
+\item Let X be a-nonempty set. Then the mapping d: X$\times $X$\to $R defined by d(x, y) = 0, if x = y, and d(x, y) = 1 for x$\ne $y is a metric for X called the \textit{discrete metric} for X.
+\end{enumerate}
+\textbf{Examples}
+
+\textbf{1.} Show that $\vert d (x, z)$ -- $d (y, z)\vert \leqslant d (x, y)$.
+
+\textbf{2.} Prove that $\vert $d(x, y) -- d(x$_{1}$, y$_{1})\leqslant $ 
+d(x, x$_{1})$ + d(y, y$_{1})$.
+
+\textbf{Open Sphere, opern ball, open neighbourhood} (centered on x and 
+radius $r )$ is  S$_{r}$ ($x)$ = S(x, r) = B(x, r) = N$_{r}$(x) = {\{} y$\in X \quad \vert 
+ \quad d (y, x)$ <$ r ${\}}.
+
+\textbf{Remark:} x belongs to S$_{r}$(x), i.e., ball is always nonempty.
+
+\textbf{Example:} For a discrete metric space X = {\{}1, 2, 3, 4, 5, 6, 7, 
+8{\}}, S$_{3/4}$(3) = {\{}3{\}}, S$_{13}$(3) = {\{}1, 2, 3, 4, 5, 6, 7, 
+8{\}}, S$_{1010}$(3) = {\{}1, 2, 3, 4, 5, 6, 7, 8{\}}.
+
+\textbf{Closed Sphere:} (centered on x and radius $r )$ is  $S_{r}$ [$x$] = {\{} y$\in 
+X \quad \vert  \quad d (y, x) \quad \leqslant r ${\}}.
+
+\textbf{Example:} Find the open sphere in R and C. 
+
+\textbf{Open Sets:} A subset $A$ of a metric space $X$ is said to be open if for 
+all x$\in $X there exists a real number $r \quad $>$ 0$ such that $S_{r}(x) \quad \subset A.$
+
+\textbf{Closed Sets:} A subset $A$ of $X$ is closed if its complement is open.
+
+\textbf{Remarks:}
+
+\begin{enumerate}
+\item Every open sphere is an open set and every closed sphere is a closed set. 
+\item Empty set and the full space X are open. 
+\item Arbitrary union of a family of open sets is open. 
+\item Finite intersection of a family of open sets is open.
+\end{enumerate}
+\textbf{Sequence in a metric space:} Let X be a non-empty set. A mapping f: 
+N$\to $X is called a sequence in X.
+
+\textbf{Subsequence:} A sequence $<x_{n_k } >$ is a subsequence of 
+$<$x$_{n}>$ if (i) $n_{k} \quad \geqslant k$, (ii) $n_{1} \quad $<$ n_{2}$ \textit{$<$ {\ldots}}
+
+\textbf{Convergent sequence:} A sequence {\{}$x_{n}${\}} in $X$ is said to be 
+convergent if there exists $x$ in $X$ such that for every $\in $>$0$ there exists a 
+positive integer $n_{0}$ such that $n\geqslant n_{0 }\Rightarrow 
+d(x_{n}$,$x)<\in $.
+
+\textbf{Remarks:}
+
+\begin{enumerate}
+\item Every convergent sequence in a metric space X has a unique limit.
+\item If <$x_{n}$> is an infinite sequence then its limit is also its limit point.
+\item Let (X, d) be a metric space and A be a subset of X and x be a limit point of A then there is an infinite sequence $<$x$_{n}>$ in A such that x$_{n}\to $x.
+\end{enumerate}
+\textbf{Cauchy Sequence:} A sequence {\{}$x_{n}${\}} in $X$ is said to be a 
+Cauchy sequence in X if for every $\in $>$0$ there exists a positive integer 
+$n_{0}$ such that $m$, $n\geqslant n_{0 }\Rightarrow d(x_{m}$, 
+$x_{n})<\in $.
+
+\textbf{Theorem:} every convergent sequence in a metric space X is a cauchy 
+sequence but the converse is not true. 
+
+\textbf{Complete metric space:} A metric space X is called complete if every 
+Cauchy sequence in X is convergent in X.
+
+\textbf{Remarks}
+
+\begin{enumerate}
+\item If a sequence $<$x$_{n}>$ converges to x then every subsequence of $<$x$_{n}>$ converges to x.
+\item A non convergent sequence may have convergent subsequence.
+\item If $<$x$_{n}>$ is a Cauchy sequence and $<x_{n_k } >$ is a subsequence of $<$x$_{n}>$ such that $x_{n_k } \to $a then x$_{n}\to $a.
+\end{enumerate}
+\textbf{Topology induced by a metric:} Let (X, d) be a metric space and T be 
+the collection of d-open sets. Then T is a topology on X induced by the 
+metric d.
+
+A topological space (X, T) is called a metrizable topological space if there 
+exists a metric d on X such that the collection of d-open sets is same as T.
+
+\textbf{Theorem:} Let (X, d) be any metric space. Let T$_{d}$ consists of 
+null set and all those subsets G of X such that for every x in G there is a 
+real number r $>$ 0 such that S$_{r}$(x)$\subset $X. Then T$_{d}$ is a 
+topology for X induced by d.
+
+\textbf{Example:} (R, U) is a metrizable topological space.
+
+\textbf{Remarks:} In a metric space X 
+
+\begin{enumerate}
+\item If x is a limit point of A then every open set containing x contains infinite points of A.
+\item A finite set has no limit points.
+\item Every finite set is closed.
+\end{enumerate}
+{\ldots}{\ldots}{\ldots}{\ldots}{\ldots}{\ldots}{\ldots}{\ldots}{\ldots}{\ldots}{\ldots}{\ldots}{\ldots}{\ldots}{\ldots}{\ldots}{\ldots}{\ldots}{\ldots}{\ldots}{\ldots}{\ldots}{\ldots}{\ldots}{\ldots}{\ldots}{\ldots}{\ldots}{\ldots}{\ldots}{\ldots}{\ldots}{\ldots}{\ldots}{\ldots}{\ldots}{\ldots}{\ldots}{\ldots}{\ldots}{\ldots}{\ldots}{\ldots}{\ldots}{\ldots}{\ldots}{\ldots}{\ldots}{\ldots}{\ldots}{\ldots}{\ldots}
+
+\textbf{Bolzano Weierstrass Property (BWP):} A metric space $X$ is said to have 
+\textit{BWP} if every infinite subset of $X$ has at least one limit point in $X$.
+
+\textbf{Sequentially Compact Metric Space:} A metric space $X$ is said to be a 
+\textit{sequentially compact} if every sequence in $X$ has a convergent subsequence.
+
+\textbf{Theorem:} Every compact space has \textit{BWP}.
+
+\textbf{Theorem:} Every metric space having \textit{BWP} is sequentially compact.
+
+\textbf{Theorem: }A metric space $X$ is sequentially compact iff $X$ has \textit{BWP}.
+
+$\in -$ \textbf{net:} A finite set of points, say {\{}$a_{1}$, $a_{2}$, 
+{\ldots}, $a_{n}${\}} in a metric space $X$ is called an $\in $- \textit{net} if $X = \quad \mathop 
+\cup \limits_{i=1}^n S_\in (a_i )$.
+
+\textbf{Totally Bounded or Precompact:} A metric space $X$ is said to be 
+\textit{totally bounded} if there exists an $\in $- \textit{net} in $X$ for every $\in >$ 0.
+
+\textbf{Theorem:} Every sequentially compact metric space is totally 
+bounded.
+
+\textbf{Diameter: }Diameter of $A =$ \textit{diam} $A = d (A)=\delta _A $ \textit{= sup} {\{}$d (x, y) \quad \vert  \quad x, y\in 
+A${\}}.
+
+\textbf{Remark:} $\delta _ (S_{r}(a)\leqslant $2$r$.
+
+\textbf{Lebesgue Number:} Let {\{}$G\lambda \vert \lambda \in \Lambda 
+${\}} be an open cover of a metric space $X$. A positive real number $r$ is called 
+a \textit{lebesgue number} of {\{}$G\lambda \vert \lambda \in \Lambda ${\}} if for every subset 
+$A$ of $X$ such that \textit{diam A $<$ r} there is a $\lambda \in \Lambda $ such that $A \quad \subset 
+G_\lambda $.
+
+\textbf{Remark:} If $r$ is a lebesgue number and 0 <$ r_{1} $<$ r $then $r_{1}$ is also a 
+lebesgue number.
+
+\textbf{Big Set:} If $B$ is a subset of $X$ which is not contained in any 
+of$G_\lambda $'s then $B$ is called a `\textit{Big Set}' and $B$ contains at least two elements 
+and \textit{diam B} $>$ 0.
+
+\textbf{Lebesgue Covering Lemma:} In a sequentially compact metric space 
+every open cover has a lebesgue number.
+
+\textbf{Theorem:} Every sequentially compact metric space is compact.
+
+\textbf{Uniformly Continuous Function:} Let ($X_{1}$, $d_{1})$ and ($X_{2}$, 
+$d_{2})$ be two metric spaces and $f$ be a function from $X_{1}$ to $X_{2}$. $f$ is 
+said to be \textit{uniformly continuous }if for every $\in >$ 0 there exists $\delta >$ 0 such that 
+$d_{1}(a$, $b) \quad <\delta \Rightarrow  \quad d_{2}(f(a)$, $f(b))$ $<\in $.
+
+\textbf{Theorem:} Every continuous function defined on a compact metric 
+space is uniformly continuous. 
+
+\textbf{Theorem:} A metric space $X$ is compact iff $X$ is complete and totally 
+bounded.
+
+\textbf{Theorem:} Let ($X, d )$ be a complete metric space and $Y$ be a closed 
+subspace of $X$. Then $Y$ is compact iff $Y$ is totally bounded.
+
+\textbf{Separable Space:} $X$ is \textit{separable} if $X$ has a countable dense subset, i.e., there 
+is a countable subset $A$ of $X$ such that $\overline A =X$.
+
+\textbf{Theorem:} Every compact metric space is separable, Or, Every totally 
+bounded metric space is separable.
+
+\textbf{Second Countable Space:} $A$ space $X$ is second countable space (or 
+second axiom space) if $X$ has a countable base.
+
+\textbf{Remark:} A space X is said to satisfy second axiom of countability 
+if X has a countable base.
+
+\textbf{Theorem:} Every second axiom (or second countable) space is 
+separable.
+
+\textbf{Theorem:} Every separable metric space is a second axiom space.
+
+\textbf{Theorem:} A topological space X is compact iff every basic open 
+cover of $X$ has a finite subcover.
+
+\textbf{Local Bases:} Let $p$ be any arbitrary point of a topological space 
+$X$. A class B$_{p}$ of open sets containing $p$ is called a local base at $p$ iff 
+for each open set $G$ containing $p$ there exists $G_{p}$ in B$_{p}$ such that 
+$p\in G_{p}\subset G$.
+
+\textbf{Example:} $X =$ {\{}1, 2, 3, 4, 5{\}}, $T_{1}$ = {\{} $X$, $\phi $, {\{}1{\}} 
+, {\{}2, 3{\}}, {\{}1, 2, 3{\}}{\}}, $B_{1}$ = {\{}{\{}1, 2{\}}, $X${\}}, 
+$B_{2}$ = {\{}{\{}2, 3{\}}, $X${\}}, $B_{3}$ = {\{}{\{}1, 2, 3{\}}{\}}. Find 
+whether $B_{1}$, $B_{2}$, $B_{3}$ form local base at 1, 2, 3 respectively or 
+not?
+
+\textbf{Answer:} $B_{1}$ is not a local base at 1, $B_{2}$ is a local base at 
+2, and $B_{3}$ is not a local base at 3.
+
+\textbf{First Countable Space: }A topological space $X$ is said to be first 
+countable space (or first axiom space) if there exists a countable base at 
+every point $p$ of $X$.
+
+\textbf{Theorem:} Every second countable space is first countable space.
+
+\textbf{Theorem: }Let $A$ be any subset of a second countable space $X$. If $G$ is an 
+open cover of $A$, then $G$ is reducible to a countable cover.
+
+Or
+
+Let $X$ be a second countable space. If a nonempty open set $G$ in $X$ is represented 
+as the union of a class {\{}$G_{i}${\}} of open sets, then $G$ can be 
+represented as a countable union of $G_{i}$'s.
+
+\textbf{Theorem:} Let $G$ be a base for a second countable space $X$. Then $G$ is 
+reducible to a countable base for $X$.
+
+Or
+
+Let X be a second countable space. Then any open base for $X$ has a countable 
+subclass which is also an open base.
+
+\textbf{Lindelof Space:} A space $X$ is said to be a Lindelof space if every 
+open cover of $X$ has a countable subcover.
+
+\textbf{Lindelof's Theorem: }Every second countable space is a Lindelof 
+space.
+
+\textbf{SEPARATION AXIOMS}
+
+\textbf{T}$_{o}$\textbf{-space:} A space ($X, T)$ is called a $T_{o}$\textit{-space }if for any two 
+distinct points $x$ and $y$ there exists an open set $G$ containing one of $x$ and $y$ but 
+not the other.
+
+\textbf{T}$_{1}$\textbf{ -- Space:} A topological space is said to be a 
+$T_{1}$\textit{ space }if given any two distinct points $x$ an $y$ of $X$ there exists open sets $G$ and 
+$H$ such that $x\in G$, $y\notin G$, and $y\in H$, $x\notin H$.
+
+\textbf{T}$_{2}$\textbf{- space or Housdorff space:} $X$ is said to be a 
+$T_{2}$ \textit{space} or \textit{Housdorff} if given any two distinct points $x$ an y of X there exists open 
+sets $G$ and $H$ such that $x\in G$, $y\in H$ and $G\cap H=\phi $.
+
+\textbf{Regular Space:} A space $X$ is called a \textit{regular} space if given any closed set 
+$E$ and a point $a\notin E$ there exist open sets $G$ and $H$ such that $E\subset G$, 
+$a\in H$ and $G\cap H = \quad \phi $.
+
+\textbf{T}$_{3}$\textbf{-space:} A regular $T_{1}$- \textit{space} is called a $T_{3}$ - 
+\textit{space}.
+
+\textbf{Normal Space:} A space $X$ is \textit{normal} if given any two disjoint closed sets 
+$E$ and $F$ in $X$ there exists open sets $G$ and $H$ such that $E\subset G$, $F\subset H$ and 
+$G\cap H = \quad \phi $.
+
+\textbf{T}$_{4}$\textbf{-space:} A normal $T_{1}$-space is called a 
+$T_{4}$-\textit{space}.
+
+\textbf{Completely Regular Space: }A topological space $X$ is said to be 
+completely regular if for every closed subset $F$ of $X$ and every point $x \in X$ -- 
+$F$ ($x\notin F)$ there exists a continuous function $f$ : $X \to $[0, 1] such that $f (x)$ 
+= 0 and $f$ ($F)$ = 1.
+
+\textbf{Tychonoff Space or }$T_{3\frac{1}{2}} $\textbf{- Space: }A 
+completely regular $T_{1}$- space is called a \textit{Tychonoff space}.
+
+\textbf{Remark:} Every $T_{2}$ -- space is $T_{1}$ but the converse is not 
+necessarily true.
+
+\textbf{Theorem:} ($X, T )$ is $T_{1}$ iff each singleton set in $X$ is closed.
+
+\textbf{Convergent sequence:} A sequence $<x_{n}>$ in a topological space 
+($X, T)$ is said to be convergent to $a$ in $X$ if given any open set $G$ containing a 
+there exists a positive integer $m$ such that $n\geqslant m\Rightarrow 
+x_{n}\in G$.
+
+\textbf{Example:} $X =$ {\{}$a, b, c${\}}, $T =$ {\{}$X$, $\phi $, {\{}$c${\}}, {\{}$a, b${\}}{\}}. Then 
+the sequence $<$\textit{a, b, a, b, a, b, {\ldots}}$>$ converges to $a$ and $b$. $<a, b, a$, \textit{b, c, c, c,} {\ldots}$>$ converges to $c$.
+
+\textbf{Theorem:} In a hausdorff topological space every convergent sequence 
+has a unique limit.
+
+\textbf{Theorem:} If (X, T) is a hausdorff space and E is a compact subset 
+of X and a is a point of $X$ such that a$\notin $E then there are open sets G 
+and H such that E$\subset $G, a$\in $H, G$\cap $H = $\phi $.
+
+\textbf{Or}
+
+In a Hausdorff space any point and disjoint compact subspace can be 
+separated by open sets, in the sense that they have disjoint neighbourhoods.
+
+\textbf{Theorem:} Every compact set in a hausdorff space is closed.
+
+\textbf{Theorem:} If ($X, T)$ is a compact space and ($Y, V)$ is a hausdorff space then 
+every one-to-one continuous function $f$ from $X$ onto $Y$ is a homeomorphism.
+
+\textbf{Theorem:} Every compact hausdorff space is normal.
+
+\textbf{Hereditary property:} A property $P$ possesses by a topological space 
+is called a hereditary property if $P$ is possessed by every subspace of $X$.
+
+\textbf{Theorem:} 
+
+\begin{enumerate}
+\item The property of being a $T_{o}$-space is hereditary, i.e., every subspace of a $T_{o}$-space is also a $T_{o}$- space
+\item The property of being a $T_{1}$-space is hereditary.
+\item The property of being a $T_{2}$-space is hereditary.
+\item The property of being a regular space is hereditary.
+\item A closed subspace of a normal space is normal.
+\end{enumerate}
+
+\textbf{Theorem:} $T_{4}\Rightarrow T_{3}\Rightarrow 
+T_{2}\Rightarrow T_{1}\Rightarrow T_{o}$.
+
+\textbf{Examples:} 
+
+\begin{enumerate}
+\item $X =$ {\{}1, 2, 3{\}}, $T =$ {\{}$X$, $\phi $, {\{}1{\}}, {\{}1, 2{\}}, {\{}2{\}}{\}}. Then ($X, T)$ is $T_{1}$.
+\item Every metric space is a $T_{1}$, and Housdorff space.
+\item Every finite subset of a $T_{1}$-space is a closed set.
+\item If ($X, T)$ is a finite $T_{1}$-space, then $T$ is the discrete topology. 
+\item Every discrete space is $T_{2}$.
+\item Every finite $T_{2}$-space is discrete.
+\item Every finite subset of a $T_{2}$-space is closed.
+\item If $f $: $X\to Y$ is continuous then $x_{n}\to x$ in X implies $f$ ($x_{n})\to f$ ($x)$.
+\item ($R, U)$ is $T_{1}$, $T_{2}$, $T_{3}$, and $T_{4}$.
+\item Let $X$ be an infinite set and let $T$ be co-finite topology on $X$, then ($X, T)$ is $T_{1}$ but not $T_{2}$.
+\end{enumerate}
+
+\textbf{Connectedness}
+
+\textbf{Separated sets:} Let ($X, T)$ be a topological space and $A, B $be subsets of 
+$X$, then $A$ and $B$ are called separated if $A\cap \overline B =\overline A \cap 
+B=\phi $. 
+
+\textbf{Or }
+
+Two subsets $A$ and $B$ in a topological space $X$ are separated if$(A\cap \overline 
+B )\cup (\overline A \cap B)=\phi $.
+
+\textbf{Remark:} Separated sets are always disjoint but disjoint sets may 
+not be separated.
+
+\textbf{Example:} If $A =$] 0, 1], $B$ =] 1, 2], $A\cap B=\phi $, then $A$ and $B$ are 
+disjoint sets. $\overline A $= [0, 1], $\overline B $ = [1, 2], $A \quad \cap 
+\overline B $= {\{}1{\}} $\ne \phi $. $\therefore A$ and $B$ are not 
+separated.
+
+\textbf{Separation of two sets:} Let $E$ be a subset of $X$. Two subsets $A$ and $B$ of 
+$X$ are said to form a partition or separation of $E$ if $E = A\cup B$, $A\cap \overline 
+B =\overline A \cap B=\phi $, $A\ne \phi $, $B\ne \phi $. In this 
+case we write $E = A\vert B$.
+
+\textbf{Disconnected space:} ($X, T)$ is disconnected if there exists two nonempty 
+sets $A$ and $B$ such that X = $A\cup B$, $A\cap \overline B =\overline A \cap 
+B = \quad \phi $.
+
+\textbf{Connected space:} A topological space is said to be connected if it 
+is not disconnected.
+
+\textbf{Theorem:} Let ($X, T)$ be a topological space. Then the following 
+conditions are equivalent:
+
+\begin{enumerate}
+\item $X$ is disconnected
+\item There exist two nonempty closed sets $A$ and $B$ such that $X = A\cup B$, $A\cap B =\phi $.
+\item There exists a nonempty proper subset of $X$ which is both open and closed in $X$.
+\item There exist two nonempty open sets $A$ and $B$ such that $X = A\cup B$, $A\cap B =\phi $.
+\end{enumerate}
+
+\textbf{Example:} $X = ${\{}1, 2, 3{\}}, $T =$ {\{}$X$, $\phi $, {\{}1{\}}, {\{}2, 
+3{\}}{\}}. Then $X$ is disconnected, because $X =$ {\{}1{\}}$\cup ${\{}2, 3{\}}, 
+{\{}1{\}}$\cap ${\{}2, 3{\}} =$\phi $. 
+
+\textbf{Theorem:} Continuous image of a connected space is connected.
+
+Or
+
+Connectedness is a topological property.
+
+\textbf{Interval:} A subset $X$ of $R$ is called an interval if $x, z\in X$, \textit{x $<$ y $<$ z }$\Rightarrow 
+y\in X$.
+
+\textbf{Theorem:} A subspace $X$ of $R$ is an interval iff $X$ is connected.
+
+\textbf{Remark:} Real line is connected.
+
+\textbf{Theorem:} Range of every continuous real valued function defined on 
+a connected space $X$ is an interval.
+
+\textbf{Theorem:} A topological space $X$ is disconnected iff there exists a 
+continuous function from $X$ onto discrete space on {\{}0, 1{\}}.
+
+\textbf{Disconnected set:} Let ($X, T )$ be a topological space and $E\subset X$. $E$ is 
+said to be $T$-disconnected if there exist two nonempty set $A, B$ in $X$ such that $E = A\cup 
+B$, $A\cap \overline B =\overline A \cap B = \quad \phi $.
+
+\textbf{Theorem:} Connectedness is an absolute property of the set.
+
+\textbf{Or}
+
+If ($Y, T_{Y })$ is a subspace of ($X, T )$, and $E\subset Y$, then $E$ is $T_{Y} -$ connected 
+iff $E$ is $T -$ connected.
+
+\textbf{Theorem: (1)} If $A$ and $B$ forms a separation of a space $X$ and $E$ is a 
+connected subset of $X$ then either $E\subset A$ or $E\subset B$. \textbf{(2)} Let 
+$E $be any connected subset of a topological space such that $E\subset G \quad \subset 
+\overline E $, then G is connected. In particular $\overline E $ is 
+connected (i.e. closure of a connected set is connected).
+
+\textbf{Theorem:} If $X$ is a topological space such that given any pair $x, y $of 
+distinct points of $X$, there is a connected set $E$ in $X$ containing $x$ and $y$ .Then 
+$X$ is connected.
+
+\textbf{Theorem:} Let ($X, T)$ be a topological space. If {\{}$A\lambda \vert 
+\lambda \in \Lambda ${\}} is a family of connected sets in $X$ such that 
+$\mathop \cap \limits_{\lambda \in \Lambda } A_\lambda \ne \phi $, then 
+$\mathop \cup \limits_{\lambda \in \Lambda } A_\lambda $is connected.
+
+\textbf{Components:} A subset $E$ of a topological space $X$ is called a component 
+if (i) $E$ is connected (ii) $E$ is not properly contained in any connected set in 
+$X$.
+
+Or
+
+A maximal connected set in $X$ is called a component.
+
+\textbf{Remark:} If $X$ is connected space then $X$ is the only component of $X$.
+
+\textbf{Totally disconnected space:} A topological space $X$ is said to be a 
+totally disconnected space if given any two distinct points $a, b$ in $X$ there exist 
+two nonempty open sets $A, B$ in $X$ such that $a\in A$, $b\in B$, $X = \quad A\cup B$, $A\cap B =$ 
+$\phi $.
+
+\textbf{Remark:} Every totally disconnected space is a Hausdorff space.
+
+\textbf{Example:} $X =$ {\{}$a${\}}, $T =$ {\{}$X$,$\phi ${\}}. Then $X$ is not disconnected 
+but $X$ is totally disconnected.
+
+\textbf{Remark:} If a totally disconnected space contains more than one 
+point then the space is disconnected also.
+
+\textbf{Theorem:} If $X$ is totally disconnected space then its components are 
+its singleton sets.
+
+Or
+
+Components of a totally disconnected space are its points.
+
+\textbf{Theorem:} Let $X$ be a compact Hausdorff space. $X$ is totally 
+disconnected iff $X$ has an open base whose each member is closed also.
+
+\textbf{Locally Connected Space: }A topological space $X$ is said to be locally 
+connected if given open set $G$ and $x$ in $G$ there exists an open set $H$ in $X$ such 
+that $x\in H\subset G$.
+
+\textbf{Theorem:} Let ($X, T)$ be a locally connected space and $Y$ be an open 
+subspace of $X$. Every component $C$ in $Y$ is open in $X$. In particular, every 
+component of $X$ is open in $X$.
+
+\textbf{Theorem:} For any arbitrary topological space $X$
+
+\begin{enumerate}
+\item Every point in a topological space $X$ is contained in one and only one component of $X$.
+\item Every nonempty connected set is always contained in a component.
+\item Every nonempty connected set which is both open and closed is a component. 
+\item Every component in a topological space $X$ is closed.
+\end{enumerate}
+
+\textbf{PRODUCT SPACE}
+
+\textbf{Theorem:} Let ($X, T)$ and ($Y, V)$ be two topological spaces. Then the 
+collection B = {\{}$G\times H\vert G\in T$, $H\in V${\}} is a base for some 
+topology of $X\times Y$.
+
+\textbf{Product Space:} Let ($X, T)$ and ($Y, V)$ be two topological spaces. Then the 
+topology $W$ whose base is B = {\{}$G\times H\vert G\in T$, $H\in V${\}} is 
+called the product topology of $X\times Y$ and ($X\times Y$, $W)$ is called the 
+product space of $X$ and $Y$.
+
+\textbf{Theorem:} Let ($X, T)$ and ($Y, V)$ be two topological spaces and B$_{ 1}$ a 
+base for $T$ and B$_{ 2}$ a base for V. Then B = {\{}$B_{1}\times 
+B_{2}\vert  \quad B_{1}\in $ B$_{ 1}$, $B_{2}\in $ B$_{ 2}${\}} is a base 
+for the product topology $W$ of $X\times Y$.
+
+\textbf{Projection Mapping:} The mapping $p_{x }$: $X\times Y \to X$ : 
+$p_{x}$(($x, y))$ $= x$ and $p_{y}$: $X\times Y \to Y$ : $p_{y}$(($x, y))$ $= y$ for all ($x, y)$ in X$\times 
+$Y are called the projections of $X\times Y$ onto $X$ and $Y$ respectively.
+
+\textbf{Theorem:} Projections are continuous and open. The product topology 
+$T$ is the coarsest topology for which the projections are continuous.
+
+\textbf{Example:} Let $X =$ {\{}$a, b, c${\}} and $T =$ {\{}$X$, $\phi $, {\{}$a${\}}{\}}. $Y =$ {\{}\textit{p, q, r, s}{\}}, 
+$V =$ {\{}$Y$, {\{}$p${\}}, {\{}$q${\}}, {\{}$p, q${\}}, {\{}$r, s${\}}, {\{}$p, r, s${\}}, {\{}$q, r, s${\}}{\}}. Find 
+a base for the product topology of $X \quad \times Y$.
+
+\textbf{Theorem:} The collection S = {\{}$p_{1}^{-1}(U)\vert U$ is open in 
+$X${\}}$\cup ${\{}$p_{2}^{-1}(V)\vert V$ is open in $Y${\}} is a subbasis for the 
+product topology on X$\times $Y
+
+\textbf{Theorem:} Let $y_{o}\in Y$ and let $A = X \times ${\{}$y_{o}${\}}. Then the 
+restriction of $p_{x}$ to $A$ is a homeomorphism of the subspace $A$ of $X\times 
+Y$ onto $X$. Similarly the restriction $p_{y}$ to B = {\{}$x_{o}${\}}$\times Y$ is 
+a homeomorphism.
+
+\textbf{Projections:} Let $X = \quad \prod\limits_{i\in I} {X_i } =\times 
+${\{}$X_{i}\vert i\in I${\}}. Then the mapping $p_{i}$: $X \to X_{i}$ defined 
+by $p_{i}(x) \quad = x_{i}$ for all $x$ in $X$ is called the $i^{th}$ projection.
+
+\textbf{Theorem:} Each projection map $p_{i}$ is continuous, open but not 
+closed.
+
+\textbf{Theorem: }Let $f$ be a mapping of a space $Y$ into a product space $X =\prod\nolimits_i 
+{X_i } $ . Then $f$ is continuous $\Leftrightarrow p_{i}$o$f $:$Y \to X_{i}$ is 
+continuous. 
+
+\textbf{Product Topology and Product Space:} Let ($X_{i}$, $T_{i})$ be a 
+collection of topological spaces and $X = \quad \prod\limits_{i\in I} {X_i } $. Then 
+the topology $T$ for $X$ which has subbase the collection S = 
+{\{}$p_{i}^{-1}(G_{i})\vert i\in I, G_{i}\in T_{i}${\}} is called the 
+product topology (or Tychonoff Topology) for $X$ and ($X, T)$ is called the product 
+space .
+
+\textbf{Remarks: (1)} The collection S is called the defining subbase for 
+$T$. The collection B of all finite intersections of elements of S would then 
+form a base for $T$.
+
+\textbf{(2)} Since $p_{i}^{-1}(G_{i})$ are open sets with respect to the 
+product topology where $G_{i}$ is any open set in $X_{i}$. It follows that the 
+projection $p_{i}$ is a continuous map for each $i$ in $I$.
+
+\textbf{(3)} For countable collection of topological spaces 
+{\{}X$_{i}\vert  \quad i$ = 1, 2,{\ldots}, {\}} the product space $X =$ 
+$\prod\limits_{n\in N} {X_n } $ = {\{}$x =$ ($x_{1}$, {\ldots}, $x_{n}$, 
+{\ldots}){\}}. Moreover $p_{a}^{-1}(G_{a}${\}} = $X_{1}\times 
+X_{2}\times ${\ldots}$\times X_{a-1} \times  G_{a}\times X_{a+1} 
+\times ${\ldots}.
+
+\textbf{(4)} A base for this topology is a set $B = \cap $ {\{}$p_{i}^{-1}(G_{i})\vert 
+i\in I'${\}} where $I'$ is a finite subset of $I$ and $G_{i}\in T_{i}$ for some 
+$I$ in $I'.$ 
+
+\textbf{Theorem:} Let ($X_{i}$, $T_{i})$ be an arbitrary collection of 
+topological spaces and let$ X = \quad \prod\limits_{i\in I} {X_i } $. Let $T$ be the 
+topology for $X$. Then the following statements are equivalent: (\textbf{1}) 
+$T$ is the product topology for $X$; (\textbf{2}) $T$ is the smallest topology for 
+which the projections are continuous. 
+
+\textbf{EXERCISE - 1}
+
+\begin{enumerate}
+\item Define discrete topological space, homeomorphism, second countable space, sequentially compact metric space. 05
+\item State and prove Lindelof's theorem. 05
+\item Continuous image of a connected space is connected. 05
+\item One to one continuous mapping of a compact space onto a hausdorff space is a homeomorphism. 02, 05
+\item Compact hausdorff space is normal. 02, 05
+\item Define Topological space, compactness in metric space, 
+\end{enumerate}
+locally connected space, hausdorff space. 04
+
+\begin{enumerate}
+\item Continuous image of a compact space is compact. 04
+\item Every second countable space is separable. 04
+\item Components of a totally disconnected space X are the singleton subsets of X. 04
+\item Homeomorphism is an equivalence relation. 04
+\item A metric space is separable if it is second countable. 04
+\item Let $T$ be the collection of subsets of $N$ consisting of empty set and all subsets of the form $G_{m}$ = {\{}$m$, $m$ + 1, $m$ + 2, {\ldots}), $m\in N$. Show that $T$ is a topology for $N$. What are open sets containing 5. 04
+\item Every compact subset in a hausdorff space X is closed. 03
+\item Every subspace of a hausdorff space is a hausdorff. 03
+\item If ($Z, W)$ is a subspace of ($Y, V)$ and ($Y, V)$ is a subspace of ($X, T)$. 
+\end{enumerate}
+Then ($Z, W)$ is a subspace of ($X, T)$. 03
+
+\begin{enumerate}
+\item Give an example of a $T_{2}$-space which is not $T_{3}$. 03
+\item Let ($X, T )$ and ($Y, V)$ be two topological spaces and $f$ be a 1-1 function from $X$ onto $Y$. 
+\end{enumerate}
+Then $f$ is a homeomorphism iff $\overline {f(E)} =f(\overline E )$ for 
+every $E \subset X$. 03
+
+\begin{enumerate}
+\item Define a regular space and prove that the property of a space being regular space is a topological property. 03
+\item Prove that the closure of a set is union of that set and its derived set. 02
+\item Show that a space whose topology has a countable base is separable. 02
+\item The property of a space being a $T_{2}$-space is a topological property. 02
+\item $X$ is topological space, $Y$ is a hausdorff space. If $f $and $g$ are continuous functions of $X$ into $Y$. 
+\end{enumerate}
+Then the set {\{}$x \in X\vert  \quad f(x) \quad = g(x)${\}} is closed. 02
+
+\begin{enumerate}
+\item Let ($X, T )$ and ($Y, V)$ be two topological spaces and $f$ be a function from $X$ to $Y$. 
+\end{enumerate}
+Then $f$ is $T-V $continuous iff $f (\overline E ) \quad \subset \overline {f(E)} $ for 
+every $E \subset X$. 02
+
+\begin{enumerate}
+\item Let $d_{1}(x, y)$ \textit{= min }{\{}1, $d(x, y)${\}}. Show that $d_{1}$ is a metric and $d$ and $d_{1}$ are equivalent. 02
+\item A family $B$ of sets is a base for a topology for the set $X = \quad \cup ${\{}$G\vert G\in B${\}} iff for every $G_{1}$, $G_{2}$ in $B$ and every $x$ in $G_{1}\cap G_{2}$ there exists $G$ in $B$ such that $x\in G\subseteq G_{1}\cap G_{2}$. 01
+\end{enumerate}
+
+\textbf{True/False}
+
+\begin{enumerate}
+\item Every topological space is metrizable.
+\item A subset of a topological space is open if it is closure of each of its points.
+\item Every component of a topological space is open.
+\item Every component of a locally connected space is a closed set.
+\end{enumerate}
+
+\textbf{{\ldots}{\ldots}{\ldots}{\ldots}{\ldots}{\ldots}{\ldots}{\ldots}{\ldots}{\ldots}{\ldots}{\ldots}{\ldots} 
+{\ldots}{\ldots}{\ldots}{\ldots}{\ldots}{\ldots}{\ldots}{\ldots}{\ldots}{\ldots}{\ldots}{\ldots}{\ldots}{\ldots} 
+{\ldots}{\ldots}{\ldots}{\ldots}{\ldots}{\ldots}{\ldots}{\ldots}{\ldots}{\ldots}{\ldots}{\ldots}..}
+
+\textbf{EXTRA}
+
+\textbf{EXERCISE - 2}
+
+\begin{enumerate}
+\item \textbf{Indiscrete topology:} $I =$ {\{}X, $\phi ${\}}
+\item \textbf{Discrete topology:} $D =$ collection of all subsets of $X$.
+\item \textbf{Particular point topology:} $p\in X $(fixed). Then $T =$ {\{}$A\subset X : p\in A${\}}$\cup ${\{}$\phi ${\}} .
+\item \textbf{Excluded point topology:} $x\in X $(fixed). $T_{x}$ = {\{}$A\subset X: x\notin A${\}}$\cup ${\{}$X${\}}.
+\item \textbf{Usual topology for R:} Let $R$ be the set of real numbers. Let $U$ consists of null set and those subsets $A$ of $R$ such that for every $x \in A $there exists a real number $p \quad $>$ 0$ such that ] \textit{x -- p, x + p }[$\subset A$. Then $U$ is a topology for $R$ called the \textit{usual topology}.
+\item \textbf{Usual topology on a metric space:} Let ($X, d)$ be any metric space. Let $T_{d}$ consists of null set and all those subsets $G$ of $X$ such that for all $x$ in $G$ there is a real $r $> 0 such that $S_{r}(x)\subset  \quad G$. then $T_{d}$ is a topology called the metric topology.
+\item \textbf{Co-finite topology or finite complement topology:} Let $X$ be a infinite set. Let $T$ consists of $\phi $ and all those subsets of $X$ whose complements are finite. Then $T$ is a topology called the cofinite topology.
+\item \textbf{Co-countable topology:} Let $X$ be a set; let $T_{C}$ = {\{}$A\subset X\vert  \quad X -- A $is either countable or is all of $X${\}}.
+\item \textbf{Lower limit topology or right half open interval topology or RHO topology on R} (\textbf{\textit{R}}$_{l}$\textbf{)}$_{ }$\textbf{:} Let $R_{l}$ consists of null set and all those subsets $A$ of $R$ such that for every $x$ in $A$ there exists a right half open interval [$a, b$[ , $a $<$ b $such that $x\in $[$a, b$[$\subset A$.
+\item \textbf{Upper limit topology:} Same defined as above.
+\item \textbf{Left ray topology for R:} For each $a$ in $R$ define $L_{a}$ = {\{}$x\in R\vert x $<$ a${\}} = (-$\infty $, $a)$ = open left ray of real numbers. The point $a$ is called right and point of $L_{a}$. Let $T$ consist all possible left rays together with $\phi $ and $R$.
+\item $T =$ {\{}$\phi ${\}}$\cup ${\{}$R${\}}$\cup ${\{} ]$a$,$\infty $[ :$a\in R${\}} is a topology for $R$ called the \textbf{right ray topology} but $T_{1}$ = {\{}$\phi ${\}}$\cup ${\{}$R${\}}$\cup ${\{} [$a$,$\infty $[ :$a\in R${\}} is not a topology for $R$.
+\item Let $T$ be the collection of subsets of $N$ consisting of empty set and all subsets $G_{m}$ = {\{}$m$, $m +$ 1, $m +$ 2, {\ldots}{\}}, $m\in N$. Then $T$ is a topology for $N$.
+\item \textbf{Metrizable Spaces:} A topological space ($X$, $T)$ is said to be metrizable if there is a metric $d$ for $X$ such that $T_{d}=T$.
+\item \textbf{Example:} Give an example of a topological space which is not metrizable.
+\item \textbf{Answer:} Let $X =$ {\{}$a, b${\}}, $a\ne b$. Define $T =$ {\{}$X$, $\phi $, {\{}$a${\}}{\}}. Then ($X, T)$ is a topological space. Let $d$ be any metric on $X$ and let $d(a, b) \quad = r$. Since $a\ne $\textit{b, r $>$ }0. Then $S_{r}(b)$ = {\{}$b${\}} and hence {\{}$b${\}} is $d$ open set but {\{}$b${\}} is not $T$-open. Hence ($X, T)$ is not metrizable.
+\end{enumerate}
+
+\textbf{EXERCISE -- 3}
+
+\begin{enumerate}
+\item Co-finite topology on a finite set is the same as the discrete topology.
+\item Let $f : X \to Y$ be a function from a nonempty set $X$ into a topological space $Y$. If $T$ is a topology on $Y$. Then {\{}$f ^{-1}(G)\vert G\in T${\}} is a topology on $X$.
+\item $\overline A =$ {\{}$x \quad \vert $ each neighbourhood of $x$ intersects $A${\}}.
+\item $A^{o}$, \textit{extA} and \textit{Fr}($A)$ are disjoint and $X = \quad A^{o}\cup $\textit{ext}($A) \quad \cup $\textit{Fr}($A)$.
+\item A subset $A$ of a topological space $X$ is closed iff it contains its boundary.
+\item A subset of a topological space has empty boundary iff it is both open and closed.
+\item A set $A$ is perfect iff it is closed and has no isolated points.
+\item A closed set is nowhere dense iff its complement is everywhere dense.
+\item The boundary of a closed set is nowhere dense.
+\item For ($R, U)$, B= {\{}($a, b)\vert a, b\in R${\}} is a base for $U$.
+\item For the discrete space ($X, D)$, B= {\{}{\{}$x${\}}$\vert x\in X${\}} is a base for $D$.
+\item Indiscrete topology is the weakest topology on a set $X$ and the discrete topology is the strongest topology on $X.$
+\item For ($X, D)$, $B_{x} =$ {\{}{\{}$x${\}}{\}} is local base at $x$ in $X$.
+\item For ($R, U)$ and $x$ in $R$, {\{}($x -- r$, $x +r) \quad \vert  \quad r $> 0{\}} and {\{}($x --$ 1/$n$, $x +$ 1/$n) \quad \vert  \quad n\in N${\}} are local bases at $x$.
+\item ($R, U)$, ($X, D)$ are first countable.
+\item ($R, U)$ is second countable. B= {\{}($r, s)\vert  \quad r, s$ are rational{\}} is a countable base for $U$.
+\item ($X, D)$ is not second countable.
+\item Let $T$ and $T'$ be topologies for $X$ which has a common base $B$. Then $T = T'$.
+\item Every metric space is first countable because $B_{x} \quad =$ {\{}$S_{1/n}(x) \quad \vert  \quad n\in N${\}} is a countable local base at $x$.
+\item $f:$ ($R, T)\to (R, V)$ such that $f (x)$ = 1 for all $x$ in $R$ is continuous function.
+\item If $f$ is a mapping from a discrete space to any topological space, then $f$ is continuous.
+\item A mapping $f$ from a topological space $X$ to indiscrete space $I$ is always continuous.
+\item If $f:$ ($X, T)\to (Y, V)$ is continuous and $T*$ is finer than $T$, then $f$ is $T*-V$ continuous.
+\item If $f :$ ($X, T)\to (Y, V)$ is continuous and $V*$ is coarser than $V$, then $f$ is $T-V*$ continuous.
+\item Let Y be a subspace of X. If U is open in Y and Y is open in X, then U is open in X.
+\item If B is a basis for the topology of X then the collection B Y = {\{}B$\cap $Y$\vert $B$\in $B {\}} is a basis for the subspace topology on Y.
+\item Is the collection T$\infty $ = {\{}U $\vert $ X -- U is infinite or empty or all of X{\}} a topology on X?
+\item If X = {\{}a, b, c{\}}, T$_{1}$ = {\{}X,$\phi $, {\{}a{\}}, {\{}a, b{\}}{\}} and T$_{2}$ = {\{} X, $\phi $, {\{}a{\}}, {\{}b, c{\}}{\}}. Find the smallest topology containing T$_{1}$ and T$_{2}$,$_{ }$and the largest topology contained in T$_{1}$ and T$_{2}$.
+\item Let {\{} $T_\alpha ${\}} be a family of topologies on X. Show that there is a unique smallest topology on X containing all the collections$T_\alpha $, and a unique largest topology contained in all$T_\alpha $.
+\item A topological space (X, T) is said to be a \textbf{door space} if every subset of X is either open or closed. Give an example of door space.
+\item {\{}$a${\}} is closed in usual topology for $R$.
+\item Give an example of a proper nonempty subset of a topological space such that it is both open and closed.
+\item Give an example of a topological space different from the discrete spaces in which open sets are exactly the same as closed sets.
+\item Hint: Let T consists of all those subsets G of R having the property that x in G implies -- x in G. Then (R, T) is the required space. 
+\item Which of the following subsets of $R$ are $U$-neighbourhoods of 1? (i) ]0, 2], (ii) ]0, 2[, (iii) [1, 2], (iv) [0, 2] -- {\{}1/2{\}}
+\item Consider the topology $T =$ {\{}$X$, $\phi $, {\{}$a${\}}, {\{}$b, c${\}}{\}} on $X$ and $V =$ {\{}$Y$, $\phi $, {\{}$r${\}}, {\{}$p, q${\}}{\}} on $Y =$ {\{}$p, q, r${\}}. Find which of the mappings defined as follows are 
+\end{enumerate}
+\textbf{(i)} continuous, \textbf{(ii)} open, \textbf{(iii)} closed, 
+\textbf{(iv)} bicontinuous, \textbf{(v)} homeomorphism 
+
+(\textbf{a}) $f (a) \quad = r$, $f (b) \quad = r$, $f (c) \quad = r$, (\textbf{b}) $g (a) \quad = p$, $g (b) \quad = q$, $g (c) \quad = p$,
+
+(\textbf{c}) $h (a) \quad = r$, $h (b) \quad = p$, $h (c) \quad = q$, (\textbf{d}) $I (a) \quad = r$, $I (b) \quad = q$, $I (c) \quad = p,$ 
+
+(\textbf{e}) $j (a) \quad = p$, $j (b) \quad = q$, $j (c) \quad = r$.
+
+\textbf{EXERCISE -- 4 CONNECTED SPACE}
+
+\begin{enumerate}
+\item Let {\{}$A_\alpha _ ${\}} be the collection of connected subsets of a space $X$ such that no two members of {\{}$A_\alpha _ ${\}} are mutually separated, then $\cup _\alpha A_\alpha $ is also connected.
+\item Any two distinct components are mutually disjoint.
+\item Every space is the disjoint union of its components.
+\item Indiscrete space (\textit{X, ${\rm I}$}) is connected.
+\item If ($X, D)$ has more than one point, then ($X, D)$ is connected.
+\item If ($X, T)$ is disconnected and $T \subset T_{1}$ (i.e., $T_{1}$ is finer than $T)$ then ($X, T_{1})$ is disconnected.
+\item If ($X, T)$ is connected and $T_{1}$ is coarser than $T$, then ($X, T_{1})$ is connected.
+\item In every topological space singleton sets are connected, therefore components are nonempty.
+\item ($X, D)$ is totally disconnected.
+\item ($X, D)$ is locally connected.
+\item Give two examples of locally connected spaces which are not connected.
+\end{enumerate}
+
+\textbf{EXERCISE -- 5 SEPERATION AXIOMS}
+
+\textbf{T}$_{o}$\textbf{ Space}
+
+\begin{enumerate}
+\item (X, D) is T$_{o}$ but (X, I) is not T$_{o}$.
+\item If T* is finer that T, then T is T$_{o}$ topology implies T* is To topology.
+\item The property of a space being a T$_{o}$ space is a topological property.
+\item X is T$_{o}$ iff for any distinct arbitrary points x, y of X, the closure of {\{}x{\}} and {\{}y{\}} are distinct.
+\end{enumerate}
+
+\textbf{T}$_{1}$\textbf{-Space}
+
+\begin{enumerate}
+\item (R, U) is T$_{1}$.
+\item For a topological space X following are equivalent: (1) X is T$_{1}$; (2) Every singleton set in X is closed; (3) Every finite set in X is closed; (4) The intersection of all neighbourhoods of an arbitrary point of X is a singleton.
+\item Every metric space is T$_{1}$.
+\item Every finite T$_{1}$ space is discrete.
+\item A space (X ,T) is T$_{1}$ iff T contaons the cofinite topology on X.
+\item Every topology finer than a T$_{1}$-topology on a set X is a T$_{1}$-topology.
+\item For any set X there exists a unique smallest topology T such that (X, T) is T$_{1}$.
+\item Let A be any subset of a T$_{1}$ space X. Then x is accumulation point of A iff every open set containing x contains infinitely many distinct points of A.
+\end{enumerate}
+
+\textbf{T}$_{2}$\textbf{-Space}
+
+\begin{enumerate}
+\item Show that (X, D) is T$_{2}$.
+\item No indiscrete space consisting of at least two points is Hausdorff.
+\item (R, U), (R, S) are Hausdorff.
+\item Co-finite topology on an infinite set X is not T$_{2.}$
+\item Co-countable topology on an uncountable set is not T$_{2}$.
+\item Every metric space is T$_{2}$.
+\item T* is finer than a T$_{2}$-topology T, then T* is T$_{2}$.
+\item Every singleton set in a T$_{2}$ space is closed.
+\item Every finite hausdorff space is discrete.
+\item Every T$_{2}$-space is T$_{1}$ but not converse.
+\item $X$ is topological space, $Y$ is a hausdorff space. If $f $and $g$ are continuous functions of $X$ into $Y$. Then the set {\{}$x\in X\vert  \quad f(x) \quad = g(x)${\}} is closed.
+\item The property of being a T$_{2}$ space is a topological property.
+\item Let (X, T) be a topological space and (Y, V) be a hausdorff space. Let f: X$\to $Y be a one-one continuous mapping, then (X, T) is also a hausdorff.
+\item Let (X, T) be a T$_{2}$ space and f be a continuous map of X into itself. Then the set A = {\{}x$\in $X$\vert $ f(x) = x{\}} is T-closed.
+\end{enumerate}
+
+\textbf{Regular Space, T}$_{3}$\textbf{-space}
+
+\begin{enumerate}
+\item X = {\{}a, b, c{\}}, T = {\{}X, $\phi $, {\{}a{\}}, {\{}b, c{\}}{\}}. Then (X, T) is regular but not T$_{3}$.
+\item (R, U) is T$_{3}$.
+\item Every T$_{3}$ space is T$_{2}$ but not converse.
+\item A topological space X is regular iff every point x in X and every nbd N of x, there exists nbd M of x such that $\overline M \supset $N. In other words, a topological space is regular iff the collection of all closed nbds of x forms a local base at x.
+\item The property of being a regular space is a topological property.
+\item Every compact hausdorff space is a T$_{3}$-space.
+\item Every metric space is regular (T$_{3})$.
+\item Let A be any compacet subset of a regular space X. If G is an open set containing A, then there exists a closed set H such that A$\subset $H$\subset $G.
+\end{enumerate}
+
+\textbf{Normal Space, T}$_{4}$\textbf{ space}
+
+\begin{enumerate}
+\item X = {\{}a, b, c{\}}, T = {\{}X, $\phi $, {\{}a{\}}, {\{}b, c{\}}{\}}. Then X is normal but not T$_{2}$.
+\item X is normal iff for any closed set F and open set G containing F, there exists an open set V such that F$\subset $V and $\overline V \supset $G.
+\item Normality is a topological property.
+\item (R, U) is T$_{4}$.
+\item Every T$_{4}$ space is T$_{3}$.
+\item X = {\{}a, b, c{\}}, T = {\{}X,$\phi $, {\{}a{\}}, {\{}b{\}}, {\{}a, b{\}}{\}}. Then X is normal but not regular.
+\item Every compact regular space is normal.
+\item The property of being a T$_{4}$ space is a topological property.
+\item Closed subspace of a normal space is normal
+\item Every metric space is normal.
+\end{enumerate}
+
+\end{document}
